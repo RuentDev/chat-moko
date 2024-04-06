@@ -1,0 +1,44 @@
+[
+  {
+    "id": 0,
+    "label": "Home",
+    "icon": "/svgs/home.svg",
+    "link": "/"
+  },
+  {
+    "id": 1,
+    "label": "Notifications",
+    "icon": "/svgs/message-notif.svg",
+    "link": "/notifications"
+  },
+  {
+    "id": 2,
+    "label": "Files",
+    "icon": "/svgs/folder.svg",
+    "link": "/files"
+  },
+  {
+    "id": 3,
+    "label": "Contacts",
+    "icon": "/svgs/phone.svg",
+    "link": "/"
+  },
+  {
+    "id": 4,
+    "label": "Messages",
+    "icon": "/svgs/messages.svg",
+    "link": "/chat/0"
+  },
+  {
+    "id": 5,
+    "label": "Users",
+    "icon": "/svgs/users.svg",
+    "link": "/users"
+  },
+  {
+    "id": 6,
+    "label": "Settings",
+    "icon": "/svgs/gear.svg",
+    "link": "/settings"
+  }
+]

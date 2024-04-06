@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import effectRedererReducer from './features/effectRendererSlice'
+import navigationReducer from './features/navigationSlice'
 
 export const store = configureStore({
   reducer: {
-    rendererView: effectRedererReducer
+    navigation: navigationReducer
   },
 })
 
