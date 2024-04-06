@@ -19,9 +19,9 @@
   },
   {
     "id": 3,
-    "label": "Contacts",
+    "label": "Calls",
     "icon": "/svgs/phone.svg",
-    "link": "/"
+    "link": "/calls"
   },
   {
     "id": 4,

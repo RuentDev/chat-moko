@@ -26,7 +26,7 @@ const chatButtons = [
 
 const Chat = () => {
   return (
-    <main className='single-chat w-full h-screen'>
+    <div className='single-chat w-full h-screen'>
       {/* TOP */}
       <div className="chat-details-container w-full h-auto bg-[#212229] p-5 flex">
         <div className="chat-details w-full flex gap-2">
@@ -58,7 +58,7 @@ const Chat = () => {
         <MessagesCard />
       </div>
 
-    </main>
+    </div>
   )
 }
 

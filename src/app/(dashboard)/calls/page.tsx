@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Notifications = () => {
+const CallsPage = () => {
   return (
     <div className='w-full h-full'>
-      Notifications
+      CallsPage
     </div>
   )
 }
 
-export default Notifications
+export default CallsPage
