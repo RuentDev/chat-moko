@@ -1,5 +1,6 @@
 import Icon from '@/components/Icon'
 import React from 'react'
+import InboxButton from './Buttons/InboxButton'
 
 const Messages = () => {
   return (
@@ -12,11 +13,13 @@ const Messages = () => {
       <div className="messages-container w-full h-auto">
         {/* PINNED MESSAGES */}
         <ul className="pinned-messages">
-
+          <InboxButton />
         </ul>
         {/* ALL MESSAGES */}
         <ul className="all-messages">
-
+          <InboxButton />
+          <InboxButton />
+          <InboxButton />
         </ul>
       </div>
 

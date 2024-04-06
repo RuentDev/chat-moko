@@ -4,6 +4,7 @@ import IconButton from './Components/Buttons/IconButton'
 import iconButtons from '@/data/iconButtons.json'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/app-redux/store'
+import Messages from './Components/Messages'
 
 
 const Sidebar = () => {
@@ -11,7 +12,7 @@ const Sidebar = () => {
   const selectedIcon = useSelector((state: RootState) => state.navigation.selectedIcon)
 
   return (
-    <nav className='dashboard-sidebar w-[400px] h-full flex'>
+    <nav className='dashboard-sidebar w-auto h-full flex'>
       <div className="left-side w-[70px] h-full bg-[#1D1E23]">
         <ul className="icons-container w-full h-auto flex flex-col items-center gap-7 py-5">
           {iconButtons.map((button) => {
@@ -23,14 +24,14 @@ const Sidebar = () => {
           })}
         </ul>
       </div>
-      <div className="right-side w-full h-auto bg-[#212229] px-3 py-5">
+      <div className="right-side w-[330px] h-auto bg-[#212229] px-3 py-5">
         {/* HEADER */}
         <div className="heading-container w-full h-auto mb-5">
           <h3 className='text-white text-center'>{selectedIcon.replace("/", "")}</h3>
         </div>
 
         {/* COMPONENTS */}  
-
+        {selectedIcon === "Messages" ? <Messages /> : null}
       </div>
     </nav>
   )

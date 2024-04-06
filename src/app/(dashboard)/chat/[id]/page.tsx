@@ -1,4 +1,3 @@
-import MessagesCard from '@/components/Cards/MessagesCard'
 import Image from 'next/image'
 import React from 'react'
 
@@ -52,12 +51,6 @@ const Chat = () => {
           })}
         </ul>
       </div>
-
-      {/* MESSAGES */}
-      <div className="main-messages-container w-full h-auto">
-        <MessagesCard />
-      </div>
-
     </div>
   )
 }

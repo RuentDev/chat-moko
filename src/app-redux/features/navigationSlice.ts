@@ -5,7 +5,7 @@ export interface InitialState {
 }
 
 const initialState = {
-  selectedIcon: ""
+  selectedIcon: "Home"
 }
 
 export const navigationSlice = createSlice({
