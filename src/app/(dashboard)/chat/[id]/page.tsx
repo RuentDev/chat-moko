@@ -51,6 +51,10 @@ const Chat = () => {
           })}
         </ul>
       </div>
+
+      {/* MESSAGES */}
+
+      
     </div>
   )
 }
