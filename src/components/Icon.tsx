@@ -3,7 +3,7 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontaw
 import React from 'react'
 const Icon = (props: FontAwesomeIconProps) => {
   return (
-    <FontAwesomeIcon icon={props.icon} size={props.size} color={props.color} width={props.width} height={props.height} className='w-auto h-auto' />
+    <FontAwesomeIcon icon={props.icon} size={props.size} color={props.color} width={props.width} height={props.height} className='w-auto h-auto cursor-pointer' />
   )
 }
 
