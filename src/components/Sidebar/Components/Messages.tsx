@@ -33,10 +33,11 @@ const Messages = () => {
         <ul className="pinned-messages w-full h-auto">
 
           {chats.map((chat, index) => {
-            
-            if(chat.isPinned){
+
+            if (chat.isPinned) {
               return (
-                <InboxButton 
+                <InboxButton
+                  key={chat.id}
                   user={chat.user}
                   isTyping={chat.isTyping}
                   image={chat.image}
@@ -48,9 +49,9 @@ const Messages = () => {
               )
             }
           })}
-          
-          
-          
+
+
+
         </ul>
         {/* ALL MESSAGES */}
         <p className='text-xs text-white py-1 flex items-center gap-1'>
@@ -58,7 +59,7 @@ const Messages = () => {
           All Messages
         </p>
         <ul className="all-messages">
-         
+
         </ul>
       </div>
 
