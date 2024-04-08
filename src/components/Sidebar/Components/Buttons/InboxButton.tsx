@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import React from 'react'
+import TypingEffect from './TypingEffect'
 
 type User = {
   fname: string,
@@ -30,13 +31,15 @@ const InboxButton = (props: InboxButtonProps) => {
           {props.image ? null : `${props.user.fname[0]}${props.user.lname[0]}`.toUpperCase() }
         </div>
         {/* Name Container */}
-        <div className="name-container">
+        <div className="name-container flex flex-col gap-2">
           <p className={` text-white ${props.unreadCount > 0 ? "font-[700]" : ""}`}>{props.user.fname} {props.user.lname}</p>
 
-          <p className={`text-xs ${props.isTyping ? "text-green-500 italic": "text-white"}`}>
-           {props.isTyping && `${props.user.fname} is Typing`}
-           {!props.isTyping && `${props.content.substring(0, 20)}...`}
-          </p>
+          <div className={`text-xs flex flex-item ${props.isTyping ? "text-green-500 italic": "text-white"}`}>
+
+            {props.isTyping && <TypingEffect />}
+
+            {!props.isTyping && `${props.content.substring(0, 20)}...`}
+          </div>
           
         </div>
       </div>
