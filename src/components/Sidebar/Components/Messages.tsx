@@ -1,8 +1,22 @@
+"use client"
 import Icon from '@/components/Icon'
 import React from 'react'
 import InboxButton from './Buttons/InboxButton'
 
+import chats from '@/data/mockChats.json'
+import { useRouter } from 'next/navigation'
+
+
+
 const Messages = () => {
+
+  const router = useRouter()
+
+  const handleInboxButtonClick = (e: any, id: number) => {
+    router.push(`/chat/${id}`)
+  }
+
+
   return (
     <div className='sidebar-messages-component w-full h-auto'>
       {/* SEARCH BAR */}
@@ -16,9 +30,28 @@ const Messages = () => {
           <Icon icon={["fas", "map-pin"]} width={10} height={10} />
           Pinned Messages
         </p>
-        <ul className="pinned-messages">
-          <InboxButton />
-          <InboxButton />
+        <ul className="pinned-messages w-full h-auto">
+
+          {chats.map((chat, index) => {
+
+            if (chat.isPinned) {
+              return (
+                <InboxButton
+                  key={chat.id}
+                  user={chat.user}
+                  isTyping={chat.isTyping}
+                  image={chat.image}
+                  unreadCount={chat.unreadCount}
+                  time={chat.latestUpdate}
+                  content={chat.messageContent}
+                  onClick={(e: any) => handleInboxButtonClick(e, chat.id)}
+                />
+              )
+            }
+          })}
+
+
+
         </ul>
         {/* ALL MESSAGES */}
         <p className='text-xs text-white py-1 flex items-center gap-1'>
@@ -26,9 +59,7 @@ const Messages = () => {
           All Messages
         </p>
         <ul className="all-messages">
-          <InboxButton />
-          <InboxButton />
-          <InboxButton />
+
         </ul>
       </div>
 

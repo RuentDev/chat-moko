@@ -3,42 +3,49 @@
     "id": 0,
     "label": "Home",
     "icon": "/svgs/home.svg",
-    "link": "/"
+    "link": "/",
+    "isActive": true
   },
   {
     "id": 1,
     "label": "Notifications",
     "icon": "/svgs/message-notif.svg",
-    "link": "/notifications"
+    "link": "/notifications",
+    "isActive": false
   },
   {
     "id": 2,
     "label": "Files",
     "icon": "/svgs/folder.svg",
-    "link": "/files"
+    "link": "/files",
+    "isActive": false
   },
   {
     "id": 3,
     "label": "Calls",
     "icon": "/svgs/phone.svg",
-    "link": "/calls"
+    "link": "/calls",
+    "isActive": false
   },
   {
     "id": 4,
     "label": "Messages",
     "icon": "/svgs/messages.svg",
-    "link": "/chat/0"
+    "link": "/chat/0",
+    "isActive": false
   },
   {
     "id": 5,
     "label": "Users",
     "icon": "/svgs/users.svg",
-    "link": "/users"
+    "link": "/users",
+    "isActive": false
   },
   {
     "id": 6,
     "label": "Settings",
     "icon": "/svgs/gear.svg",
-    "link": "/settings"
+    "link": "/settings",
+    "isActive": false
   }
 ]
