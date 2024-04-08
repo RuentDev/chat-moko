@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import FontAwesomeProvider from "@/components/FontAwesomeProviders";
 import ApolloProviderComponent from "@/components/ApolloProviderComponent";
-const inter = Inter({ subsets: ["latin"] });
+import FontAwesomeProvider from "@/components/FontAwesomeProviders";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import ReduxProvider from "@/components/ReduxProvider";
+const inter = Inter({ subsets: ["latin"] });
+import { Inter } from "next/font/google";
+import type { Metadata } from "next";
 import "./globals.css";
 
 
@@ -27,6 +28,7 @@ export default function RootLayout({
             </ReduxProvider>
           </FontAwesomeProvider>
         </ApolloProviderComponent>
+        <SpeedInsights />
       </body>
     </html>
   );
