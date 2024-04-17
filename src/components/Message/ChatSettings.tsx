@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Icon from "../Icon";
 import MembersData from "../../data/members.json";
 
@@ -33,6 +34,20 @@ const attachmentOptions = [
 ];
 
 const ChatSettings = () => {
+  const [showMember, setShowMember] = useState(true)
+  const [showAttachments, setShowAttachments] = useState(true)
+  const [hideMember, setHideMember] = useState(true)
+  const [hideAttachments, setHideAttachments] = useState(true)
+
+  const handleChangeMemberIcon = () => {
+    setShowMember(!showMember)
+    setHideMember(!hideMember)
+  }
+
+  const handleChangeAttachmentsIcon = () => {
+    setShowAttachments(!showAttachments)
+  }
+
   return (
     <div className="chat-settings p-12 h-screen w-1/3 flex flex-col gap-10 bg-[#1e1f24]">
       {/* Top Content*/}
@@ -44,14 +59,16 @@ const ChatSettings = () => {
       {/* Center Content */}
       <div className="members-container text-white flex justify-between">
         <h1 className="font-semibold">Members</h1>
-        <Icon
-          icon={{ prefix: "fas", iconName: "chevron-down" }}
+          <Icon
+          onClick={handleChangeMemberIcon}
+          icon={{ prefix: "fas", iconName: showMember ? "chevron-down" : "chevron-right" }}          
           color="white"
           width={20}
           height={20}
         />
       </div>
-      <div className="member-lists flex flex-col text-white">
+      {hideMember && (
+        <div className="member-lists flex flex-col text-white">
         <div className="add-member-container flex items-center">
         <div className="add-member-bg flex cursor-pointer items-center justify-center mb-5 h-10 w-10 rounded-full bg-[#2e2d36] text-5xl text-[#3c71cf]">
           <p className="mb-1">+</p>
@@ -68,71 +85,77 @@ const ChatSettings = () => {
           );
         })}
       </div>
+      )}
 
       {/* Bottom Content */}
       <div className="attachments-container text-white flex flex-col justify-between">
         <div className="dropdown flex justify-between">
           <h1 className="font-semibold">Attachments</h1>
           <Icon
-            icon={{ prefix: "fas", iconName: "chevron-down" }}
-            color="white"
+          onClick={handleChangeAttachmentsIcon}
+          icon={{ prefix: "fas", iconName: showAttachments ? "chevron-down" : "chevron-right" }}          
+          color="white"
             width={20}
             height={20}
           />
         </div>
-        {attachmentOptions.map((option) => {
-          let iconComponent;
-          switch (option.label) {
-            case "Document":
-              iconComponent = (
-                <Icon
-                  icon={{ prefix: "fas", iconName: "file-lines" }}
-                  width={15}
-                />
-              );
-              break;
-            case "Photo":
-              iconComponent = (
-                <Icon icon={{ prefix: "fas", iconName: "image" }} width={15} />
-              );
-              break;
-            case "Videos":
-              iconComponent = (
-                <Icon
-                  icon={{ prefix: "fas", iconName: "circle-play" }}
-                  width={15}
-                />
-              );
-              break;
-            case "Other Files":
-              iconComponent = (
-                <Icon
-                  icon={{ prefix: "fas", iconName: "folder-minus" }}
-                  width={15}
-                />
-              );
-              break;
-            default:
-              iconComponent = null;
-          }
-
-          return (
-            <div
-              key={option.id}
-              className="options-container text-md mt-5 flex flex-row"
-            >
-              <div className="bg-rounded flex items-center justify-center rounded-full w-10 h-10 bg-[#2d2d36]">
-                {iconComponent}
+        {showAttachments && (
+          <div className="attachments-options">
+          {attachmentOptions.map((option) => {
+            let iconComponent;
+            switch (option.label) {
+              case "Document":
+                iconComponent = (
+                  <Icon
+                    icon={{ prefix: "fas", iconName: "file-lines" }}
+                    width={15}
+                  />
+                );
+                break;
+              case "Photo":
+                iconComponent = (
+                  <Icon icon={{ prefix: "fas", iconName: "image" }} width={15} />
+                );
+                break;
+              case "Videos":
+                iconComponent = (
+                  <Icon
+                    icon={{ prefix: "fas", iconName: "circle-play" }}
+                    width={15}
+                  />
+                );
+                break;
+              case "Other Files":
+                iconComponent = (
+                  <Icon
+                    icon={{ prefix: "fas", iconName: "folder-minus" }}
+                    width={15}
+                  />
+                );
+                break;
+              default:
+                iconComponent = null;
+            }
+  
+            return (
+              <div
+                key={option.id}
+                className="options-container text-md mt-5 flex flex-row"
+              >
+                <div className="bg-rounded flex items-center justify-center rounded-full w-10 h-10 bg-[#2d2d36]">
+                  {iconComponent}
+                </div>
+                <div className="name-filescount ml-3 flex flex-col">
+                  <h1>{option.label}</h1>
+                  <p className="file-count text-sm opacity-70">
+                    {option.filecount} - Files 17 GB
+                  </p>
+                </div>
               </div>
-              <div className="name-filescount ml-3 flex flex-col">
-                <h1>{option.label}</h1>
-                <p className="file-count text-sm opacity-70">
-                  {option.filecount} - Files 17 GB
-                </p>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+          </div>
+        )}
       </div>
     </div>
   );
