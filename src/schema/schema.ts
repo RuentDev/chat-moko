@@ -1,62 +1,57 @@
 import { gql } from "@apollo/client";
 
-export const FETCH_PRODUCTS = gql`
-  query Effects($take: String, $skip: String) {
-    effects(Take: $take, Skip: $skip) {
+export const GET_USER_CONVERSATIONS = gql`
+  query GetAllUserConversation($userId: String) {
+  getAllUserConversation(userId: $userId) {
+    id
+    title
+    creatorId
+    createdAt
+    updatedAt
+    deletedAt
+    participants {
       id
-      sku
-      name
-      productTitle
-      thumbPath
-      modelPath
-      size
-      color
-      price
+      email
+      phone
+      first_name
+      middle_name
+      last_name
+      verification_code
+      is_active
+      is_reported
+      is_blocked
+      createAt
+      updatedAt
+      role
+    }
+    messages {
+      id
+      type
+      content
+      attachment_thumb_url
+      attachment_url
+      createdAt
+      updatedAt
+      deletedAt
     }
   }
+}
+
 `;
 
-export const FETCH_EFFECT = gql`
-  query FetchEffect($sku: String, $oldParam: String) {
-    fetchEffect(sku: $sku, oldParam: $oldParam) {
+
+export const GET_CONVERSATIONS_MESSAGES = gql`
+  query GetAllConversationMessages($conversationId: String) {
+    getAllConversationMessages(conversationId: $conversationId) {
       id
-      modelPath
-      sku
-      name
-      thumbPath
-      productTitle
-      price
-      size
-      Renderer {
-        hdrSrc
-        shadow
-        msaa
-        toneMapping
-      }
-      occluderSrc
-    }
-  }
-`;
-
-export const SEND_STATISTICS = gql`
-  mutation AddStatisticsClicks(
-    $visitorsIp: String
-    $sku: String
-    $country: String
-    $browser: String
-    $os: String
-    $type: String
-  ) {
-    addStatisticsClicks(
-      visitorsIP: $visitorsIp
-      sku: $sku
-      country: $country
-      browser: $browser
-      os: $os
-      type: $type
-    ) {
-      isSuccess
-      statusText
+      senderId
+      type
+      content
+      attachment_thumb_url
+      attachment_url
+      createdAt
+      updatedAt
+      deletedAt
     }
   }
 `;

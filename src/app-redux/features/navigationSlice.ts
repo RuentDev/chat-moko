@@ -1,11 +1,41 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface InitialState {
-  selectedIcon: string
+
+
+type Participant = {
+  id: string
+  email: string
+  phone: string
+  first_name: string
+  middle_name: string
+  last_name: string
+  verification_code: string
+  is_active: string
+  is_reported: string
+  is_blocked: string
+  createAt: string
+  updatedAt: string
+  role: string
 }
 
-const initialState = {
-  selectedIcon: "Home"
+type SelectedConversation = {
+  id: string
+  title: string
+  creatorId: string
+  createdAt: string
+  updatedAt: string
+  deletedAt: string
+  participants: Participant[]
+}
+
+export interface InitialState {
+  selectedIcon: string,
+  selectedConversation?: SelectedConversation
+}
+
+const initialState: InitialState = {
+  selectedConversation: undefined,
+  selectedIcon: "Home",
 }
 
 export const navigationSlice = createSlice({
@@ -14,11 +44,14 @@ export const navigationSlice = createSlice({
   reducers: {
     setSelectedIcon: (state, action) => {
       state.selectedIcon = action.payload
-    } 
+    },
+    setSelectedConversation: (state, action) => {
+      state.selectedConversation = action.payload
+    }
   },
 })
 
-export const { setSelectedIcon } = navigationSlice.actions
+export const { setSelectedIcon, setSelectedConversation } = navigationSlice.actions
 
 export default navigationSlice.reducer
 
