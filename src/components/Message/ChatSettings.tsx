@@ -36,12 +36,9 @@ const attachmentOptions = [
 const ChatSettings = () => {
   const [showMember, setShowMember] = useState(true)
   const [showAttachments, setShowAttachments] = useState(true)
-  const [hideMember, setHideMember] = useState(true)
-  const [hideAttachments, setHideAttachments] = useState(true)
 
   const handleChangeMemberIcon = () => {
     setShowMember(!showMember)
-    setHideMember(!hideMember)
   }
 
   const handleChangeAttachmentsIcon = () => {
@@ -67,7 +64,7 @@ const ChatSettings = () => {
           height={20}
         />
       </div>
-      {hideMember && (
+      {showMember && (
         <div className="member-lists flex flex-col text-white">
         <div className="add-member-container flex items-center">
         <div className="add-member-bg flex cursor-pointer items-center justify-center mb-5 h-10 w-10 rounded-full bg-[#2e2d36] text-5xl text-[#3c71cf]">
