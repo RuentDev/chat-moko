@@ -1,7 +1,7 @@
 "use client"
 import Icon from '@/components/Icon'
 import React from 'react'
-import InboxButton from './Buttons/InboxButton'
+import ConversationButton from './Buttons/ConversationButton'
 
 import chats from '@/data/mockChats.json'
 import { useRouter } from 'next/navigation'
@@ -36,7 +36,7 @@ const Messages = () => {
 
             if (chat.isPinned) {
               return (
-                <InboxButton
+                <ConversationButton
                   key={chat.id}
                   user={chat.user}
                   isTyping={chat.isTyping}
