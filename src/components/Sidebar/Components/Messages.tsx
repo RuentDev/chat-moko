@@ -1,21 +1,30 @@
 "use client"
 import Icon from '@/components/Icon'
 import React from 'react'
-import InboxButton from './Buttons/InboxButton'
-
-import chats from '@/data/mockChats.json'
 import { useRouter } from 'next/navigation'
-
-
+import { GET_CONVERSATIONS } from '@/schema/schema'
+import { useQuery, useSubscription } from '@apollo/client'
+import { ConversationCardButton } from './Buttons'
+import { useDispatch } from 'react-redux'
+import { setSelectedConversation } from '@/app-redux/features/navigationSlice'
 
 const Messages = () => {
 
   const router = useRouter()
+  const dispatch = useDispatch()
 
-  const handleInboxButtonClick = (e: any, id: number) => {
-    router.push(`/chat/${id}`)
+  const {data, error, loading} = useQuery(GET_CONVERSATIONS, {
+    variables: {
+      userId: "07416a8d-2304-42e7-9d9a-ca18119ae567"
+    }
+  })
+
+  console.log(data)
+
+  const handleConversationCardButtonClick = (chat: any ) => {
+    dispatch(setSelectedConversation(chat))
+    router.push(`/chat/${chat.id}`)
   }
-
 
   return (
     <div className='sidebar-messages-component w-full h-auto'>
@@ -32,25 +41,20 @@ const Messages = () => {
         </p>
         <ul className="pinned-messages w-full h-auto">
 
-          {chats.map((chat, index) => {
+          {data && data.getConversation.map((chat: any) => {
+            return (
+              <ConversationCardButton
+                key={chat.id}
+                user={chat.participants[1]}
+                isTyping={false}
+                unreadCount={0}
+                time={chat.createdAt}
+                content={chat.messages[0].content}
+                onClick={() => handleConversationCardButtonClick(chat)}
+              />
+            )
 
-            if (chat.isPinned) {
-              return (
-                <InboxButton
-                  key={chat.id}
-                  user={chat.user}
-                  isTyping={chat.isTyping}
-                  image={chat.image}
-                  unreadCount={chat.unreadCount}
-                  time={chat.latestUpdate}
-                  content={chat.messageContent}
-                  onClick={(e: any) => handleInboxButtonClick(e, chat.id)}
-                />
-              )
-            }
           })}
-
-
 
         </ul>
         {/* ALL MESSAGES */}

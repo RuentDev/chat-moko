@@ -1,22 +1,25 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/app-redux/store'
 import Messages from './Components/Messages'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
-
 import iconButtons from '@/data/iconButtons.json'
 import IconButton from './Components/Buttons/IconButton'
 import { setSelectedIcon } from '@/app-redux/features/navigationSlice'
+
+
 
 const Sidebar = () => {
 
   const [buttons, setButtons] = useState(iconButtons)
 
   const selectedIcon = useSelector((state: RootState) => state.navigation.selectedIcon)
-  const router = useRouter();
   const dispatch = useDispatch();
+  const params = useParams()
+  const router = useRouter()
+
 
 
   const handleOnClick = (e: any, button: any) => {
