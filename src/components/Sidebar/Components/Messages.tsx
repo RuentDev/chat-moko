@@ -2,7 +2,7 @@
 import Icon from '@/components/Icon'
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { GET_USER_CONVERSATIONS } from '@/schema/schema'
+import { GET_CONVERSATIONS } from '@/schema/schema'
 import { useQuery, useSubscription } from '@apollo/client'
 import { ConversationCardButton } from './Buttons'
 import { useDispatch } from 'react-redux'
@@ -13,17 +13,18 @@ const Messages = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const {data, error, loading} = useQuery(GET_USER_CONVERSATIONS, {
+  const {data, error, loading} = useQuery(GET_CONVERSATIONS, {
     variables: {
       userId: "07416a8d-2304-42e7-9d9a-ca18119ae567"
     }
   })
 
+  console.log(data)
+
   const handleConversationCardButtonClick = (chat: any ) => {
     dispatch(setSelectedConversation(chat))
     router.push(`/chat/${chat.id}`)
   }
-
 
   return (
     <div className='sidebar-messages-component w-full h-auto'>
@@ -40,7 +41,7 @@ const Messages = () => {
         </p>
         <ul className="pinned-messages w-full h-auto">
 
-          {data && data.getAllUserConversation.map((chat: any) => {
+          {data && data.getConversation.map((chat: any) => {
             return (
               <ConversationCardButton
                 key={chat.id}
@@ -52,6 +53,7 @@ const Messages = () => {
                 onClick={() => handleConversationCardButtonClick(chat)}
               />
             )
+
           })}
 
         </ul>

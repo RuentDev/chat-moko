@@ -1,6 +1,4 @@
 "use client"
-
-import Image from 'next/image'
 import React from 'react'
 import TypingEffect from './TypingEffect'
 import { getMessageSentTime } from '@/utils'
@@ -11,7 +9,7 @@ type User = {
   middle_name: string
 }
 
-interface ConversationCardButton{
+interface ConversationButtonCardProps{
   user: User
   image?: string
   isTyping: boolean
@@ -21,11 +19,11 @@ interface ConversationCardButton{
   onClick?: any
 }
 
-
-const ConversationCardButton = (props: ConversationCardButton) => {
+const ConversationCardButton = (props: ConversationButtonCardProps) => {
   console.log(props)
 
   const date = new Date(props.time)
+
   return (
     <div onClick={props.onClick} className='inbox-button w-full h-auto flex justify-between p-2 cursor-pointer ease-in-out duration-300 hover:bg-[#1D1E23]'>
       <div className="image-name-container w-full h-auto flex gap-2">
@@ -37,13 +35,13 @@ const ConversationCardButton = (props: ConversationCardButton) => {
         <div className="name-container flex flex-col gap-2">
           <p className={` text-white ${props.unreadCount > 0 ? "font-[700]" : ""}`}>{props.user.first_name} {props.user.last_name}</p>
 
-          <div className={`text-xs flex flex-item ${props.isTyping ? "text-green-500 italic": "text-white"}`}>
+          <div className={`text-xs flex flex-item ${props.isTyping ? "text-green-500 italic" : "text-white"}`}>
 
             {props.isTyping && <TypingEffect />}
 
             {!props.isTyping && `${props.content.substring(0, 20)}...`}
           </div>
-          
+
         </div>
       </div>
       {/* Time Container */}
@@ -55,4 +53,4 @@ const ConversationCardButton = (props: ConversationCardButton) => {
   )
 }
 
-export default ConversationCardButton
+export default ConversationCardButton;
