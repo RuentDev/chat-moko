@@ -1,11 +1,11 @@
 import React from 'react'
 
-const DashboardPage = () => {
+const ChatPage = () => {
   return (
     <div className='w-full h-full'>
-      Dashboard
+      CHATS
     </div>
   )
 }
 
-export default DashboardPage
+export default ChatPage

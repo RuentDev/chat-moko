@@ -1,25 +1,25 @@
+import { authOptions } from "@/app/auth";
+import { Forms } from "@/components";
+import { Center } from "@chakra-ui/react";
+import { NextPage } from "next";
+import { getServerSession } from "next-auth";
+import React from "react";
 
-import { authOptions } from '@/app/auth'
-import AuthButton from '@/components/Buttons/AuthButton'
-import { getServerSession } from 'next-auth'
-import React from 'react'
+interface IProps {
 
-export default async function Page() {
+};
+
+const SignupPage:NextPage = async (props: IProps) => {
+
   const session = await getServerSession(authOptions)
-
-  if (session) {
-    return (
-      <div>
-        {session && session?.user ? session.user.name : null}
-      </div>
-    )
-  }
-
   return (
-    <div>
-
-      <AuthButton label='google' />
+    <div className="w-full h-screen">
+      <Center height={"100vh"}>
+        <Forms.SignupForm />
+      </Center>
+      
     </div>
   )
-}
+};
 
+export default SignupPage;

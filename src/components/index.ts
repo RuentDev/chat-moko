@@ -4,7 +4,9 @@ import ApolloProviderComponent from "./ApolloProviderComponent";
 import NextAuthProvider from '@/components/NextAuthProvider';
 import ReduxProvider from "./ReduxProvider";
 import ChakraProviderComponent from './ChakraProviderComponent';
+import Forms from "./Form";
 export {
+    Forms,
     Navbar,
     // Buttons
     NextAuthProvider,
