@@ -1,5 +1,4 @@
 import ApolloProviderComponent from "@/components/ApolloProviderComponent";
-import FontAwesomeProvider from "@/components/FontAwesomeProviders";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import ReduxProvider from "@/components/ReduxProvider";
 const inter = Inter({ subsets: ["latin"] });
@@ -26,11 +25,9 @@ export default async function RootLayout({
       <body className={inter.className}>
         <SessionProvider session={session}>
           <ApolloProviderComponent>
-            <FontAwesomeProvider>
-              <ReduxProvider>
-                {children}
-              </ReduxProvider>
-            </FontAwesomeProvider>
+            <ReduxProvider>
+              {children}
+            </ReduxProvider>
           </ApolloProviderComponent>
         </SessionProvider>
         <SpeedInsights />

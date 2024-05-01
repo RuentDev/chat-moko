@@ -28,17 +28,17 @@ const Chat = async () => {
     <div className="chat-container flex">
       <div className="single-chat w-full h-screen flex flex-col">
         {/* TOP */}
-        <HeaderMessage />
+        {/* <HeaderMessage /> */}
 
         {/* MESSAGES */}
-        <Message />
+        {/* <Message /> */}
 
         {/* CHAT INPUT */}
-        <InputMessage />
+        {/* <InputMessage /> */}
       </div>
 
       {/* CHAT SETTINGS RIGHT SIDE */}
-      <ChatSettings />
+      {/* <ChatSettings /> */}
     </div>
   );
 };
