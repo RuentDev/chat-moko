@@ -2,8 +2,7 @@
 import { 
   Button, 
   Flex, 
-  FormControl, 
-  FormHelperText, 
+  FormControl,
   FormLabel, IconButton, 
   Input, 
   InputGroup, 
@@ -14,16 +13,18 @@ import {
 import { useState } from 'react'
 import { Icon } from '@chakra-ui/react'
 import { FaEye, FaEyeSlash, FaFacebook, FaGithub, FaGoogle, FaTwitter } from 'react-icons/fa'
-
+import { signIn, signOut, useSession } from 'next-auth/react'
 const SignupForm = () => {
 
   const [showPassword, setShowPassword] = useState(false)
+
+  const {data} = useSession()
 
   return (
     <form className='w-[500px] h-auto rounded-xl p-5 '>
       <Stack gap={3}>
         <Text letterSpacing={0.5} fontSize={"2xl"} align="center">
-          SIGNUP 
+          SIGNUP {data?.user.name}
         </Text>
         <Text letterSpacing={0.5} fontSize={"sm"} align="center">
           Welcome to ChatMoko MessageApp
@@ -91,25 +92,25 @@ const SignupForm = () => {
         <Flex alignItems={"center"} justifyContent={"center"}>
           <IconButton
             backgroundColor="transparent"
-            aria-label='show-password' 
+            aria-label='google-signup' 
             icon={<Icon as={FaGoogle} />} 
-            onClick={() => setShowPassword(!showPassword)}
+            onClick={() => signIn("google")}
           />
           <IconButton
             backgroundColor="transparent"
-            aria-label='show-password' 
+            aria-label='git-signup' 
             icon={<Icon as={FaGithub} />} 
             onClick={() => setShowPassword(!showPassword)}
           />
           <IconButton
             backgroundColor="transparent"
-            aria-label='show-password' 
+            aria-label='show-signup' 
             icon={<Icon as={FaFacebook} />} 
             onClick={() => setShowPassword(!showPassword)}
           />
           <IconButton
             backgroundColor="transparent"
-            aria-label='show-password' 
+            aria-label='show-signup' 
             icon={<Icon as={FaTwitter} />} 
             onClick={() => setShowPassword(!showPassword)}
           />

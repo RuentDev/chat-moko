@@ -7,13 +7,7 @@ import { redirect } from 'next/navigation'
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 
-    const session = await getServerSession(authOptions)
 
-  if(!session){
-
-    redirect("/auth/signup")
-
-  }
 
   return (
     <main className='dashboard-layout w-full h-screen flex gap-[2px]'>
