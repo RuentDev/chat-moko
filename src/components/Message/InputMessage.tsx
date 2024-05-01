@@ -1,5 +1,4 @@
 import React from "react";
-import Icon from "../Icon";
 
 const InputMessage = () => {
   return (
@@ -8,12 +7,12 @@ const InputMessage = () => {
         <div className='input-items flex justify-between w-full p-5'>
           {/* Left Items */}
           <div className='left-items w-full flex justify-start'>
-            <Icon
+            {/* <Icon
               icon={{ prefix: 'fas', iconName: 'microphone' }}
               color='white'
               width={20}
               height={20}
-            />
+            /> */}
             <input
               placeholder='Add a comment...'
               type='text'
@@ -23,7 +22,7 @@ const InputMessage = () => {
 
           {/* Right Items */}
           <div className='right-items w-auto flex justify-end gap-3'>
-            <Icon
+            {/* <Icon
               icon={{ prefix: 'fas', iconName: 'image' }}
               color='white'
               width={20}
@@ -47,7 +46,7 @@ const InputMessage = () => {
               color="white"
               width={20}
               height={20}
-            />
+            /> */}
           </div>
         </div>
       </div>
