@@ -1,5 +1,4 @@
 import React from 'react'
-import { Icon } from '..'
 
 const LoginForm = () => {
   return (
@@ -11,7 +10,7 @@ const LoginForm = () => {
           Username
         </label>
         <div className="icon-text-container w-full h-auto flex items-center gap-2">
-          <Icon icon={"user-alt"} width={20} color='gray' />
+          {/* <Icon icon={"user-alt"} width={20} color='gray' /> */}
           <input
             className="input-field w-full h-auto bg-white rounded-md p-2 outline-none"
             type="text"
@@ -26,7 +25,7 @@ const LoginForm = () => {
           Password
         </label>
         <div className="icon-text-container w-full h-auto flex items-center gap-2">
-          <Icon icon={"lock"} width={20} color='gray' />
+          {/* <Icon icon={"lock"} width={20} color='gray' /> */}
           <input
             className="input-field w-full h-auto bg-white rounded-md p-2 outline-none"
             type="password"
@@ -47,13 +46,13 @@ const LoginForm = () => {
 
         <div className="buttons-container w-full h-auto flex items-center justify-center gap-2 my-5">
           <button>
-            <Icon icon={["fab", "google"]} width={25} color='red' />
+            {/* <Icon icon={["fab", "google"]} width={25} color='red' /> */}
           </button>
           <button>
-            <Icon icon={["fab", "twitter"]} width={25} color='sky-blue' />
+            {/* <Icon icon={["fab", "twitter"]} width={25} color='sky-blue' /> */}
           </button>
           <button>
-            <Icon icon={["fab", "facebook"]} width={25} color='blue' />
+            {/* <Icon icon={["fab", "facebook"]} width={25} color='blue' /> */}
           </button>
         </div>
 

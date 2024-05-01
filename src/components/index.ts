@@ -1,13 +1,15 @@
 import Navbar from "./Navbar";
-import Icon from "./Icon";
-import FontAwesomeProvider from "./FontAwesomeProviders";
 import { ToggleButton } from "./Buttons";
-
-
+import ApolloProviderComponent from "./ApolloProviderComponent";
+import NextAuthProvider from '@/components/NextAuthProvider';
+import ReduxProvider from "./ReduxProvider";
+import ChakraProviderComponent from './ChakraProviderComponent';
 export {
     Navbar,
-    Icon,
-    FontAwesomeProvider,
     // Buttons
+    NextAuthProvider,
+    ApolloProviderComponent,
+    ChakraProviderComponent,
+    ReduxProvider,
     ToggleButton
 }

@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import Icon from '../Icon'
 
 export type ArrowDownProps = {
   onClick: (e: any) => void
@@ -13,7 +12,7 @@ const ArrowDownButton = (props: ArrowDownProps) => {
     <button
       onClick={props.onClick}
       className={props.className}>
-      <Icon icon={{ prefix: "fas", iconName: "caret-down" }} color="black" width={20} height={20} />
+      {/* <Icon icon={{ prefix: "fas", iconName: "caret-down" }} color="black" width={20} height={20} /> */}
     </button>
   )
 }

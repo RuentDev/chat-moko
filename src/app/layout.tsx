@@ -1,37 +1,38 @@
-import ApolloProviderComponent from "@/components/ApolloProviderComponent";
+
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import ReduxProvider from "@/components/ReduxProvider";
-const inter = Inter({ subsets: ["latin"] });
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
-import SessionProvider from "@/components/SessionProvider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./auth";
+import { ChakraProviderComponent, ReduxProvider } from '@/components';
+
+const inter = Inter({
+  subsets: ["latin"]
+});
 
 export const metadata: Metadata = {
   title: "ChatMoko | Messaging",
   description: "",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions)
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider session={session}>
-          <ApolloProviderComponent>
-            <ReduxProvider>
-              {children}
-            </ReduxProvider>
-          </ApolloProviderComponent>
-        </SessionProvider>
+        {/* <ApolloProviderComponent> */}
+        {/* <NextAuthProvider> */}
+        <ChakraProviderComponent>
+          <ReduxProvider>
+            {children}
+          </ReduxProvider>
+        </ChakraProviderComponent>
+        {/* </NextAuthProvider> */}
+        {/* </ApolloProviderComponent> */}
         <SpeedInsights />
       </body>
-    </html>
+    </html >
   );
 }
