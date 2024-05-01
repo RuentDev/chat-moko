@@ -1,15 +1,27 @@
 import React, { Suspense } from 'react'
 import DashboardLoading from './loading'
 import Sidebar from '@/components/Sidebar/Sidebar'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../auth'
+import { redirect } from 'next/navigation'
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
+
+    const session = await getServerSession(authOptions)
+
+  if(!session){
+
+    redirect("/auth/signup")
+
+  }
+
   return (
-    <div className='dashboard-layout w-full h-screen bg-[#131517] flex gap-[2px]'>
+    <main className='dashboard-layout w-full h-screen flex gap-[2px]'>
       <Sidebar />
       <Suspense fallback={<DashboardLoading />}>
         {children}
       </Suspense>
-    </div>
+    </main>
   )
 }
 

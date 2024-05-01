@@ -1,9 +1,14 @@
-import React from 'react'
+import { NextPage } from 'next'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../auth'
 
-const DashboardPage = () => {
+const DashboardPage: NextPage =  async () => {
+
+  const session  = await getServerSession(authOptions)
+
   return (
     <div className='w-full h-full'>
-      Dashboard
+      dashboard
     </div>
   )
 }

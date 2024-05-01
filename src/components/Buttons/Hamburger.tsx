@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import Icon from '../Icon'
+// import Icon from '../Icon'
 
 export type MenuButtonProps = {
   onClick: () => void
@@ -14,7 +14,7 @@ const MenuIconButton = (props: MenuButtonProps) => {
       onClick={props.onClick}
       className={props.className}
     >
-      <Icon icon={{ prefix: "fas", iconName: "bars" }} color="white" width={30} height={30} />
+      {/* <Icon icon={{ prefix: "fas", iconName: "bars" }} color="white" width={30} height={30} /> */}
       {props.label}
     </button>
   )

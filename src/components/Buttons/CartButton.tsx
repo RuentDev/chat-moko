@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import Icon from '../Icon'
 
 
 export type CartButtonProps = {
@@ -15,11 +14,11 @@ const CartButton = (props: CartButtonProps) => {
             onClick={props.onClick}
             className={props.className}
         >
-            <Icon
+            {/* <Icon
                 icon={{ prefix: "fas", iconName: 'cart-shopping' }}
                 width={30} height={30}
                 color='white'
-            />
+            /> */}
         </button>
     )
 }

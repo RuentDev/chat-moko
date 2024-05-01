@@ -43,7 +43,7 @@ const Sidebar = () => {
 
   return (
     <nav className='dashboard-sidebar w-auto h-full flex'>
-      <div className="left-side w-[70px] h-full bg-[#1D1E23]">
+      <div className="left-side w-[70px] h-full">
         <ul className="icons-container w-full h-auto flex flex-col items-center gap-5 py-3">
           {iconButtons.map((button) => {
             return (
