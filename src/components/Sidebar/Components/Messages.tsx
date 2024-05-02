@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { GET_CONVERSATIONS } from '@/schema/schema'
+import { GET_CONVERSATIONS } from '@/graphql/schema'
 import { useQuery, useSubscription } from '@apollo/client'
 import { ConversationCardButton } from './Buttons'
 import { useDispatch } from 'react-redux'

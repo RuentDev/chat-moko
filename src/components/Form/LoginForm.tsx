@@ -13,56 +13,39 @@ import {
 import { FC, useState } from 'react'
 import { Icon } from '@chakra-ui/react'
 import { FaEye, FaEyeSlash, FaFacebook, FaGithub, FaGoogle, FaTwitter } from 'react-icons/fa'
-import { signIn, signOut, useSession } from 'next-auth/react'
-const SignupForm:FC = () => {
+import { signIn, signOut } from 'next-auth/react'
+import { Session } from 'next-auth'
+
+
+interface LoginFormProps{
+  session?: Session
+}
+
+const LoginForm:FC<LoginFormProps> = (props) => {
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const {data} = useSession()
+  console.log(props)
+
 
   return (
     <form className='w-[500px] h-auto rounded-xl p-5 '>
       <Stack gap={3}>
         <Text letterSpacing={0.5} fontSize={"2xl"} align="center">
-          SIGNUP {data?.user.name}
+          LOGIN
         </Text>
         <Text letterSpacing={0.5} fontSize={"sm"} align="center">
-          Welcome to ChatMoko MessageApp
+          Welcome Back to ChatMoko
         </Text>
         <FormControl>
-          <FormLabel>Name</FormLabel>
-          <Input />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Phone</FormLabel>
-          <Input type="tel" />
-        </FormControl>
-        <FormControl>
           <FormLabel>Email</FormLabel>
-          <Input type='email' />
+          <Input 
+            type='email' 
+            placeholder='juan@example.com' 
+          />
         </FormControl>
         <FormControl>
           <FormLabel>Password</FormLabel>
-          <InputGroup>
-            <Input
-              type={showPassword ? 'text' : 'password'}
-              placeholder='password'
-            />
-            <InputRightElement>
-              <IconButton 
-                backgroundColor="transparent"
-                scale={0.5}
-                _hover={{backgroundColor: "transparent"}}
-                fontSize='sm'
-                aria-label='show-password' 
-                icon={<Icon as={showPassword ? FaEyeSlash : FaEye} />} 
-                onClick={() => setShowPassword(!showPassword)}
-              />
-            </InputRightElement>
-          </InputGroup>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Repeat Password</FormLabel>
           <InputGroup>
             <Input
               type={showPassword ? 'text' : 'password'}
@@ -90,7 +73,7 @@ const SignupForm:FC = () => {
           Or
         </Text>
         <Text align="center">
-          Signup using
+          Login using
         </Text>
         <Flex alignItems={"center"} justifyContent={"center"}>
           <IconButton
@@ -119,7 +102,7 @@ const SignupForm:FC = () => {
             aria-label='show-signup' 
             icon={<Icon as={FaTwitter} />} 
             onClick={() => setShowPassword(!showPassword)}
-            title='Continue with X'
+            title="Continue with X"
           />
         </Flex>
       </Stack>
@@ -133,4 +116,4 @@ const SignupForm:FC = () => {
   )
 }
 
-export default SignupForm
+export default LoginForm

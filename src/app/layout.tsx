@@ -9,6 +9,9 @@ import {
   NextAuthProvider, 
   ReduxProvider 
 } from '@/components';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './auth';
+import { redirect } from 'next/navigation';
 
 const inter = Inter({
   subsets: ["latin"]
@@ -25,19 +28,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-
-
   return (
     <html lang="en">
       <body className={inter.className}>
         <ApolloProviderComponent>
-          <NextAuthProvider>
-            <ChakraProviderComponent>
-              <ReduxProvider>
-                {children}
-              </ReduxProvider>
-            </ChakraProviderComponent>
-          </NextAuthProvider>
+          <ChakraProviderComponent>
+            <NextAuthProvider>
+                <ReduxProvider>
+                  {children}
+                </ReduxProvider>
+            </NextAuthProvider>
+          </ChakraProviderComponent>
         </ApolloProviderComponent>
         <SpeedInsights />
       </body>

@@ -44,7 +44,7 @@ model User {
   id                String    @id @default(uuid()) @map("_id")
   email             String    @unique
   name              String
-  emailVerified     String?
+  emailVerified     DateTime?
   phone             String?
   password          String?
   first_name        String?
