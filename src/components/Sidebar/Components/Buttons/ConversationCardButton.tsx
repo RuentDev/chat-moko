@@ -20,7 +20,6 @@ interface ConversationButtonCardProps{
 }
 
 const ConversationCardButton = (props: ConversationButtonCardProps) => {
-  console.log(props)
 
   const date = new Date(props.time)
 

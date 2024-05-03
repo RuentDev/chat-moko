@@ -24,10 +24,7 @@ interface LoginFormProps{
 const LoginForm:FC<LoginFormProps> = (props) => {
 
   const [showPassword, setShowPassword] = useState(false)
-
-  console.log(props)
-
-
+  
   return (
     <form className='w-[500px] h-auto rounded-xl p-5 '>
       <Stack gap={3}>

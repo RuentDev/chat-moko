@@ -20,7 +20,6 @@ const AuthForm:FC<AuthFormProps> = (props) => {
   const [createUserAccount, {data, loading, error}] = useMutation<CreateUserAccount, CreateUserAccountVariables>(UserOprations.Mutation.createUserAccount)
 
   const handleCreateUserAccount = async (value: any) => {
-    console.log(value)
     await createUserAccount({
       variables: {
         email: value.email,

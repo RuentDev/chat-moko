@@ -13,7 +13,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <main className='dashboard-layout w-full h-screen flex gap-[2px]'>
-      <Sidebar />
+      <Sidebar session={session} />
       <Suspense fallback={<DashboardLoading />}>
         {children}
       </Suspense>

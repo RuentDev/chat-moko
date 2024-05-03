@@ -1,5 +1,4 @@
 "use client"
-
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import { GET_CONVERSATIONS } from '@/graphql/schema'
@@ -7,8 +6,13 @@ import { useQuery, useSubscription } from '@apollo/client'
 import { ConversationCardButton } from './Buttons'
 import { useDispatch } from 'react-redux'
 import { setSelectedConversation } from '@/app-redux/features/navigationSlice'
+import { UnorderedList } from '@chakra-ui/react'
 
-const Messages = () => {
+interface SidebarMessagesProps {
+  // any props that come into this component
+}
+
+const Messages: React.FC<SidebarMessagesProps> = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
@@ -18,8 +22,6 @@ const Messages = () => {
       userId: "07416a8d-2304-42e7-9d9a-ca18119ae567"
     }
   })
-
-  console.log(data)
 
   const handleConversationCardButtonClick = (chat: any) => {
     dispatch(setSelectedConversation(chat))
@@ -40,7 +42,13 @@ const Messages = () => {
           Pinned Messages
         </p>
         <ul className="pinned-messages w-full h-auto">
-
+        </ul>
+        {/* ALL MESSAGES */}
+        <p className='text-xs text-white py-1 flex items-center gap-1'>
+          {/* <Icon icon={["fas", "message"]} width={10} height={10} /> */}
+          All Messages
+        </p>
+        <UnorderedList padding={0} margin={0}>
           {data && data.getConversation.map((chat: any) => {
             return (
               <ConversationCardButton
@@ -53,18 +61,8 @@ const Messages = () => {
                 onClick={() => handleConversationCardButtonClick(chat)}
               />
             )
-
           })}
-
-        </ul>
-        {/* ALL MESSAGES */}
-        <p className='text-xs text-white py-1 flex items-center gap-1'>
-          {/* <Icon icon={["fas", "message"]} width={10} height={10} /> */}
-          All Messages
-        </p>
-        <ul className="all-messages">
-
-        </ul>
+        </UnorderedList>
       </div>
 
     </div>

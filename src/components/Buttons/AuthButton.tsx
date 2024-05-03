@@ -10,7 +10,6 @@ interface LoginButtonProps {
 const AuthButton = (props: LoginButtonProps) => {
 
   const onClickHandler = () => {
-    console.log("login clicked")
 
     signIn("google", { callbackUrl: "http://localhost:3000/auth/signup" })
   }

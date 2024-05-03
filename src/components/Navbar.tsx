@@ -1,6 +1,6 @@
 "use client"
 import React, { use, useState } from 'react'
-import { Hamburger, ArrowDownButton } from './Buttons';
+import Buttons from './Buttons';
 import NavbarData from '../data/navbardata.json';
 import navbarBottomList from '../data/navdata.json';
 import CartButton from './Buttons/CartButton';
@@ -53,7 +53,7 @@ const Navbar = () => {
             <div className='flex justify-between w-full mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='w-full flex items-center justify-between h-14'>
                     {/* Navbar Items Container */}
-                    <Hamburger
+                    <Buttons.Hamburger
                         onClick={toggleNavBar}
                         className='lg:hidden'
                     />
@@ -69,7 +69,7 @@ const Navbar = () => {
                                 className='hidden lg:block uppercase'
                             >
                                 {item.label}
-                                <ArrowDownButton onClick={(e: any) => handleClickArrowLg(e, item.id)} />
+                                <Buttons.ArrowDownButton onClick={(e: any) => handleClickArrowLg(e, item.id)} />
 
                                 {/* Dropdown Sub Items */}
                                 <div className={isModalClicked ? "overflow-hidden lg:block flex flex-col fixed top-1/2 opacity-0 w-[15 %] h-[50%] rounded-lg bg-[#836C46B8] shadow-lg shadow-black backdrop-blur-3xl p-10 ease-in -translate-y-full transition-all" :
@@ -121,7 +121,7 @@ const Navbar = () => {
                                     <div className='flex flex-col mt-5'>
                                         <div className='flex justify-between uppercase'>
                                             {item.label}
-                                            <ArrowDownButton
+                                            <Buttons.ArrowDownButton
                                                 className='min-w-[60px] h-[50px] -translate-x-30 -translate-y-3'
                                                 onClick={(e: any) => handleClickArrowSm(e, item.id)} />
                                         </div>

@@ -4,10 +4,12 @@ import { NextPage } from "next";
 import React from "react";
 import { authOptions } from "../auth";
 import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
 
 
 const AuthPage:NextPage = async () => {
   const session = await getServerSession(authOptions)
+  if(session) redirect("/")
   return (
     <Center height={"100vh"}>
       <Forms.AuthForm session={session} />

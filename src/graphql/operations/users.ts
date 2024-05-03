@@ -2,10 +2,8 @@ import { gql } from '@apollo/client'
 
 
 
-export default {
-   Queries: {
-
-   },
+const shema = {
+   Queries: {},
    Mutation: {
     createUserAccount: gql`
       mutation CreateUserAccount($phone: String, $password: String, $firstName: String, $middleName: String, $lastName: String) {
@@ -17,7 +15,7 @@ export default {
       }
     `
    },
-   Subscription: {
-
-   }
+   Subscription: {}
 }
+
+export default shema;
