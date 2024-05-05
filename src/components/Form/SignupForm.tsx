@@ -7,24 +7,23 @@ import {
   Input, 
   InputGroup, 
   InputRightElement, 
+  Link, 
   Stack, 
   Text 
 } from '@chakra-ui/react'
 import { FC, useState } from 'react'
 import { Icon } from '@chakra-ui/react'
 import { FaEye, FaEyeSlash, FaFacebook, FaGithub, FaGoogle, FaTwitter } from 'react-icons/fa'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 const SignupForm:FC = () => {
 
   const [showPassword, setShowPassword] = useState(false)
-
-  const {data} = useSession()
 
   return (
     <form className='w-[500px] h-auto rounded-xl p-5 '>
       <Stack gap={3}>
         <Text letterSpacing={0.5} fontSize={"2xl"} align="center">
-          SIGNUP {data?.user.name}
+          SIGNUP
         </Text>
         <Text letterSpacing={0.5} fontSize={"sm"} align="center">
           Welcome to ChatMoko MessageApp
@@ -82,9 +81,15 @@ const SignupForm:FC = () => {
           </InputGroup>
         </FormControl>
 
-        <Button>
-          Login
+        <Button 
+          type="submit" 
+          isLoading={false} 
+        >
+          Signup
         </Button>
+         <Link textAlign="center" href='/auth/login'>
+          Login
+        </Link>
 
         <Text align="center">
           Or

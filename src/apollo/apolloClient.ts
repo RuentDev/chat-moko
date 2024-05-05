@@ -1,10 +1,13 @@
 import { ApolloClient, HttpLink, InMemoryCache, split } from "@apollo/client"
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from "@apollo/client/utilities";
+import { PrismaClient } from "@prisma/client";
 import { createClient } from "graphql-ws";
 import { getSession } from 'next-auth/react'
 
 export let serverLink: string | undefined = ""
+
+export const prisma = new PrismaClient()
 
 const MODE = process.env.NEXT_PUBLIC_SERVER_MODE
 const STAGING = process.env.NEXT_PUBLIC_SERVER_API_STAGING_LINK
@@ -32,7 +35,7 @@ const httpLink = new HttpLink({
 })
 
 const wsLink = typeof window !== 'undefined' ? new GraphQLWsLink(createClient({
-  url: `ws://localhost:4000/graphql/subscriptions`,
+  url: `ws://localhost:4000/graphql`,
   connectionParams: async () => ({
     session: await getSession(),
   }),

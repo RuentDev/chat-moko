@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 // import Icon from "../Icon";
-import MembersData from "../../data/members.json";
+import membersData from "../../../data/members.json";
 
 const attachmentOptions = [
   {
@@ -72,7 +72,7 @@ const ChatSettings = () => {
             </div>
             <h1 className="flex ml-5 mb-5 text-[#3c71cf]">Add Member</h1>
           </div>
-          {MembersData.map((member) => {
+          {membersData.map((member) => {
             return (
               <div key={member.id} className="members-container flex mb-2 gap-3">
                 <div className="member-profile-img w-10 h-10 bg-white rounded-full">

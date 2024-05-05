@@ -1,4 +1,3 @@
-
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
@@ -9,9 +8,8 @@ import {
   NextAuthProvider, 
   ReduxProvider 
 } from '@/components';
-import { getServerSession } from 'next-auth';
-import { authOptions } from './auth';
-import { redirect } from 'next/navigation';
+import theme from '@/chakra/theme';
+import { ColorModeScript } from '@chakra-ui/react';
 
 const inter = Inter({
   subsets: ["latin"]
@@ -28,9 +26,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
+  // console.log(theme.config.initialColorMode)
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* <ColorModeScript initialColorMode={theme.config.initialColorMode}/> */}
         <ApolloProviderComponent>
           <ChakraProviderComponent>
             <NextAuthProvider>

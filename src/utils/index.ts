@@ -1,25 +1,20 @@
 export function getMessageSentTime(sentTime: string) {
+  try {
+    if (!sentTime) {
+      throw new Error('Sent time cannot be null or empty');
+    }
 
-  const date = new Date(sentTime);
-  // Extract hours and minutes
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-  
-  // Determine whether it's AM or PM
-  const period = (hours < 12) ? 'AM' : 'PM';
-  
-  // Convert hours to 12-hour format
-  if (hours > 12) {
-    hours -= 12;
+    const date = new Date(sentTime);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const period = (parseInt(hours) < 12) ? 'AM' : 'PM';
+    const formattedHours = (parseInt(hours) === 12) ? '12' : (parseInt(hours) < 12 ? hours : (parseInt(hours) - 12).toString());
+
+    const timeString = `${formattedHours}:${minutes} ${period}`;
+
+    return timeString;
+  } catch (error) {
+    console.error('Error formatting sent time:', error);
+    return '';
   }
-  
-  // Add leading zero if minutes is less than 10
-  // if (minutes < 10) {
-  //   minutes = 0 + minutes;
-  // }
-  
-  // Construct the time string
-  const timeString = hours + ':' + minutes + ' ' + period;
-  
-  return timeString;
 }

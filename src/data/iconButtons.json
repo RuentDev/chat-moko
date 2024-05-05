@@ -31,7 +31,7 @@
     "id": 4,
     "label": "Messages",
     "icon": "/svgs/messages.svg",
-    "link": "/chat",
+    "link": "/messages",
     "isActive": false
   },
   {

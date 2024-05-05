@@ -11,6 +11,7 @@ declare module 'next-auth' {
     username: string
     phone: string,
     image: string
+    emailVerified: string
   }
   
 }

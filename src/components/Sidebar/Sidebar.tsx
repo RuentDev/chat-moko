@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/app-redux/store'
 import Messages from './Components/Messages'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import iconButtons from '@/data/iconButtons.json'
 import IconButton from './Components/Buttons/IconButton'
@@ -13,16 +13,14 @@ import { Session } from 'next-auth'
 import { Flex, ListItem, Text, UnorderedList } from '@chakra-ui/react'
 
 interface SidebarProps{
-  session: Session | null
+  session: Session
 }
 
-const Sidebar: React.FC<SidebarProps> = (props) => {
+const Sidebar: React.FC<SidebarProps> = ({session}) => {
 
   const [buttons, setButtons] = useState(iconButtons)
-
   const selectedIcon = useSelector((state: RootState) => state.navigation.selectedIcon)
   const dispatch = useDispatch();
-  const params = useParams()
   const router = useRouter()
 
 
@@ -34,7 +32,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
     buttonCopy.forEach((item) => {
       if(item.id === button.id){
         item.isActive = true
-        dispatch(setSelectedIcon(item.label.toUpperCase()))
+        dispatch(setSelectedIcon(item.label))
         router.push(item.link)
       }else{
         item.isActive = false
@@ -44,6 +42,31 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
     setButtons(buttonCopy)
 
   }
+
+  useEffect(() => {
+
+    // const paths: string[] = urlPath.split("/")
+    const path = location.pathname
+    const paths = path.split("/")
+    
+    const buttonCopy = iconButtons.slice()
+
+    const button = buttonCopy.find((item) => item.link.replace("/", "") === paths[1])
+    buttonCopy.forEach((item) => {
+      if(button && item.id === button.id){
+        item.isActive = true
+        dispatch(setSelectedIcon(item.label))
+      }else{
+        item.isActive = false
+      }
+    })
+
+    setButtons(buttonCopy)
+
+    return () => {
+
+    }
+  }, [])
 
 
   return (
@@ -56,7 +79,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
             alignItems="center" 
             listStyleType="none"
           >
-            {iconButtons.map((button) => {
+            {buttons.map((button) => {
               return (
                 <ListItem key={button.id}>
                   <IconButton {...button} onClick={(e: any) => handleOnClick(e, button)} size={20} />
@@ -73,7 +96,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
         </div>
 
         {/* COMPONENTS */}  
-        {selectedIcon.toLowerCase() === "messages" ? <Messages /> : null}
+        {selectedIcon.toLowerCase() === "messages" ? <Messages session={session} /> : null}
       </div>
     </nav>
   )

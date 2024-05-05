@@ -18,7 +18,6 @@ interface AuthFormProps {
 const AuthForm:FC<AuthFormProps> = (props) => {
   const [showPassword, setShowPassword] = useState(false)
   const [createUserAccount, {data, loading, error}] = useMutation<CreateUserAccount, CreateUserAccountVariables>(UserOprations.Mutation.createUserAccount)
-
   const handleCreateUserAccount = async (value: any) => {
     await createUserAccount({
       variables: {
@@ -55,6 +54,7 @@ const AuthForm:FC<AuthFormProps> = (props) => {
 
     return error;
   }
+
   
   return(
       <Formik
@@ -175,8 +175,8 @@ const AuthForm:FC<AuthFormProps> = (props) => {
                 <FormErrorMessage>{errors.password}</FormErrorMessage>
               </FormControl> */}
 
-              <Button type="submit">
-                {loading ? <Spinner size="sm" /> : <Text>Continue</Text>}
+              <Button type="submit" isLoading={loading}>
+                Continue
               </Button>
             </Stack>
           </form>
