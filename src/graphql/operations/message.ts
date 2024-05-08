@@ -1,39 +1,7 @@
-import { gql } from '@apollo/client'
-
-
-const MessageFields = `
-  message{
-    id
-    senderId
-    user {
-      id
-      email
-      phone
-      image
-      first_name
-      middle_name
-      last_name
-      verification_code
-      is_active
-      is_reported
-      is_blocked
-      createAt
-      updatedAt
-      role
-    }
-    type
-    content
-    attachment_thumb_url
-    attachment_url
-    createdAt
-    updatedAt
-    deletedAt
-    conversationId
-  }
-`
+import { gql } from "@apollo/client";
 
 const shema = {
-   Queries: {
+  Queries: {
     messages: gql(`
      query GetMessages($conversationId: String) {
       messages(conversationId: $conversationId) {
@@ -65,23 +33,31 @@ const shema = {
         deletedAt
       }
     }
-    `)
-   },
-   Mutation: {
+    `),
+  },
+  Mutation: {
     sendMessage: gql(`
-      mutation SendMessage($conversationId: String, $senderId: String, $recipientId: String, $content: String, $media: [String], $files: [File]) {
-        sendMessage(conversationId: $conversationId, senderId: $senderId, recipientId: $recipientId, content: $content, media: $media, files: $files) {
+      mutation SendMessage($conversationId: String, $participants: [String], $content: String, $media: [String], $files: [File]) {
+        sendMessage(conversationId: $conversationId, participants: $participants, content: $content, media: $media, files: $files) {
           error
           statusText
         }
       }
-    `)
-   },
-   Subscription: {
+    `),
+  },
+  Subscription: {
     messageSent: gql(`
       subscription MessageSent {
         messageSent {
           id
+          type
+          content
+          attachment_thumb_url
+          attachment_url
+          createdAt
+          updatedAt
+          deletedAt
+          conversationId
           senderId
           user {
             id
@@ -99,18 +75,10 @@ const shema = {
             updatedAt
             role
           }
-          type
-          content
-          attachment_thumb_url
-          attachment_url
-          createdAt
-          updatedAt
-          deletedAt
-          conversationId
         }
       }
-    `)
-   }
-}
+    `),
+  },
+};
 
 export default shema;

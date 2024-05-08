@@ -7,7 +7,14 @@ import { getSession } from 'next-auth/react'
 
 export let serverLink: string | undefined = ""
 
-export const prisma = new PrismaClient()
+let prisma: any
+
+if (!prisma) {
+  prisma = new PrismaClient();
+}
+
+
+
 
 const MODE = process.env.NEXT_PUBLIC_SERVER_MODE
 const STAGING = process.env.NEXT_PUBLIC_SERVER_API_STAGING_LINK
@@ -54,3 +61,6 @@ export const client = new ApolloClient({
   link: link,
   cache: new InMemoryCache(),
 })
+
+
+export { prisma };

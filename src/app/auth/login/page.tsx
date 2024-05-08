@@ -1,3 +1,4 @@
+"use client"
 import { Forms } from "@/components";
 import { Center } from "@chakra-ui/react";
 import { NextPage } from "next";

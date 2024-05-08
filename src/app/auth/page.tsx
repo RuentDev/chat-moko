@@ -1,4 +1,4 @@
-import { Forms } from "@/components";
+"use client"
 import { Center } from "@chakra-ui/react";
 import { NextPage } from "next";
 import React from "react";

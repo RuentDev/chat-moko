@@ -34,9 +34,9 @@ export default async function RootLayout({
         <ApolloProviderComponent>
           <ChakraProviderComponent>
             <NextAuthProvider>
-                <ReduxProvider>
-                  {children}
-                </ReduxProvider>
+                  <ReduxProvider>
+                    {children}
+                  </ReduxProvider>
             </NextAuthProvider>
           </ChakraProviderComponent>
         </ApolloProviderComponent>

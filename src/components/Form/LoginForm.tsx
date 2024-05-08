@@ -172,7 +172,7 @@ const LoginForm:FC<LoginFormProps> = (props) => {
                   backgroundColor="transparent"
                   aria-label='google-signup' 
                   icon={<Icon as={FaGoogle} />} 
-                  onClick={() => signIn("google")}
+                  onClick={() => signIn("google", {callbackUrl: "/"})}
                   title='Continue with Google'
                   />
                 <IconButton

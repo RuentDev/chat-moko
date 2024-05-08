@@ -1,4 +1,4 @@
-interface ConversationParticipant{
+export interface ConversationParticipant{
   id: string
   hasSeenLatestMessage: boolean
   userId: string
@@ -6,7 +6,7 @@ interface ConversationParticipant{
   user: User
 }
 
-interface User {
+export interface User {
   id: string
   email: string
   phone: string
@@ -57,19 +57,20 @@ export interface UserSession{
   CONVERSATION
 */
 
-interface Conversation{
-    id:  string,
-    title: string,
-    creatorId: string,
-    createdAt: string,
-    updatedAt: string,
-    deletedAt: string,
-    participants: ConversationParticipant[]
-    messages: Message[]
+export interface Conversation{
+  id:  string,
+  title: string,
+  creatorId: string,
+  createdAt: string,
+  updatedAt: string,
+  deletedAt: string,
+  type: string,
+  participants: ConversationParticipant[]
+  messages: Message[]
 }
 
-export interface GetConversation {
-  getConversation: Conversation[]
+export interface ConversationQuery {
+  conversations: Conversation[]
 }
 
 export interface GetConversationVariables {
@@ -82,8 +83,6 @@ export interface GetConversationVariables {
 */
 export interface Message {
   id: string
-  senderId: string
-  user: User
   type: string
   content: string
   attachment_thumb_url: string
@@ -91,8 +90,33 @@ export interface Message {
   createdAt: string
   updatedAt: string
   deletedAt: string
+  conversationId: string
+  senderId: string
+  user: User
+  __typename: string
 }
 
 export interface Messages{
   messages: Message[]
+}
+
+export interface SendMessageVariables{
+  conversationId: string
+  senderId: string
+  participants: string[]
+  content: string
+  files: string[]
+  media: string[]
+}
+
+/*
+  SEND MESSAGE RESPONSE
+*/
+
+export interface SendMessageResponse {
+  sendMessage: {
+    error: string
+    message: string
+    statusText: string
+  }
 }

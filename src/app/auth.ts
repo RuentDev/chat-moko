@@ -5,7 +5,8 @@ import GoogleProvider from "next-auth/providers/google";
 import {prisma} from '@/apollo/apolloClient'
 import { Adapter } from "next-auth/adapters";
 
-console.log("prisma invoked")
+
+
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,

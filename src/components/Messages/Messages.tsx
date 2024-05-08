@@ -14,12 +14,12 @@ interface MessagesProps {
 
 const Messages:FC<MessagesProps> = (props) => {
 
-  const params = useParams()
+  const {id } = useParams()
 
   const {data, error, loading, subscribeToMore} = useQuery(MessageOperations.Queries.messages, 
     {
       variables:{
-        conversationId: params && params.id ? params.id : ""
+        conversationId: id
       }
     }
   )
@@ -47,7 +47,7 @@ const Messages:FC<MessagesProps> = (props) => {
     }
   }, [])
 
-  if(!data && loading){
+  if(loading){
     return(
       <Center width="100%" height="100vh">
         <Spinner size="xl" />
@@ -59,7 +59,7 @@ const Messages:FC<MessagesProps> = (props) => {
     <Flex width="100%" height="100vh" flexDirection="column">
       {/* TOP */} 
       <HeaderMessage  />
-        {data && <MessagesWrapper messages={data.messages} />}
+      {data && <MessagesWrapper messages={data.messages} />}
       <InputMessage />
     </Flex>
   )

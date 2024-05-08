@@ -1,4 +1,3 @@
-
 import React from "react";
 import ChatSettings from "@/components/Messages/Components/ChatSettings";
 import { Flex } from "@chakra-ui/layout";
@@ -10,9 +9,10 @@ const Chat = async () => {
       <Flex color="white" width="100%" height="100vh">
         <Messages />
         {/* CHAT SETTINGS RIGHT SIDE */}
-        <ChatSettings /> 
       </Flex>
   );
 };
 
 export default Chat;
+
+//<ChatSettings /> 

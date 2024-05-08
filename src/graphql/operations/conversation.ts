@@ -1,10 +1,44 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
 const shema = {
-   Queries: {
-    getConvesations: gql`
-      query GetConversation($userId: String) {
-        getConversation(userId: $userId) {
+  Queries: {
+    getConversation: gql(`
+      query GetConversation($conversationId: String) {
+        getConversation(conversationId: $conversationId) {
+          id
+          title
+          creatorId
+          createdAt
+          updatedAt
+          deletedAt
+          participants {
+            id
+            user {
+              id
+              first_name
+              middle_name
+              last_name
+              image
+            }
+          }
+          messages {
+            id
+            senderId
+            type
+            content
+            attachment_thumb_url
+            attachment_url
+            createdAt
+            updatedAt
+            deletedAt
+            conversationId
+          }
+        }
+      }
+    `),
+    conversations: gql(`
+      query Conversations {
+        conversations {
           id
           title
           creatorId
@@ -17,6 +51,8 @@ const shema = {
             userId
             conversationId
             user {
+              id
+              email
               first_name
               middle_name
               last_name
@@ -25,16 +61,32 @@ const shema = {
           }
           messages {
             id
-            senderId
-            createdAt
+            type
             content
+            attachment_thumb_url
+            attachment_url
+            createdAt
+            updatedAt
           }
         }
       }
-    `
-   },
-   Mutation: {},
-   Subscription: {}
-}
+    `),
+  },
+  Mutation: {},
+  Subscription: {
+    conversation: gql(`
+      subscription Subscription {
+        convesations {
+          id
+          title
+          creatorId
+          deletedAt
+          createdAt
+          updatedAt
+        }
+      }
+    `),
+  },
+};
 
 export default shema;
