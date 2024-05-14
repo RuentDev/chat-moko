@@ -50,6 +50,10 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
     );
   }
 
+  if (error) {
+    return <>{error.message}</>;
+  }
+
   return (
     <div className="sidebar-messages-component w-full h-auto">
       {/* SEARCH BAR */}

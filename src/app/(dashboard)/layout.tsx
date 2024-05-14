@@ -1,27 +1,16 @@
-import React, { Suspense } from 'react'
-import DashboardLoading from './loading'
-import Sidebar from '@/components/Sidebar/Sidebar'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '../auth'
-import { redirect } from 'next/navigation'
-const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
-
-
-  const session = await getServerSession(authOptions)
-
-  if(!session){
-    redirect('/auth/login')
-  }
-
-
+import React, { Suspense } from "react";
+import DashboardLoading from "./loading";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import { SessionProvider } from "@/components";
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className='dashboard-layout w-full h-screen flex gap-[2px]'>
+    <main className="dashboard-layout w-full h-screen flex gap-[2px]">
       <Sidebar />
       <Suspense fallback={<DashboardLoading />}>
-        {children}
+        <SessionProvider>{children}</SessionProvider>
       </Suspense>
     </main>
-  )
-}
+  );
+};
 
-export default DashboardLayout
+export default DashboardLayout;

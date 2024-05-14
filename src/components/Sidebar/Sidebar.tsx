@@ -9,14 +9,15 @@ import IconButton from "./Components/Buttons/IconButton";
 import { setSelectedIcon } from "@/app-redux/features/navigationSlice";
 
 import { Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import { SidebarMessages } from "./Components";
+import { getSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 interface SidebarProps {}
 
 const Sidebar: React.FC<SidebarProps> = (props) => {
-  const { data: session } = useSession();
   const [buttons, setButtons] = useState(iconButtons);
+  const [session, setSession] = useState<Session | null>(null);
   const selectedIcon = useSelector(
     (state: RootState) => state.navigation.selectedIcon
   );
@@ -61,6 +62,14 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
     setButtons(buttonCopy);
 
+    async function init() {
+      const session = await getSession()
+      console.log(session)
+      setSession(session)
+    }
+
+    init()
+
     return () => {};
   }, []);
 
@@ -98,7 +107,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
         {/* COMPONENTS */}
         {selectedIcon.toLowerCase() === "messages" ? (
-          <SidebarMessages session={session} />
+          <SidebarMessages session={session}/>
         ) : null}
       </div>
     </nav>

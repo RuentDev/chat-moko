@@ -1,10 +1,11 @@
-"use client"
+
 import { Forms } from "@/components";
 import { Center } from "@chakra-ui/react";
 import { NextPage } from "next";
 import React from "react";
 
-const LoginPage:NextPage = async () => {
+const LoginPage: NextPage = async () => {
+
 
   return (
     <main className="w-full h-screen">
@@ -12,7 +13,7 @@ const LoginPage:NextPage = async () => {
         <Forms.LoginForm />
       </Center>
     </main>
-  )
+  );
 };
 
 export default LoginPage;

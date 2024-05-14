@@ -7,11 +7,11 @@ const shema = {
    },
    Mutation: {
     userLogin: gql(`
-     mutation UserLogin($username: String, $password: String) {
-        userLogin(username: $username, password: $password) {
+     mutation UserLogin($email: String, $password: String) {
+        userLogin(email: $email, password: $password) {
           error
           statusText
-          user
+          token
         }
       }
     `),
