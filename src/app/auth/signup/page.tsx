@@ -1,10 +1,17 @@
+import { auth } from "@/app/lib/auth";
 import { Forms } from "@/components";
 import { Center } from "@chakra-ui/react";
 import { NextPage } from "next";
+import { redirect } from "next/navigation";
 import React from "react";
 
+const SignupPage: NextPage = async () => {
+  const session = await auth();
 
-const SignupPage:NextPage = async () => {
+  if (session?.user) {
+    console.log(session);
+    redirect("/");
+  }
 
   return (
     <div className="w-full h-screen">
@@ -12,7 +19,7 @@ const SignupPage:NextPage = async () => {
         <Forms.SignupForm />
       </Center>
     </div>
-  )
+  );
 };
 
 export default SignupPage;

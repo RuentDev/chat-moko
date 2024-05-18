@@ -23,11 +23,14 @@ import { SendMessageResponse, SendMessageVariables } from "@/utils/types";
 interface InputMessageProps {}
 
 const InputMessage: React.FC<InputMessageProps> = (props) => {
-  const [sendMessage, { data, loading, error }] = useMutation(
-    MessageOperations.Mutation.sendMessage
-  );
+  const [sendMessage, { data, loading, error }] =
+    useMutation<SendMessageResponse>(MessageOperations.Mutation.sendMessage);
 
-  const handleSendMessage = (values: any) => {
+  const handleSendMessage = (
+    values: any,
+    setSubmitting: (isSubmitting: boolean) => void,
+    resetForm: () => void
+  ) => {
     sendMessage({
       variables: {
         conversationId: "",
@@ -40,6 +43,13 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
         media: values.media,
       },
     });
+
+    const error = data?.sendMessage.error;
+
+    if (error) {
+    }
+
+    resetForm();
   };
 
   return (
@@ -49,7 +59,9 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
         media: [],
         files: [],
       }}
-      onSubmit={(values) => handleSendMessage(values)}
+      onSubmit={(values, { setSubmitting, resetForm }) =>
+        handleSendMessage(values, setSubmitting, resetForm)
+      }
     >
       {({ handleSubmit, errors, touched }) => {
         return (

@@ -2,11 +2,11 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
-import { 
-  ApolloProviderComponent, 
-  ChakraProviderComponent, 
-  NextAuthProvider, 
-  ReduxProvider 
+import {
+  ApolloProviderComponent,
+  ChakraProviderComponent,
+  NextAuthProvider,
+  ReduxProvider
 } from '@/components';
 import theme from '@/chakra/theme';
 import { ColorModeScript } from '@chakra-ui/react';
@@ -34,9 +34,9 @@ export default async function RootLayout({
         <ApolloProviderComponent>
           <ChakraProviderComponent>
             <NextAuthProvider>
-                  <ReduxProvider>
-                    {children}
-                  </ReduxProvider>
+              <ReduxProvider>
+                {children}
+              </ReduxProvider>
             </NextAuthProvider>
           </ChakraProviderComponent>
         </ApolloProviderComponent>

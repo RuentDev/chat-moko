@@ -18,7 +18,6 @@ import {
 import React, { useState } from "react";
 import { Icon } from "@chakra-ui/react";
 import { FaFacebook, FaGithub, FaGoogle, FaTwitter } from "react-icons/fa";
-import { Session } from "next-auth";
 import UserOperations from "@/graphql/operations/users";
 import { useMutation } from "@apollo/client";
 import { Field, Formik } from "formik";
@@ -26,44 +25,28 @@ import Inputs from "@/components/Inputs";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-interface LoginFormProps {
-  session?: Session;
-}
+interface LoginFormProps {}
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false)
-  const [userLogin, { data }] = useMutation(
-    UserOperations.Mutation.userLogin,
-    {
-      onCompleted: async (res) => {
-        const { userLogin } = res;
-      },
-    }
-  );
+  const [loading, setLoading] = useState(false);
+  const [userLogin, { data }] = useMutation(UserOperations.Mutation.userLogin);
 
   const handleUserLogin = async (values: {
     email: string;
     password: string;
   }) => {
-    // userLogin({
-    //   variables: {
-    //     email: values.email,
-    //     password: values.password,
-    //   },
-    // })
-    setLoading(!loading)
+    setLoading(!loading);
     const res = await signIn("app-login", {
       email: values.email,
       password: values.password,
       redirect: true,
       callbackUrl: "/",
-    })
+    });
 
-    if(res?.ok){
-      setLoading(!loading)
+    if (res?.ok) {
+      setLoading(!loading);
     }
-
   };
 
   const handleEmailValidation = (value: string) => {
@@ -96,7 +79,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
 
   return (
     <Formik
-      key={props.session?.user?.id}
+      key={"asdasasd"}
       initialValues={{
         email: "",
         password: "",

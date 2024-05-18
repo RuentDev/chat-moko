@@ -1,7 +1,7 @@
-"use client";
-import { NextPage } from "next";
 
+import { NextPage } from "next";
 const DashboardPage: NextPage = () => {
+
   return <div className="w-full h-full"></div>;
 };
 

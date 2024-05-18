@@ -1,5 +1,5 @@
 "use client"
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import React from 'react'
 
 interface LoginButtonProps {
@@ -10,8 +10,8 @@ interface LoginButtonProps {
 const AuthButton = (props: LoginButtonProps) => {
 
   const onClickHandler = () => {
-
     signIn("google", { callbackUrl: "http://localhost:3000/auth/signup" })
+
   }
 
 

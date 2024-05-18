@@ -1,4 +1,5 @@
 "use client";
+import { auth } from "@/app/lib/auth";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -12,15 +13,14 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 
   React.useEffect(() => {
     async function init() {
-      const session = await getSession()
+      const session = await getSession();
 
-      if(!session?.user){
-        router.push("/auth/login")
+      if (!session?.user) {
+        router.push("/auth/login");
       }
     }
 
-
-    init()
+    init();
   }, []);
   return <>{children}</>;
 };

@@ -3,26 +3,16 @@ import { gql } from "@apollo/client";
 const shema = {
   Queries: {
     messages: gql(`
-     query GetMessages($conversationId: String) {
+     query Messages($conversationId: String) {
       messages(conversationId: $conversationId) {
         id
         conversationId
         senderId
         user{
-          id
-          email
-          phone
-          image
+          name
           first_name
           middle_name
           last_name
-          verification_code
-          is_active
-          is_reported
-          is_blocked
-          createAt
-          updatedAt
-          role
         }
         type
         content
@@ -62,6 +52,7 @@ const shema = {
           user {
             id
             email
+            name
             phone
             image
             first_name

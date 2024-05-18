@@ -1,11 +1,8 @@
-import { gql } from '@apollo/client'
-
-
+import { gql } from "@apollo/client";
 
 const shema = {
-   Queries: {
-   },
-   Mutation: {
+  Queries: {},
+  Mutation: {
     userLogin: gql(`
      mutation UserLogin($email: String, $password: String) {
         userLogin(email: $email, password: $password) {
@@ -24,9 +21,9 @@ const shema = {
           error
         }
       }
-    `)
-   },
-   Subscription: {}
-}
+    `),
+  },
+  Subscription: {},
+};
 
 export default shema;

@@ -1,68 +1,84 @@
-"use client"
+"use client";
 
 import { Center, Flex, Spinner } from "@chakra-ui/react";
 import React, { FC, useEffect } from "react";
 import HeaderMessage from "./Components/HeaderMessage";
 import InputMessage from "./Components/InputMessage";
 import { useQuery } from "@apollo/client";
-import MessageOperations from '@/graphql/operations/message'
-import { useParams } from "next/navigation";
 import MessagesWrapper from "./Components/MessagesWrapper";
+import MessageOperations from "@/graphql/operations/message";
+import ConversationOperations from "@/graphql/operations/conversation";
 
 interface MessagesProps {
-};
+  id: string;
+}
 
-const Messages:FC<MessagesProps> = (props) => {
+const Messages: FC<MessagesProps> = (props) => {
+  const {
+    data: messages,
+    error,
+    loading,
+    subscribeToMore,
+  } = useQuery(MessageOperations.Queries.messages, {
+    variables: {
+      conversationId: props.id,
+    },
+  });
 
-  const {id } = useParams()
-
-  const {data, error, loading, subscribeToMore} = useQuery(MessageOperations.Queries.messages, 
-    {
-      variables:{
-        conversationId: id
-      }
-    }
-  )
+  const {
+    data: conversation,
+    error: conversationError,
+    loading: conversationLoading,
+  } = useQuery(ConversationOperations.Queries.getConversation, {
+    variables: {
+      conversationId: props.id,
+    },
+  });
 
   const subscribeToNewMessages = () => {
     subscribeToMore({
       document: MessageOperations.Subscription.messageSent,
-      updateQuery: (prev, {subscriptionData}) => {
-        if(!subscriptionData.data) return prev
-        const newFeedItem =   subscriptionData.data.messageSent
-        return Object.assign({}, prev, {  ...prev , messages: [newFeedItem, ...prev.messages]})
-      }
-    })
-  }
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev;
+        const newFeedItem = subscriptionData.data.messageSent;
+        return Object.assign({}, prev, {
+          ...prev,
+          messages: [newFeedItem, ...prev.messages],
+        });
+      },
+    });
+  };
 
   /*
     Execute subcription
-  */ 
+  */
   useEffect(() => {
+    subscribeToNewMessages();
 
-    subscribeToNewMessages()
+    return () => {};
+  }, []);
 
-    return () => {
-
-    }
-  }, [])
-
-  if(loading){
-    return(
+  if (loading && conversationLoading) {
+    return (
       <Center width="100%" height="100vh">
         <Spinner size="xl" />
       </Center>
-    )
+    );
   }
-  
+
   return (
     <Flex width="100%" height="100vh" flexDirection="column">
-      {/* TOP */} 
-      <HeaderMessage  />
-      {data && <MessagesWrapper messages={data.messages} />}
+      {/* TOP */}
+      {/* {/* <HeaderMessage /> */}
+      {messages && conversation && (
+        <MessagesWrapper
+          messages={messages.messages}
+          participants={conversation.getConversation.participants}
+        />
+      )}
       <InputMessage />
     </Flex>
-  )
+  );
 };
 
 export default Messages;
