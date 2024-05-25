@@ -45,7 +45,7 @@ const ConversationCardButton = (props: ConversationButtonCardProps) => {
           {props.participants.map((participant) => {
             if (props.userId !== participant.userId) {
               return (
-                <Text key={participant.user.id}>
+                <Text fontSize="small" key={participant.user.id}>
                   {participant.user.first_name} {participant.user.last_name}
                 </Text>
               );

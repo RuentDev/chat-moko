@@ -10,6 +10,9 @@ import {
   Flex,
   HStack,
   Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
   Spinner,
   Text,
   UnorderedList,
@@ -23,6 +26,7 @@ import {
   GetConversationVariables,
 } from "@/utils/types";
 import { setSelectedConversation } from "@/app-redux/features/conversationSlice";
+import { SlMagnifier } from "react-icons/sl";
 
 interface SidebarMessagesProps {
   session: Session | null;
@@ -58,12 +62,22 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
     <div className="sidebar-messages-component w-full h-auto">
       {/* SEARCH BAR */}
 
-      <Container height="50px" bg={"bg-[#141619]"}>
-        <input
-          type="text"
-          className="block w-full h-auto bg-transparent text-white text-sm search-box outline-none p-1"
-          placeholder="Search..."
-        />
+      <Container height="50px" bg={"bg-[#141619]"} padding={0}>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none">
+            <SlMagnifier size={20} />
+          </InputLeftElement>
+          <Input
+            type="tel"
+            placeholder="Search Conversation"
+            borderColor="transparent"
+            focusBorderColor="transparent"
+            _hover={{
+              borderColor: "none",
+            }}
+            fontSize="small"
+          />
+        </InputGroup>
       </Container>
 
       <Flex flexDirection="column" gap={2}>

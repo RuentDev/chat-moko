@@ -15,6 +15,7 @@ interface SidebarProps {}
 
 const Sidebar: React.FC<SidebarProps> = (props) => {
   const [buttons, setButtons] = useState(iconButtons);
+  const [navbarWidth, setNavbarWidth] = useState(0);
   const { data: session } = useSession();
   const selectedIcon = useSelector(
     (state: RootState) => state.navigation.selectedIcon
@@ -57,14 +58,23 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
         item.isActive = false;
       }
     });
-
     setButtons(buttonCopy);
+
+    const navbar = document.getElementById("navbar");
+    const width = navbar?.clientWidth;
+    if (width) setNavbarWidth(width);
+
+    window.addEventListener("resize", (e) => {
+      if (width) {
+        setNavbarWidth(width);
+      }
+    });
 
     return () => {};
   }, []);
 
   return (
-    <nav className="dashboard-sidebar w-auto h-full flex">
+    <nav id="navbar" className="dashboard-sidebar h-full flex">
       <div className="left-side w-[70px] h-full py-5">
         <UnorderedList margin="0" padding="0">
           <Flex
@@ -87,14 +97,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
           </Flex>
         </UnorderedList>
       </div>
-      <div className="right-side w-[330px] h-auto bg-[#212229] px-3 py-5">
-        {/* HEADER */}
-        <div className="heading-container w-full h-auto mb-5">
-          <Text align="center" as="h3">
-            {selectedIcon.replace("/", "")}
-          </Text>
-        </div>
-
+      <div className={`right-side w-[300px] h-auto bg-[#212229] px-3 py-5`}>
         {/* COMPONENTS */}
         {selectedIcon.toLowerCase() === "messages" ? (
           <SidebarMessages session={session} />

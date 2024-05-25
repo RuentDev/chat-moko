@@ -68,8 +68,11 @@ const Messages: FC<MessagesProps> = (props) => {
 
   return (
     <Flex width="100%" height="100vh" flexDirection="column">
-      {/* TOP */}
-      {/* {/* <HeaderMessage /> */}
+      {conversation && (
+        <HeaderMessage
+          participants={conversation.getConversation.participants}
+        />
+      )}
       {messages && conversation && (
         <MessagesWrapper
           messages={messages.messages}

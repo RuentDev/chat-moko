@@ -1,19 +1,17 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { Avatar, Flex, Icon, Text } from "@chakra-ui/react";
 import { CiVideoOn } from "react-icons/ci";
 import { FiPhone } from "react-icons/fi";
 import { SlOptionsVertical } from "react-icons/sl";
 import { IconButton } from "@chakra-ui/react";
-import { useQuery } from "@apollo/client";
-import ConversationMutation from "@/graphql/operations/conversation";
-import { useParams } from "next/navigation";
-import MessageOperations from "@/graphql/operations/message";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app-redux/store";
 import { useSession } from "next-auth/react";
 
-interface HeaderMessage {}
+interface HeaderMessageProps {
+  participants: [];
+}
 
 const chatButtons = [
   {
@@ -39,8 +37,9 @@ const chatButtons = [
   },
 ];
 
-const HeaderMessage: React.FC<HeaderMessage> = (props) => {
+const HeaderMessage: React.FC<HeaderMessageProps> = (props) => {
   const { data: session } = useSession();
+
   const conversation = useSelector(
     (state: RootState) => state.conversation.selectedConversation
   );
