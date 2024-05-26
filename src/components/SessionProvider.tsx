@@ -1,5 +1,4 @@
 "use client";
-import { auth } from "@/app/lib/auth";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";

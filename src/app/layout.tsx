@@ -10,7 +10,7 @@ import {
 } from "@/components";
 import theme from "@/chakra/theme";
 import { ColorModeScript } from "@chakra-ui/react";
-
+import { SessionProvider } from "@/components";
 const inter = Inter({
   subsets: ["latin"],
 });
@@ -31,11 +31,13 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <ApolloProviderComponent>
-          <ChakraProviderComponent>
-            <NextAuthProvider>
-              <ReduxProvider>{children}</ReduxProvider>
-            </NextAuthProvider>
-          </ChakraProviderComponent>
+          <NextAuthProvider>
+            <ChakraProviderComponent>
+              <ReduxProvider>
+                <SessionProvider>{children}</SessionProvider>
+              </ReduxProvider>
+            </ChakraProviderComponent>
+          </NextAuthProvider>
         </ApolloProviderComponent>
         <SpeedInsights />
       </body>
