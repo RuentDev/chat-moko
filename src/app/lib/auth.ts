@@ -45,7 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const { email, password }: any = credentials;
 
           // logic to verify if user exists
-          const user = await prisma.user.findFirst({
+          const user = await prisma.user.findUnique({
             where: {
               email: email,
             },

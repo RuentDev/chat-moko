@@ -6,13 +6,8 @@ import {
   Text,
   FormControl,
   FormLabel,
-  IconButton,
   Input,
-  InputGroup,
-  InputRightElement,
-  Icon,
   Button,
-  Spinner,
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { Session } from "next-auth";
@@ -21,11 +16,12 @@ import React from "react";
 import UserOprations from "@/graphql/operations/users";
 import { CreateUserAccount, CreateUserAccountVariables } from "@/utils/types";
 import Inputs from "@/components/Inputs";
+
 interface AuthFormProps {
   session: Session | null;
 }
 
-const AuthForm: React.FC<AuthFormProps> = (props) => {
+const AuthForm: React.FC<AuthFormProps> = ({ session }) => {
   const [createUserAccount, { data, loading, error }] = useMutation<
     CreateUserAccount,
     CreateUserAccountVariables
@@ -67,16 +63,15 @@ const AuthForm: React.FC<AuthFormProps> = (props) => {
 
     return error;
   };
-
   return (
     <Formik
-      key={props.session?.user?.id}
+      key={session?.user?.id}
       initialValues={{
-        email: props.session?.user.email || "",
+        email: session?.user.email || "",
         phone: "",
-        firstName: props.session?.user?.name?.split(" ")[0] || "",
+        firstName: session?.user?.name?.split(" ")[0] || "",
         middleName: "",
-        lastName: props.session?.user?.name?.split(" ")[1] || "",
+        lastName: session?.user?.name?.split(" ")[1] || "",
         password: "",
         repassword: "",
       }}
