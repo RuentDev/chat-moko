@@ -22,13 +22,11 @@ import UserOperations from "@/graphql/operations/users";
 import { useMutation } from "@apollo/client";
 import { Field, Formik } from "formik";
 import Inputs from "@/components/Inputs";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 interface LoginFormProps {}
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [userLogin, { data }] = useMutation(UserOperations.Mutation.userLogin);
 
@@ -37,11 +35,12 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
     password: string;
   }) => {
     setLoading(!loading);
+
     const res = await signIn("app-login", {
       email: values.email,
       password: values.password,
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: "/auth",
     });
 
     if (res?.ok) {
