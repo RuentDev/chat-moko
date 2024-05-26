@@ -16,7 +16,6 @@ interface MessagesProps {
 const Messages: FC<MessagesProps> = (props) => {
   const {
     data: messages,
-    error,
     loading,
     subscribeToMore,
   } = useQuery(MessageOperations.Queries.messages, {
@@ -25,15 +24,14 @@ const Messages: FC<MessagesProps> = (props) => {
     },
   });
 
-  const {
-    data: conversation,
-    error: conversationError,
-    loading: conversationLoading,
-  } = useQuery(ConversationOperations.Queries.getConversation, {
-    variables: {
-      conversationId: props.id,
-    },
-  });
+  const { data: conversation, loading: conversationLoading } = useQuery(
+    ConversationOperations.Queries.getConversation,
+    {
+      variables: {
+        conversationId: props.id,
+      },
+    }
+  );
 
   const subscribeToNewMessages = () => {
     subscribeToMore({
@@ -74,12 +72,14 @@ const Messages: FC<MessagesProps> = (props) => {
         />
       )}
       {messages && conversation && (
-        <MessagesWrapper
-          messages={messages.messages}
-          participants={conversation.getConversation.participants}
-        />
+        <>
+          <MessagesWrapper
+            messages={messages.messages}
+            participants={conversation.getConversation.participants}
+          />
+          <InputMessage />
+        </>
       )}
-      <InputMessage />
     </Flex>
   );
 };

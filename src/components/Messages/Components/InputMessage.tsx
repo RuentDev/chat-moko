@@ -65,9 +65,9 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
     >
       {({ handleSubmit, errors, touched }) => {
         return (
-          <div className="chat-bottom-container w-full h-auto bg-[#282832] p-5 flex">
-            <div className="input-container flex items-center w-full h-auto bg-[#212229] rounded-full">
-              <div className="input-items flex justify-between w-full">
+          <Flex className="chat-bottom-container w-full h-auto bg-[#282832] p-5 flex">
+            <Flex className="justify-between items-center bg-[#212229] w-full">
+              <Flex className="w-full items-center">
                 <form onSubmit={handleSubmit} className="w-full h-full">
                   <Flex>
                     <FormControl>
@@ -137,9 +137,9 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
                     </div>
                   </Flex>
                 </form>
-              </div>
-            </div>
-          </div>
+              </Flex>
+            </Flex>
+          </Flex>
         );
       }}
     </Formik>
