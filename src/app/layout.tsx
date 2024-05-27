@@ -29,7 +29,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <ColorModeScript 
+          initialColorMode={theme.config.initialColorMode} 
+        />
         <ApolloProviderComponent>
           <NextAuthProvider>
             <ChakraProviderComponent>

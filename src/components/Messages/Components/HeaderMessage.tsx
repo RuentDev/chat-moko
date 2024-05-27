@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Avatar, Flex, Icon, Text } from "@chakra-ui/react";
+import { Avatar, AvatarGroup, Flex, Icon, Text } from "@chakra-ui/react";
 import { CiVideoOn } from "react-icons/ci";
 import { FiPhone } from "react-icons/fi";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -47,9 +47,13 @@ const HeaderMessage: React.FC<HeaderMessageProps> = (props) => {
   return (
     <Flex width="100%" padding="1rem">
       <Flex width="100%" gap={2}>
-        <Flex position="relative" alignItems="center" justifyContent="center">
-          <Avatar size="md" name="John Doe" />
-        </Flex>
+        <AvatarGroup size='md' max={2}>
+            {conversation?.participants.map((participant) => {
+              if (participant.user.id !== session?.user.id) {
+                return  <Avatar name={`${participant.user.first_name} ${participant.user.last_name}`} src={participant.user.image} />
+              }
+            })}
+        </AvatarGroup>
         <Flex flexDirection="column" gap={1}>
           <Text>
             {conversation?.participants.map((participant) => {
