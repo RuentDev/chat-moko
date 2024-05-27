@@ -10,6 +10,7 @@ import {
   Flex,
   HStack,
   Icon,
+  IconButton,
   Input,
   InputGroup,
   InputLeftElement,
@@ -27,6 +28,7 @@ import {
 } from "@/utils/types";
 import { setSelectedConversation } from "@/app-redux/features/conversationSlice";
 import { SlMagnifier } from "react-icons/sl";
+import { MdOutlineLibraryAdd } from "react-icons/md";
 
 interface SidebarMessagesProps {
   session: Session | null;
@@ -41,9 +43,13 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
     GetConversationVariables
   >(ConvesationOperations.Queries.conversations);
 
-  const handleConversationCardButtonClick = (conversation: any) => {
+  const handleConversationCardBtnClick = (conversation: any) => {
     dispatch(setSelectedConversation(conversation));
     router.push(`/messages/${conversation.id}`);
+  };
+
+  const handleAddConversationBtnClick = () => {
+    router.push("/messages/new");
   };
 
   if (loading) {
@@ -63,21 +69,32 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
       {/* SEARCH BAR */}
 
       <Container height="50px" bg={"bg-[#141619]"} padding={0}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none">
-            <SlMagnifier size={20} />
-          </InputLeftElement>
-          <Input
-            type="tel"
-            placeholder="Search Conversation"
-            borderColor="transparent"
-            focusBorderColor="transparent"
-            _hover={{
-              borderColor: "none",
-            }}
-            fontSize="small"
+        <Flex>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <SlMagnifier size={20} />
+            </InputLeftElement>
+            <Input
+              type="tel"
+              placeholder="Search Conversation"
+              borderColor="transparent"
+              focusBorderColor="transparent"
+              _hover={{
+                borderColor: "none",
+              }}
+              fontSize="small"
+            />
+          </InputGroup>
+          <IconButton
+            size="md"
+            isRound
+            fontSize="20px"
+            onClick={handleAddConversationBtnClick}
+            aria-label="add-message"
+            backgroundColor="transparent"
+            icon={<Icon as={MdOutlineLibraryAdd} />}
           />
-        </InputGroup>
+        </Flex>
       </Container>
 
       <Flex flexDirection="column" gap={2}>
@@ -114,9 +131,7 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
                       ? conversation.messages[0].content
                       : ""
                   }
-                  onClick={() =>
-                    handleConversationCardButtonClick(conversation)
-                  }
+                  onClick={() => handleConversationCardBtnClick(conversation)}
                 />
               );
             })}

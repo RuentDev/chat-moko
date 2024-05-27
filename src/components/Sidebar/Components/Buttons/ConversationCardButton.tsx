@@ -4,6 +4,7 @@ import TypingEffect from "./TypingEffect";
 import { getMessageSentTime } from "@/utils";
 import {
   Avatar,
+  AvatarGroup,
   Flex,
   Grid,
   GridItem,
@@ -28,17 +29,19 @@ const ConversationCardButton = (props: ConversationButtonCardProps) => {
   return (
     <HStack gap={3} cursor="pointer" onClick={props.onClick}>
       <GridItem w="20%" h="auto">
-        {props.participants.map((participant) => {
-          if (props.userId !== participant.userId) {
-            return (
-              <Avatar
-                key={participant.user.id}
-                name={`${participant.user.first_name}`}
-                src={participant.user.image}
-              />
-            );
-          }
-        })}
+        <AvatarGroup size='md' max={2}>
+          {props.participants.map((participant) => {
+            if (props.userId !== participant.userId) {
+              return (
+                  <Avatar
+                    key={participant.user.id}
+                    src={participant.user.image}
+                    name={`${participant.user.first_name} ${participant.user.middle_name} ${participant.user.last_name}`}
+                  />
+                );
+              }
+            })}
+          </AvatarGroup>
       </GridItem>
       <GridItem w="100%" h="auto">
         <VStack align="flex-start">
@@ -46,7 +49,7 @@ const ConversationCardButton = (props: ConversationButtonCardProps) => {
             if (props.userId !== participant.userId) {
               return (
                 <Text fontSize="small" key={participant.user.id}>
-                  {participant.user.first_name} {participant.user.last_name}
+                 {`${participant.user.first_name} ${participant.user.middle_name} ${participant.user.last_name}`}
                 </Text>
               );
             }
@@ -55,7 +58,7 @@ const ConversationCardButton = (props: ConversationButtonCardProps) => {
             <TypingEffect />
           ) : (
             <Text fontSize="xs">
-              {props.content && props.content.substring(0, 20)}...
+              {props.content && props.content.substring(0, 20)}{props.content && props.content.length > 10 && "..." }
             </Text>
           )}
         </VStack>

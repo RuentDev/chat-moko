@@ -1,14 +1,20 @@
 import React from "react";
-import ChatSettings from "@/components/Messages/Components/ChatSettings";
-import { Flex } from "@chakra-ui/layout";
-import { Messages } from "@/components";
+import { Flex } from "@chakra-ui/react";
+import Messages from "@/components/Messages";
 
 const Chat = async ({ params }: { params: { id: string } }) => {
   return (
     <Flex color="white" width="100%" height="100vh">
-      <Messages id={params.id} />
+      {params.id === "new" ? (
+        
+        <Messages.NewMessage />
 
-      <ChatSettings />
+      ) : (
+        <>
+          <Messages.Messages id={params.id} />
+          <Messages.ChatSettings />
+        </>
+      )}
     </Flex>
   );
 };
