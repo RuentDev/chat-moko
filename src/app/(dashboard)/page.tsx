@@ -4,7 +4,14 @@ import { redirect } from "next/navigation";
 const DashboardPage: NextPage = async () => {
   const session = await auth();
 
-  if (!session) {
+  console.log(session)
+
+  if (session) {
+    const {user } = session
+    if(user && !user.emailVerified){
+      redirect("/auth");
+    }
+  }else{
     redirect("/auth/login");
   }
 
