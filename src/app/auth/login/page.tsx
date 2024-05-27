@@ -8,9 +8,14 @@ import React from "react";
 const LoginPage: NextPage = async () => {
   const session = await auth();
 
-  if (session?.user) {
-    console.log(session);
-    redirect("/");
+  if (session) {
+    const {user} = session
+
+    if(user && user.emailVerified){
+      redirect("/");
+    }else{
+      redirect("/auth");
+    }
   }
 
   return (
