@@ -4,17 +4,35 @@ import { useSelector } from "react-redux";
 import { RootState, store } from "@/app-redux/store";
 import { useRouter } from "next/navigation";
 import iconButtons from "@/data/iconButtons.json";
-import IconButton from "./Components/Buttons/IconButton";
+import IconBtn from "./Components/Buttons/IconButton";
 import { setSelectedIcon } from "@/app-redux/features/navigationSlice";
-
-import { Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import { CiLogout } from "react-icons/ci";
+import {
+  Flex,
+  ListItem,
+  Text,
+  UnorderedList,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import { IconButton, Icon, Button } from "@chakra-ui/react";
 import { SidebarMessages } from "./Components";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 interface SidebarProps {}
 
 const Sidebar: React.FC<SidebarProps> = (props) => {
   const [buttons, setButtons] = useState(iconButtons);
   const [navbarWidth, setNavbarWidth] = useState(0);
+  const [confirmationModal, setConfirmationModal] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: session } = useSession();
   const selectedIcon = useSelector(
     (state: RootState) => state.navigation.selectedIcon
@@ -36,6 +54,10 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
     });
 
     setButtons(buttonCopy);
+  };
+
+  const handleShowConfirmationModal = () => {
+    setConfirmationModal(true);
   };
 
   useEffect(() => {
@@ -84,7 +106,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
             {buttons.map((button) => {
               return (
                 <ListItem key={button.id}>
-                  <IconButton
+                  <IconBtn
                     {...button}
                     onClick={(e: any) => handleOnClick(e, button)}
                     size={20}
@@ -92,6 +114,34 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                 </ListItem>
               );
             })}
+
+            {/* Logout Confirmation Modal */}
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Confirm Logout</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>Are you sure you want to log out? </ModalBody>
+
+                <ModalFooter>
+                  <Button colorScheme="red" mr={3} onClick={onClose}>
+                    Cancel
+                  </Button>
+                  <Button colorScheme='green'>Confirm</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+            
+            {/* Logout button */}
+            <div className="logout-btn absolute bottom-0">
+              <IconButton
+                aria-label="logout-button"
+                icon={<Icon as={CiLogout} />}
+                onClick={onOpen}
+                title="Continue with Github"
+                background="transparent"
+              />
+            </div>
           </Flex>
         </UnorderedList>
       </div>
