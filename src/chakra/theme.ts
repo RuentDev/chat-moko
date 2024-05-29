@@ -6,6 +6,10 @@ const config: ThemeConfig = {
 }
 
 const theme = extendTheme({ config }, {
+  fonts: {
+    heading: 'var(--font-rubik)',
+    body: 'var(--font-rubik)',
+  },
   colors: {
     brand: {
       100: "#f7fafc",

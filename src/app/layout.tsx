@@ -1,5 +1,5 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Inter } from "next/font/google";
+import { fonts } from '../font'
 import type { Metadata } from "next";
 import "./globals.css";
 import {
@@ -8,13 +8,9 @@ import {
   NextAuthProvider,
   ReduxProvider,
 } from "@/components";
-import theme from "@/chakra/theme";
-import { ColorModeScript } from "@chakra-ui/react";
 import ToastContainerProvider from "@/components/ToastContainerProvider";
+// import { ColorModeScript, theme } from "@chakra-ui/react";
 
-const inter = Inter({
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "ChatMoko | Messaging",
@@ -27,23 +23,21 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ColorModeScript 
-          initialColorMode={theme.config.initialColorMode} 
-        />
+    <html lang="en" className={fonts.rubik.variable}>
+      <body>
+        <ChakraProviderComponent>
+        {/* <ColorModeScript  initialColorMode={theme.config.initialColorMode} /> */}
         <ApolloProviderComponent>
           <NextAuthProvider>
-            <ChakraProviderComponent>
               <ToastContainerProvider>
                 <ReduxProvider>
                   {children}
                 </ReduxProvider>
               </ToastContainerProvider>
-            </ChakraProviderComponent>
           </NextAuthProvider>
         </ApolloProviderComponent>
         <SpeedInsights />
+      </ChakraProviderComponent>
       </body>
     </html>
   );

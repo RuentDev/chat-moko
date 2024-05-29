@@ -44,7 +44,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials): Promise<any> => {
         try {
           const { email, password }: any = credentials;
-
+          const asd = new CredentialsSignin("error")
           // logic to verify if user exists
           const user = await prisma.user.findUnique({
             where: {
@@ -60,7 +60,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (!user) {
             // No user found, so this is their first attempt to login
             // meaning this is also the place you could do registration
-            return new CredentialsSignin("test")
+            return asd.message
           }
 
           const isPasswordMatched = await bcrypt.compare(password, user.password);
@@ -77,6 +77,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
+    async authorized(params): Promise<boolean> {
+      console.log("params.auth", params.auth)
+      console.log("params.json", params.request.json())
+      return true
+    },
     async jwt({ token, trigger, session, account, user }): Promise<any> {
       const userData = {
         ...user,

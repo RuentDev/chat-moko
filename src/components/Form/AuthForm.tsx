@@ -16,15 +16,14 @@ import React from "react";
 import UserOprations from "@/graphql/operations/users";
 import { CreateUserAccount, CreateUserAccountVariables } from "@/utils/types";
 import Inputs from "@/components/Inputs";
-import { signOut } from "next-auth/react";
 import { toast } from "../ToastContainerProvider";
+import { signOut } from "next-auth/react";
 
 interface AuthFormProps {
   session: Session | null;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ session }) => {
- 
   const [createUserAccount, { loading, data }] = useMutation<
     CreateUserAccount,
     CreateUserAccountVariables
@@ -39,7 +38,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ session }) => {
           duration: 5000,
           isClosable: true,
         })
-        signOut()
+        setTimeout(() => {
+          signOut()
+        }, 2000);
       }
 
 
