@@ -1,26 +1,29 @@
-"use client";
-import { getSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { auth } from "../auth";
+import { redirect } from "next/navigation";
 import React from "react";
 
 interface SessionProviderProps {
   children: React.ReactNode;
 }
 
-const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
-  const router = useRouter();
+const SessionProvider: React.FC<SessionProviderProps> = async ({ children }) => {
 
-  React.useEffect(() => {
-    async function init() {
-      const session = await getSession();
+  // const session = await auth();
 
-      if (!session?.user) {
-        router.push("/auth/login");
-      }
-    }
+  // if(session){
+  //   const {user} = session
+  //   // if(user && !user.emailVerified){
+  //   //   redirect("/auth")
+  //   // }
 
-    init();
-  }, []);
+  //   if(user) {
+  //     redirect("/")
+  //   }
+
+  // }else{
+  //   redirect("/auth/login")
+  // }
+  
   return <>{children}</>;
 };
 

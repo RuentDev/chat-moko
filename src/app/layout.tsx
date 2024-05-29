@@ -10,7 +10,8 @@ import {
 } from "@/components";
 import theme from "@/chakra/theme";
 import { ColorModeScript } from "@chakra-ui/react";
-import { SessionProvider } from "@/components";
+import ToastContainerProvider from "@/components/ToastContainerProvider";
+
 const inter = Inter({
   subsets: ["latin"],
 });
@@ -25,7 +26,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // console.log(theme.config.initialColorMode)
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -35,9 +35,11 @@ export default async function RootLayout({
         <ApolloProviderComponent>
           <NextAuthProvider>
             <ChakraProviderComponent>
-              <ReduxProvider>
-                <SessionProvider>{children}</SessionProvider>
-              </ReduxProvider>
+              <ToastContainerProvider>
+                <ReduxProvider>
+                  {children}
+                </ReduxProvider>
+              </ToastContainerProvider>
             </ChakraProviderComponent>
           </NextAuthProvider>
         </ApolloProviderComponent>

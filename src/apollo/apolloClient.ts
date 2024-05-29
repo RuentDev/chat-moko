@@ -7,19 +7,19 @@ import { getSession } from "next-auth/react";
 
 export let serverLink: string | undefined = "";
 
-const MODE = process.env.NEXT_PUBLIC_SERVER_MODE;
+const MODE = process.env.NODE_ENV;
 const STAGING = process.env.NEXT_PUBLIC_SERVER_API_STAGING_LINK;
 const DEVELOPMENT = process.env.NEXT_PUBLIC_SERVER_API_DEVELOPMENT_LINK;
 const PRODUCTION = process.env.NEXT_PUBLIC_SERVER_API_PRODUCTION_LINK;
 
 switch (MODE) {
-  case "STAGING":
+  case "test":
     serverLink = STAGING;
     break;
-  case "PRODUCTION":
+  case "production":
     serverLink = PRODUCTION;
     break;
-  case "DEVELOPMENT":
+  case "development":
     serverLink = DEVELOPMENT;
     break;
   default:

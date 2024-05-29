@@ -1,14 +1,20 @@
 import React, { Suspense } from "react";
 import DashboardLoading from "./loading";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import { auth } from "../lib/auth";
+import { auth } from "../../auth";
 import { redirect } from "next/navigation";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
 
-  if (!session) {
-    redirect("/auth/login");
+  if(session){
+    const {user} = session  
+    if(user && !user.emailVerified){
+      redirect("/auth")
+    }
+
+  }else{
+    redirect("/auth/login")
   }
 
   return (

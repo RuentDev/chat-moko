@@ -1,17 +1,18 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
-import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { Adapter } from "next-auth/adapters";
-import NextAuth from "next-auth";
+import FacebookProvider from "next-auth/providers/facebook";
+import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
+import { Adapter } from "next-auth/adapters";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 const adapter = PrismaAdapter(prisma) as Adapter;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  debug: process.env.NODE_ENV !== "production" ? true : false,
   secret: process.env.NEXTAUTH_SECRET as string,
   adapter: adapter,
   pages: {
@@ -54,8 +55,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (!user || !user.password) {
             return null;
           }
+          
 
-          const isPasswordMatched = bcrypt.compare(password, user.password);
+          if (!user) {
+            // No user found, so this is their first attempt to login
+            // meaning this is also the place you could do registration
+            return new CredentialsSignin("test")
+          }
+
+          const isPasswordMatched = await bcrypt.compare(password, user.password);
 
           if (!isPasswordMatched) {
             return null;
@@ -69,25 +77,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }): Promise<any> {
+    async jwt({ token, trigger, session, account, user }): Promise<any> {
       const userData = {
         ...user,
       };
 
       return { ...token, ...userData };
     },
-    async session({ session, trigger, newSession, user, token }): Promise<any> {
+    async session({ session, trigger, user, token }): Promise<any> {
       // Send properties to the client, like an access_token and user id from a provider.
-      return {
+      
+      const newSession = {
         ...session,
         user: {
           ...session.user,
           ...user,
           ...token,
           password: null,
-          verification_code: null,
         },
       };
+
+      return newSession
     },
   },
+  experimental: {
+    enableWebAuthn: true,
+  },
+  
 });

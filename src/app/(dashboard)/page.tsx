@@ -1,21 +1,9 @@
 import { NextPage } from "next";
-import { auth } from "../lib/auth";
-import { redirect } from "next/navigation";
+import { auth } from "../../auth";
 const DashboardPage: NextPage = async () => {
   const session = await auth();
 
-  console.log(session)
-
-  if (session) {
-    const {user } = session
-    if(user && !user.emailVerified){
-      redirect("/auth");
-    }
-  }else{
-    redirect("/auth/login");
-  }
-
-  return <div className="w-full h-full">{session.user.name}</div>;
+  return <div className="w-full h-full">{session ? JSON.stringify(session.user) : null}</div>;
 };
 
 export default DashboardPage;

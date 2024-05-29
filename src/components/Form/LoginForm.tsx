@@ -40,12 +40,14 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       email: values.email,
       password: values.password,
       redirect: true,
-      callbackUrl: "/auth",
+      callbackUrl: "/",
     });
 
     if (res?.ok) {
       setLoading(!loading);
     }
+
+    console.log(res)
   };
 
   const handleEmailValidation = (value: string) => {
@@ -146,6 +148,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
             <Button type="submit" isLoading={loading} _hover={{}}>
               Login
             </Button>
+            {}
             <Link textAlign="center" href="/auth/signup">
               Signup
             </Link>

@@ -1,4 +1,4 @@
-import { auth } from "@/app/lib/auth";
+import { auth } from "../../../auth";
 import { Forms } from "@/components";
 import { Center } from "@chakra-ui/react";
 import { NextPage } from "next";

@@ -2,20 +2,9 @@ import { Forms } from "@/components";
 import { Center } from "@chakra-ui/react";
 import { NextPage } from "next";
 import React from "react";
-import { auth } from "../lib/auth";
-import { redirect } from "next/navigation";
-
+import { auth } from "@/auth";
 const AuthPage: NextPage = async () => {
   const session = await auth();
-
-  if (session) {
-    const { user } = session;
-    if (user && user.emailVerified) {
-      redirect("/");
-    }
-  } else {
-    redirect("/auth/login");
-  }
 
   return (
     <div>

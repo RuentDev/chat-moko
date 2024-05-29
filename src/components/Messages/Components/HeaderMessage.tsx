@@ -50,7 +50,7 @@ const HeaderMessage: React.FC<HeaderMessageProps> = (props) => {
         <AvatarGroup size='md' max={2}>
             {conversation?.participants.map((participant) => {
               if (participant.user.id !== session?.user.id) {
-                return  <Avatar name={`${participant.user.first_name} ${participant.user.last_name}`} src={participant.user.image} />
+                return  <Avatar key={participant.id} name={`${participant.user.first_name} ${participant.user.last_name}`} src={participant.user.image} />
               }
             })}
         </AvatarGroup>

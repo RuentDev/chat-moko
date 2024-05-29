@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/app-redux/store";
+import { RootState, store } from "@/app-redux/store";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import iconButtons from "@/data/iconButtons.json";
 import IconButton from "./Components/Buttons/IconButton";
 import { setSelectedIcon } from "@/app-redux/features/navigationSlice";
@@ -20,7 +19,6 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
   const selectedIcon = useSelector(
     (state: RootState) => state.navigation.selectedIcon
   );
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleOnClick = (e: any, button: any) => {
@@ -30,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
     buttonCopy.forEach((item) => {
       if (item.id === button.id) {
         item.isActive = true;
-        dispatch(setSelectedIcon(item.label));
+        store.dispatch(setSelectedIcon(item.label));
         router.push(item.link);
       } else {
         item.isActive = false;
@@ -53,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
     buttonCopy.forEach((item) => {
       if (button && item.id === button.id) {
         item.isActive = true;
-        dispatch(setSelectedIcon(item.label));
+        store.dispatch(setSelectedIcon(item.label));
       } else {
         item.isActive = false;
       }

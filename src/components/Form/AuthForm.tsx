@@ -16,19 +16,38 @@ import React from "react";
 import UserOprations from "@/graphql/operations/users";
 import { CreateUserAccount, CreateUserAccountVariables } from "@/utils/types";
 import Inputs from "@/components/Inputs";
+import { signOut } from "next-auth/react";
+import { toast } from "../ToastContainerProvider";
 
 interface AuthFormProps {
   session: Session | null;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ session }) => {
-  const [createUserAccount, { data, loading, error }] = useMutation<
+ 
+  const [createUserAccount, { loading, data }] = useMutation<
     CreateUserAccount,
     CreateUserAccountVariables
-  >(UserOprations.Mutation.createUserAccount);
+  >(UserOprations.Mutation.createUserAccount, {
+    onCompleted: (res) => {
+      const { createUserAccount } = res
+      if(!createUserAccount.error){
+        toast({
+          title: 'Account created.',
+          description: createUserAccount.statusText,
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        })
+        signOut()
+      }
+
+
+    }
+  });
 
   const handleCreateUserAccount = async (value: any) => {
-    await createUserAccount({
+    createUserAccount({
       variables: {
         email: value.email,
         phone: value.phone,
@@ -63,6 +82,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ session }) => {
 
     return error;
   };
+
   return (
     <Formik
       key={session?.user?.id}
@@ -168,6 +188,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ session }) => {
             <Button type="submit" isLoading={loading}>
               Continue
             </Button>
+
+            {data?.createUserAccount.error && (<Text>{data.createUserAccount.error}</Text>)}
           </Stack>
         </form>
       )}

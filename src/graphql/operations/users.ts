@@ -16,7 +16,7 @@ const shema = {
     createUserAccount: gql(`
       mutation CreateUserAccount($phone: String, $password: String, $firstName: String, $middleName: String, $lastName: String) {
         createUserAccount(phone: $phone, password: $password, firstName: $firstName, middleName: $middleName, lastName: $lastName) {
-          user
+          token
           statusText
           error
         }
