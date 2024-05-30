@@ -31,7 +31,6 @@ interface SidebarProps {}
 const Sidebar: React.FC<SidebarProps> = (props) => {
   const [buttons, setButtons] = useState(iconButtons);
   const [navbarWidth, setNavbarWidth] = useState(0);
-  const [confirmationModal, setConfirmationModal] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: session } = useSession();
   const selectedIcon = useSelector(
@@ -54,10 +53,6 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
     });
 
     setButtons(buttonCopy);
-  };
-
-  const handleShowConfirmationModal = () => {
-    setConfirmationModal(true);
   };
 
   useEffect(() => {
@@ -93,6 +88,10 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
     return () => {};
   }, []);
 
+  const handleLogoutConfirm = () => {
+    //Function when confirm button is clicked, to logout account
+  }
+
   return (
     <nav id="navbar" className="dashboard-sidebar h-full flex">
       <div className="left-side w-[70px] h-full py-5">
@@ -118,27 +117,29 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
             {/* Logout Confirmation Modal */}
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Confirm Logout</ModalHeader>
+              <ModalContent className="mx-auto my-0 top-80">
+                <ModalHeader className="text-xl font-bold">
+                  Confirm Logout
+                </ModalHeader>
                 <ModalCloseButton />
-                <ModalBody>Are you sure you want to log out? </ModalBody>
+                <ModalBody>Are you sure you want to log out?</ModalBody>
 
                 <ModalFooter>
                   <Button colorScheme="red" mr={3} onClick={onClose}>
                     Cancel
                   </Button>
-                  <Button colorScheme='green'>Confirm</Button>
+                  <Button colorScheme="green" onClick={handleLogoutConfirm}>Confirm</Button>
                 </ModalFooter>
               </ModalContent>
-            </Modal>
-            
+            </Modal> 
+
             {/* Logout button */}
             <div className="logout-btn absolute bottom-0">
               <IconButton
                 aria-label="logout-button"
                 icon={<Icon as={CiLogout} />}
                 onClick={onOpen}
-                title="Continue with Github"
+                title="Logout"
                 background="transparent"
               />
             </div>
