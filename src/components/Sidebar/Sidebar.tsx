@@ -7,6 +7,7 @@ import iconButtons from "@/data/iconButtons.json";
 import IconBtn from "./Components/Buttons/IconButton";
 import { setSelectedIcon } from "@/app-redux/features/navigationSlice";
 import { CiLogout } from "react-icons/ci";
+import { Show, Hide } from "@chakra-ui/react";
 import {
   Flex,
   ListItem,
@@ -20,9 +21,9 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  IconButton, 
-  Icon, 
-  Button 
+  IconButton,
+  Icon,
+  Button,
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import { SidebarMessages } from "./Components";
@@ -32,7 +33,7 @@ interface SidebarProps {}
 const Sidebar: React.FC<SidebarProps> = (props) => {
   const [buttons, setButtons] = useState(iconButtons);
   const [navbarWidth, setNavbarWidth] = useState(0);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const { data: session } = useSession();
   const selectedIcon = useSelector(
     (state: RootState) => state.navigation.selectedIcon
@@ -91,52 +92,60 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
   const handleLogoutConfirm = () => {
     //Function when confirm button is clicked, to logout account
-    signOut()
-  }
+    signOut();
+  };
 
   return (
     <nav id="navbar" className="dashboard-sidebar h-full flex">
       {/* LEFTSIDE */}
-      <Stack padding="0.5rem" borderLeft="1px" borderRight='1px' borderColor="#2C3E61">
-        <UnorderedList margin="0" padding="0">
-          <Flex
-            gap="5"
-            flexDirection="column"
-            alignItems="center"
-            listStyleType="none"
-          >
-            {buttons.map((button) => {
-              return (
-                <ListItem key={button.id}>
-                  <IconBtn
-                    {...button}
-                    onClick={(e: any) => handleOnClick(e, button)}
-                    size={25}
-                  />
-                </ListItem>
-              );
-            })}
+      <Show above="lg">
+        <Stack
+          padding="0.5rem"
+          borderLeft="1px"
+          borderRight="1px"
+          borderColor="#2C3E61"
+        >
+          <UnorderedList margin="0" padding="0">
+            <Flex
+              gap="5"
+              flexDirection="column"
+              alignItems="center"
+              listStyleType="none"
+            >
+              {buttons.map((button) => {
+                return (
+                  <ListItem key={button.id}>
+                    <IconBtn
+                      {...button}
+                      onClick={(e: any) => handleOnClick(e, button)}
+                      size={25}
+                    />
+                  </ListItem>
+                );
+              })}
 
-            {/* Logout Confirmation Modal */}
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent className="mx-auto my-0 top-80">
-                <ModalHeader className="text-xl font-bold">
-                  Confirm Logout
-                </ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>Are you sure you want to log out?</ModalBody>
+              {/* Logout Confirmation Modal */}
+              <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent className="mx-auto my-0 top-80">
+                  <ModalHeader className="text-xl font-bold">
+                    Confirm Logout
+                  </ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>Are you sure you want to log out?</ModalBody>
 
-                <ModalFooter>
-                  <Button colorScheme="red" mr={3} onClick={onClose}>
-                    Cancel
-                  </Button>
-                  <Button colorScheme="green" onClick={handleLogoutConfirm}>Confirm</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal> 
+                  <ModalFooter>
+                    <Button colorScheme="red" mr={3} onClick={onClose}>
+                      Cancel
+                    </Button>
+                    <Button colorScheme="green" onClick={handleLogoutConfirm}>
+                      Confirm
+                    </Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
 
-            {/* Logout button */}
+              {/* Logout button */}
               <IconButton
                 aria-label="logout-button"
                 icon={<Icon as={CiLogout} />}
@@ -145,15 +154,17 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                 background="transparent"
                 className="absolute bottom-0"
               />
-          </Flex>
-        </UnorderedList>
-      </Stack>
+            </Flex>
+          </UnorderedList>
+        </Stack>
+      </Show>
+
       {/* COMPONENTS */}
       {selectedIcon.toLowerCase() === "messages" && (
         <>
           <div className={`right-side w-[300px] h-auto bg-[#212229] px-3 py-5`}>
-          <SidebarMessages session={session} />
-          </div>  
+            <SidebarMessages session={session} />
+          </div>
         </>
       )}
     </nav>
