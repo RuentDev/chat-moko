@@ -10,14 +10,9 @@ import { CiLogout } from "react-icons/ci";
 import {
   Flex,
   ListItem,
-  Text,
+  Stack,
   UnorderedList,
   useDisclosure,
-} from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
-import { IconButton, Icon, Button } from "@chakra-ui/react";
-import { SidebarMessages } from "./Components";
-import {
   Modal,
   ModalOverlay,
   ModalContent,
@@ -25,7 +20,13 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  IconButton, 
+  Icon, 
+  Button 
 } from "@chakra-ui/react";
+import { signOut, useSession } from "next-auth/react";
+import { SidebarMessages } from "./Components";
+
 interface SidebarProps {}
 
 const Sidebar: React.FC<SidebarProps> = (props) => {
@@ -90,11 +91,13 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
   const handleLogoutConfirm = () => {
     //Function when confirm button is clicked, to logout account
+    signOut()
   }
 
   return (
     <nav id="navbar" className="dashboard-sidebar h-full flex">
-      <div className="left-side w-[70px] h-full py-5">
+      {/* LEFTSIDE */}
+      <Stack padding="0.5rem" borderLeft="1px" borderRight='1px' borderColor="#2C3E61">
         <UnorderedList margin="0" padding="0">
           <Flex
             gap="5"
@@ -108,7 +111,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
                   <IconBtn
                     {...button}
                     onClick={(e: any) => handleOnClick(e, button)}
-                    size={20}
+                    size={25}
                   />
                 </ListItem>
               );
@@ -134,24 +137,25 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
             </Modal> 
 
             {/* Logout button */}
-            <div className="logout-btn absolute bottom-0">
               <IconButton
                 aria-label="logout-button"
                 icon={<Icon as={CiLogout} />}
                 onClick={onOpen}
                 title="Logout"
                 background="transparent"
+                className="absolute bottom-0"
               />
-            </div>
           </Flex>
         </UnorderedList>
-      </div>
-      <div className={`right-side w-[300px] h-auto bg-[#212229] px-3 py-5`}>
-        {/* COMPONENTS */}
-        {selectedIcon.toLowerCase() === "messages" ? (
+      </Stack>
+      {/* COMPONENTS */}
+      {selectedIcon.toLowerCase() === "messages" && (
+        <>
+          <div className={`right-side w-[300px] h-auto bg-[#212229] px-3 py-5`}>
           <SidebarMessages session={session} />
-        ) : null}
-      </div>
+          </div>  
+        </>
+      )}
     </nav>
   );
 };

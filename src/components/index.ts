@@ -1,5 +1,5 @@
 import ApolloProviderComponent from "./ApolloProviderComponent";
-import ChakraProviderComponent from "./ChakraProviderComponent";
+import {ChakraProviderComponent} from "./ChakraProviderComponent";
 import NextAuthProvider from "@/components/NextAuthProvider";
 import ReduxProvider from "./ReduxProvider";
 import Forms from "./Form";

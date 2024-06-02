@@ -1,18 +1,17 @@
-import { ThemeConfig, extendTheme } from "@chakra-ui/react"
+import { ThemeConfig, extendTheme, ComponentStyleConfig, defineStyleConfig } from "@chakra-ui/react"
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
-  // useSystemColorMode: false,
 }
 
-const theme = extendTheme({ config }, {
+const theme = extendTheme({
   fonts: {
     heading: 'var(--font-rubik)',
     body: 'var(--font-rubik)',
   },
   colors: {
     brand: {
-      100: "#f7fafc",
+      100: "#2C3E61",
     },
   },
   styles: {
@@ -21,7 +20,7 @@ const theme = extendTheme({ config }, {
         bg: "whiteAlpha.200"
       }
     }
-  }
+  },
 })
 
 export default theme;

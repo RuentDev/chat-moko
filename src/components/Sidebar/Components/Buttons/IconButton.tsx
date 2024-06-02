@@ -21,7 +21,12 @@ const IconButton = (props: IconButtonProps) => {
       aria-label={props.label}
       className={`sidebar-icon-button flex items-center justify-center p-3 rounded-full ease-in-out duration-300 ${props.isActive && "bg-[#2A9DF4]"} hover:bg-[#2A9DF4]`}
     >
-      <Image src={props.icon} alt='button-icon' height={props.size} width={props.size} />
+      <Image 
+        src={props.icon} 
+        alt='button-icon' 
+        height={props.size} 
+        width={props.size} 
+      />
     </button>
   )
 }

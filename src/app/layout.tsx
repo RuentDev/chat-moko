@@ -9,6 +9,7 @@ import {
   ReduxProvider,
 } from "@/components";
 import ToastContainerProvider from "@/components/ToastContainerProvider";
+import { ColorModeScript, theme } from "@chakra-ui/react";
 // import { ColorModeScript, theme } from "@chakra-ui/react";
 
 
@@ -26,18 +27,18 @@ export default async function RootLayout({
     <html lang="en" className={fonts.rubik.variable}>
       <body>
         <ChakraProviderComponent>
-        {/* <ColorModeScript  initialColorMode={theme.config.initialColorMode} /> */}
-        <ApolloProviderComponent>
-          <NextAuthProvider>
-              <ToastContainerProvider>
-                <ReduxProvider>
-                  {children}
-                </ReduxProvider>
-              </ToastContainerProvider>
-          </NextAuthProvider>
-        </ApolloProviderComponent>
-        <SpeedInsights />
-      </ChakraProviderComponent>
+          <ColorModeScript/>
+          <ApolloProviderComponent>
+            <NextAuthProvider>
+                <ToastContainerProvider>
+                  <ReduxProvider>
+                    {children}
+                  </ReduxProvider>
+                </ToastContainerProvider>
+            </NextAuthProvider>
+          </ApolloProviderComponent>
+          <SpeedInsights />
+        </ChakraProviderComponent>
       </body>
     </html>
   );
