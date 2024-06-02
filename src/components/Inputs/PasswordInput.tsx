@@ -28,9 +28,10 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
 
   return (
     <FormControl isInvalid={!!errors.password && touched.password}>
-      <FormLabel>Password</FormLabel>
+      <FormLabel color="#1A202C">Password</FormLabel>
       <InputGroup>
         <Field
+          borderColor="#1A202C"
           as={Input}
           id="password"
           name="password"
@@ -40,6 +41,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
         />
         <InputRightElement>
           <IconButton
+            color="#1A202C"
             backgroundColor="transparent"
             scale={0.5}
             _hover={{ backgroundColor: "transparent" }}
