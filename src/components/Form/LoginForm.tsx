@@ -12,7 +12,6 @@ import {
   FormLabel,
   IconButton,
   Input,
-  Link,
   Stack,
   Text,
   useBreakpointValue,
@@ -48,11 +47,10 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       callbackUrl: "/",
     });
 
-    if (res?.ok) {
+    if (res && res.ok) {
       setLoading(!loading);
     }
 
-    console.log(res);
   };
 
   const handleEmailValidation = (value: string) => {
