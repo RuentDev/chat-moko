@@ -51,13 +51,13 @@ const DashboardPage: NextPage = async () => {
         >
           <Text
             as="h3"
-            fontSize={20}
+            fontSize={{base: 20, lg: 35}}
           >
             Welcome Back, {session?.user.name}
           </Text>
 
           <Image 
-            width='219px'
+            width={{base:'219px', lg:'369px'}}
             alt='Chat Moko'
             objectFit='cover'
             src='/images/chatmoko-high-resolution-logo-transparent-blue.png' 
@@ -65,14 +65,14 @@ const DashboardPage: NextPage = async () => {
 
           <Text
             as="h3"
-            fontSize={20}
+            fontSize={{base: 20, lg:35}}
           >
             Start Conversation with your contacts
           </Text>
 
           <Text
-            width="350px"
-            fontSize={12}
+            width={{base: "350px", lg: "656px"}}
+            fontSize={{base: 12, lg: 23}}
             as="p"
             textAlign="center"
           >
