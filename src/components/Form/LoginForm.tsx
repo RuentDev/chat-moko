@@ -16,7 +16,7 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import Image from "next/image";
+import { Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Icon } from "@chakra-ui/react";
 import { FaFacebook, FaGithub, FaGoogle, FaTwitter } from "react-icons/fa";
@@ -27,6 +27,7 @@ import Inputs from "@/components/Inputs";
 import { signIn } from "next-auth/react";
 import ChatMokoLogo from "../../../public/svgs/chatmoko-logo.svg";
 import ChatMokoSmallLogo from "../../../public/svgs/chatmokosmall-logo.svg";
+import { Show, Hide } from "@chakra-ui/react";
 
 interface LoginFormProps {}
 
@@ -50,7 +51,6 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
     if (res && res.ok) {
       setLoading(!loading);
     }
-
   };
 
   const handleEmailValidation = (value: string) => {
@@ -109,11 +109,24 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
           justifyContent="center"
           alignItems="center"
         >
+          
+          {/* Show for large screens */}
+          <Show above="sm">
           <Image
-            className="w-[112px] lg:w-[282px]"
-            src={logoSrc}
-            alt="Chat Moko Logo"
+            width="282px"
+            alt="Chat Moko"
+            src="/svgs/chatmoko-logo.svg"
           />
+          </Show>
+
+          {/* Show for small screens */}
+          <Show below="sm">
+          <Image
+            width="112px"
+            alt="Chat Moko"
+            src="/svgs/chatmokosmall-logo.svg"
+          />
+          </Show>
 
           <Text
             textColor={{ base: "rgba(26, 32, 44, 0.44)", lg: "#FFFFFF" }}
@@ -149,7 +162,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
               onSubmit={handleSubmit}
               className="w-[500px] h-auto rounded-xl p-5 mb-80"
             >
-              <Stack gap={3} align='center'>
+              <Stack gap={3} align="center">
                 <Text
                   color="#1A202C"
                   letterSpacing={0.5}
