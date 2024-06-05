@@ -8,44 +8,30 @@
   },
   {
     "id": 1,
-    "label": "Notifications",
-    "icon": "/svgs/message-notif.svg",
-    "link": "/notifications",
-    "isActive": false
-  },
-  {
-    "id": 2,
-    "label": "Files",
-    "icon": "/svgs/folder.svg",
-    "link": "/files",
-    "isActive": false
-  },
-  {
-    "id": 3,
-    "label": "Calls",
-    "icon": "/svgs/phone.svg",
-    "link": "/calls",
-    "isActive": false
-  },
-  {
-    "id": 4,
     "label": "Messages",
     "icon": "/svgs/messages.svg",
     "link": "/messages",
     "isActive": false
   },
   {
-    "id": 5,
+    "id": 2,
+    "label": "Calls",
+    "icon": "/svgs/phone.svg",
+    "link": "/calls",
+    "isActive": false
+  },
+  {
+    "id": 3,
     "label": "Users",
     "icon": "/svgs/users.svg",
     "link": "/users",
     "isActive": false
   },
   {
-    "id": 6,
-    "label": "Settings",
-    "icon": "/svgs/gear.svg",
-    "link": "/settings",
+    "id": 4,
+    "label": "Files",
+    "icon": "/svgs/folder.svg",
+    "link": "/files",
     "isActive": false
   }
 ]

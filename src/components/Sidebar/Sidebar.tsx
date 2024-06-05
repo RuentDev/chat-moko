@@ -7,7 +7,6 @@ import iconButtons from "@/data/iconButtons.json";
 import IconBtn from "./Components/Buttons/IconButton";
 import { setSelectedIcon } from "@/app-redux/features/navigationSlice";
 import { CiLogout } from "react-icons/ci";
-import { Show, Hide } from "@chakra-ui/react";
 import {
   Flex,
   ListItem,
@@ -24,6 +23,8 @@ import {
   IconButton,
   Icon,
   Button,
+  Box,
+  Show
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import { SidebarMessages } from "./Components";
@@ -146,14 +147,15 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
               </Modal>
 
               {/* Logout button */}
-              <IconButton
-                aria-label="logout-button"
-                icon={<Icon as={CiLogout} />}
-                onClick={onOpen}
-                title="Logout"
-                background="transparent"
-                className="absolute bottom-0"
-              />
+              <Box position={"absolute"} bottom={0}>
+                <IconButton
+                  aria-label="logout-button"
+                  icon={<Icon as={CiLogout} />}
+                  onClick={onOpen}
+                  title="Logout"
+                  background="transparent"
+                />
+              </Box>
             </Flex>
           </UnorderedList>
         </Stack>
