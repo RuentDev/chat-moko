@@ -24,7 +24,8 @@ import {
   Icon,
   Button,
   Box,
-  Show
+  Show,
+  Image,
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import { SidebarMessages } from "./Components";
@@ -106,7 +107,18 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
           borderRight="1px"
           borderColor="#2C3E61"
         >
-          <UnorderedList margin="0" padding="0">
+          {/* Chat Moko Logo */}
+          {/* Show for large screens */}
+          <Show above="sm">
+            <Image
+              width="90px"
+              alt="Chat Moko"
+              src="/images/chatmoko-high-resolution-logo-transparent-blue.png"
+            />
+          </Show>
+
+          {/* Icon Buttons */}
+          <UnorderedList margin="0" marginTop="10" padding="0">
             <Flex
               gap="5"
               flexDirection="column"
@@ -161,13 +173,21 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
         </Stack>
       </Show>
 
-      {/* COMPONENTS */}
+      {/*RIGHT SIDE COMPONENTS */}
       {selectedIcon.toLowerCase() === "messages" && (
-        <>
-          <div className={`right-side w-[300px] h-auto bg-[#212229] px-3 py-5`}>
-            <SidebarMessages session={session} />
-          </div>
-        </>
+        <Box
+          width="352px"
+          height="auto"
+          backgroundColor="#1A202C"
+          padding="0.5rem"
+          borderLeft="1px"
+          borderRight="1px"
+          borderColor="#2C3E61"
+          px={3}
+          py={5}
+        >
+          <SidebarMessages session={session} />
+        </Box>
       )}
     </nav>
   );

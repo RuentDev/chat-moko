@@ -22,12 +22,12 @@ const SearchForm:FC<SearchFormProps> = (props) => {
     {({ handleSubmit, errors, touched }) => (
       <form 
         onSubmit={handleSubmit}
-        className="w-[500px] h-auto rounded-xl"
+        className="w-[500px] h-auto rounded-xl border-white border-[1px]"
       >
         <FormControl isInvalid={!!errors.username && touched.username}>
-          <InputGroup>
+          <InputGroup >
           <InputLeftElement pointerEvents='none'>
-            <SlMagnifier color='gray.300' />
+            <SlMagnifier color='gray.300'/>
           </InputLeftElement>
           <Input type='text' />
         </InputGroup>

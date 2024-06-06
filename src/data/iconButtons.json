@@ -22,16 +22,23 @@
   },
   {
     "id": 3,
+    "label": "Settings",
+    "icon": "/svgs/address-book.svg",
+    "link": "/settings",
+    "isActive": false
+  },
+  {
+    "id": 4,
     "label": "Users",
     "icon": "/svgs/users.svg",
     "link": "/users",
     "isActive": false
   },
   {
-    "id": 4,
-    "label": "Files",
-    "icon": "/svgs/folder.svg",
-    "link": "/files",
+    "id": 5,
+    "label": "Notifications",
+    "icon": "/svgs/notification.svg",
+    "link": "/notifications",
     "isActive": false
   }
 ]
