@@ -17,6 +17,8 @@ import {
   Spinner,
   Text,
   UnorderedList,
+  Box,
+  Avatar,
 } from "@chakra-ui/react";
 import { Session } from "next-auth";
 import ConvesationOperations from "@/graphql/operations/conversation";
@@ -66,26 +68,42 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
 
   return (
     <div className="sidebar-messages-component w-full h-auto">
-      {/* SEARCH BAR */}
-
       <Container height="50px" bg={"bg-[#141619]"} padding={0}>
         <Flex>
+          {/* Logged-in user's profile */}
+          <Box display="flex">
+            <Avatar
+              size="md"
+              name="Lee Ryan Garcia"
+              src="/svgs/user-icon.svg"
+            />
+          </Box>
+
+          {/* Name & Email from the logged-in user */}
+          <Box marginLeft={2}>
+            <Text>Lee Ryan M. Garcia</Text>
+            <Text>leeryan307@gmail.com</Text>
+          </Box>
+        </Flex>
+
+        {/* SEARCH BAR */}
+        <Flex marginTop={5}>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
               <SlMagnifier size={20} />
             </InputLeftElement>
             <Input
               type="tel"
-              placeholder="Search Conversation"
-              borderColor="transparent"
-              focusBorderColor="transparent"
+              borderColor="white"
+              borderRadius={10}
+              focusBorderColor="white"
               _hover={{
                 borderColor: "none",
               }}
               fontSize="small"
             />
           </InputGroup>
-          <IconButton
+          {/* <IconButton
             size="md"
             isRound
             fontSize="20px"
@@ -93,7 +111,7 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
             aria-label="add-message"
             backgroundColor="transparent"
             icon={<Icon as={MdOutlineLibraryAdd} />}
-          />
+          /> */}
         </Flex>
       </Container>
 
@@ -106,10 +124,6 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
         {/* <ul className="pinned-messages w-full h-auto">
         </ul> */}
         {/* ALL MESSAGES */}
-        <HStack>
-          <Text fontSize="sm">All Messages</Text>
-          <Icon as={TiMessages} />
-        </HStack>
         <UnorderedList padding={0} margin={0}>
           {data &&
             data.conversations.map((conversation: Conversation) => {

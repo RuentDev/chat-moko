@@ -174,21 +174,23 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
       </Show>
 
       {/*RIGHT SIDE COMPONENTS */}
-      {selectedIcon.toLowerCase() === "messages" && (
-        <Box
-          width="352px"
-          height="auto"
-          backgroundColor="#1A202C"
-          padding="0.5rem"
-          borderLeft="1px"
-          borderRight="1px"
-          borderColor="#2C3E61"
-          px={3}
-          py={5}
-        >
-          <SidebarMessages session={session} />
-        </Box>
-      )}
+      <Show above="md">
+        {selectedIcon.toLowerCase() === "messages" && (
+          <Box
+            width="352px"
+            height="auto"
+            backgroundColor="#1A202C"
+            padding="0.5rem"
+            borderLeft="1px"
+            borderRight="1px"
+            borderColor="#2C3E61"
+            px={3}
+            py={5}
+          >
+            <SidebarMessages session={session} />
+          </Box>
+        )}
+      </Show>
     </nav>
   );
 };
