@@ -22,8 +22,8 @@ const DashboardPage: NextPage = async () => {
   const session = await auth();
 
   return (
-    <Hide above="md">
       <main className="w-full h-full">
+      <Hide above="md">
       <VStack width="100%" padding="0.5rem" bg="#081E40">
         <Container
           width="100%"
@@ -81,14 +81,14 @@ const DashboardPage: NextPage = async () => {
           </Box>
         </Container>
         <Flex
-          width={350}
-          position={{ base: "static", lg:"absolute"}}
+          width="80%"
           alignItems="center"
           justifyContent="center"
         >
           <Forms.SearchForm />
         </Flex>
       </VStack>
+      </Hide>
 
       <Center width="100%" height="90%">
         <Flex
@@ -137,7 +137,6 @@ const DashboardPage: NextPage = async () => {
         </Flex>
       </Center>
     </main>
-    </Hide>
   );
 };
 
