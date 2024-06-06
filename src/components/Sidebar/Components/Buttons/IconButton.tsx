@@ -12,20 +12,24 @@ interface IconButtonProps {
   onClick?: any
 }
 
-const IconButton = (props: IconButtonProps) => {
+const IconButton = ({icon, size, label, isActive, onClick}: IconButtonProps) => {
 
   return (
     <button
-      title={props.label.toUpperCase()}
-      onClick={props.onClick}
-      aria-label={props.label}
-      className={`sidebar-icon-button flex items-center justify-center p-3 rounded-full ease-in-out duration-300 ${props.isActive && "bg-[#2A9DF4]"} hover:bg-[#2A9DF4]`}
+      title={label.toUpperCase()}
+      onClick={onClick}
+      aria-label={label}
+      className={`sidebar-icon-button flex items-center justify-center p-3 rounded-full ease-in-out duration-300 ${isActive && "bg-[#2A9DF4]"} hover:bg-[#2A9DF4]`}
     >
       <Image 
-        src={props.icon} 
+        src={icon} 
         alt='button-icon' 
-        height={props.size} 
-        width={props.size} 
+        height={size} 
+        width={size} 
+        priority
+        objectFit="cover"
+        objectPosition='center'
+        className={`w-[${size}px] h-[${size}px]`}
       />
     </button>
   )

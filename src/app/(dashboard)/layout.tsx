@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
-import DashboardLoading from "./loading";
+import React from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { auth } from "../../auth";
 import { redirect } from "next/navigation";
+import iconButtons from "@/data/iconButtons.json";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
@@ -19,8 +19,9 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <main className="dashboard-layout w-full h-screen flex gap-[2px]">
-      <Sidebar />
-      <Suspense fallback={<DashboardLoading />}>{children}</Suspense>
+      <Sidebar iconButtons={iconButtons}/>
+      {/* <Suspense fallback={<DashboardLoading />}></Suspense> */}
+      {children}
     </main>
   );
 };

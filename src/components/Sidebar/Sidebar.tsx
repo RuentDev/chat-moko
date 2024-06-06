@@ -1,12 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState, store } from "@/app-redux/store";
-import { useRouter } from "next/navigation";
-import iconButtons from "@/data/iconButtons.json";
-import IconBtn from "./Components/Buttons/IconButton";
-import { setSelectedIcon } from "@/app-redux/features/navigationSlice";
-import { CiLogout } from "react-icons/ci";
+
 import {
   Flex,
   ListItem,
@@ -26,12 +19,22 @@ import {
   Box,
   Show
 } from "@chakra-ui/react";
-import { signOut, useSession } from "next-auth/react";
+
+import { useSelector } from "react-redux";
+import { CiLogout } from "react-icons/ci";
+import { useRouter } from "next/navigation";
 import { SidebarMessages } from "./Components";
+import React, { useEffect, useState } from "react";
+import { RootState, store } from "@/app-redux/store";
+import IconBtn from "./Components/Buttons/IconButton";
+import { signOut, useSession } from "next-auth/react";
+import { setSelectedIcon } from "@/app-redux/features/navigationSlice";
 
-interface SidebarProps {}
+interface SidebarProps {
+  iconButtons: any[]
+}
 
-const Sidebar: React.FC<SidebarProps> = (props) => {
+const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
   const [buttons, setButtons] = useState(iconButtons);
   const [navbarWidth, setNavbarWidth] = useState(0);
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
@@ -39,6 +42,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
   const selectedIcon = useSelector(
     (state: RootState) => state.navigation.selectedIcon
   );
+
   const router = useRouter();
 
   const handleOnClick = (e: any, button: any) => {
@@ -68,6 +72,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
     const button = buttonCopy.find(
       (item) => item.link.replace("/", "") === paths[1]
     );
+    
     buttonCopy.forEach((item) => {
       if (button && item.id === button.id) {
         item.isActive = true;
@@ -76,6 +81,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
         item.isActive = false;
       }
     });
+
     setButtons(buttonCopy);
 
     const navbar = document.getElementById("navbar");
@@ -106,7 +112,10 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
           borderRight="1px"
           borderColor="#2C3E61"
         >
-          <UnorderedList margin="0" padding="0">
+          <UnorderedList 
+            margin="0" 
+            padding="0"
+          >
             <Flex
               gap="5"
               flexDirection="column"
