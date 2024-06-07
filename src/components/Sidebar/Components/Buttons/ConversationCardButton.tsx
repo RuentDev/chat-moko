@@ -4,7 +4,9 @@ import TypingEffect from "./TypingEffect";
 import { getMessageSentTime } from "@/utils";
 import {
   Avatar,
+  AvatarBadge,
   AvatarGroup,
+  Container,
   Flex,
   Grid,
   GridItem,
@@ -15,6 +17,7 @@ import {
 import { ConversationParticipant } from "@/utils/types";
 
 interface ConversationButtonCardProps {
+  index: number
   participants: ConversationParticipant[];
   userId?: string | null;
   type: string;
@@ -27,51 +30,56 @@ interface ConversationButtonCardProps {
 
 const ConversationCardButton = (props: ConversationButtonCardProps) => {
   return (
-    <HStack gap={3} cursor="pointer" onClick={props.onClick}>
-      <GridItem w="20%" h="auto">
-        <AvatarGroup size='md' max={2}>
-          {props.participants.map((participant) => {
-            if (props.userId !== participant.userId) {
-              return (
-                  <Avatar
-                    key={participant.user.id}
-                    src={participant.user.image}
-                    name={`${participant.user.first_name} ${participant.user.middle_name} ${participant.user.last_name}`}
-                  />
+    <Container width="100%" height={70} border={0} transitionTimingFunction="ease-in-out" transitionDuration="500ms" _hover={{backgroundColor: "#2C3E61"}} className=" ease">
+      <HStack gap={3} cursor="pointer" onClick={props.onClick}>
+        <GridItem h="auto">
+          <AvatarGroup size='md' max={2}>
+            {props.participants.map((participant) => {
+              if (props.userId !== participant.userId) {
+                return (
+                    <Avatar
+                      key={participant.user.id}
+                      src={participant.user.image}
+                      name={`${participant.user.first_name} ${participant.user.last_name}`}
+                      size="sm"
+                    >
+                      <AvatarBadge boxSize='1rem' bg='green.500' />
+                    </Avatar>
+                  );
+                }
+              })}
+            </AvatarGroup>
+        </GridItem>
+        <GridItem w="100%" h="auto">
+          <VStack align="flex-start">
+            {props.participants.map((participant) => {
+              if (props.userId !== participant.userId) {
+                return (
+                  <Text fontSize="small" key={participant.user.id}>
+                  {`${participant.user.first_name} ${participant.user.last_name}`}
+                  </Text>
                 );
               }
             })}
-          </AvatarGroup>
-      </GridItem>
-      <GridItem w="100%" h="auto">
-        <VStack align="flex-start">
-          {props.participants.map((participant) => {
-            if (props.userId !== participant.userId) {
-              return (
-                <Text fontSize="small" key={participant.user.id}>
-                 {`${participant.user.first_name} ${participant.user.middle_name} ${participant.user.last_name}`}
-                </Text>
-              );
-            }
-          })}
-          {props.isTyping ? (
-            <TypingEffect />
-          ) : (
+            {props.isTyping ? (
+              <TypingEffect />
+            ) : (
+              <Text fontSize="xs">
+                {props.content && props.content.substring(0, 20)}{props.content && props.content.length > 10 && "..." }
+              </Text>
+            )}
+          </VStack>
+        </GridItem>
+        <GridItem w="40%" h="auto">
+          <VStack align="flex-end">
             <Text fontSize="xs">
-              {props.content && props.content.substring(0, 20)}{props.content && props.content.length > 10 && "..." }
+              {props.time && getMessageSentTime(props.time)}
             </Text>
-          )}
-        </VStack>
-      </GridItem>
-      <GridItem w="40%" h="auto">
-        <VStack align="flex-end">
-          <Text fontSize="xs">
-            {props.time && getMessageSentTime(props.time)}
-          </Text>
-          <Text fontSize="xs">{props.unreadCount}</Text>
-        </VStack>
-      </GridItem>
-    </HStack>
+            <Text fontSize="xs">{props.unreadCount}</Text>
+          </VStack>
+        </GridItem>
+      </HStack>
+    </Container>
   );
 };
 

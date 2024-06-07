@@ -17,10 +17,11 @@ import {
   Spinner,
   Text,
   UnorderedList,
+  Box,
+  Avatar,
 } from "@chakra-ui/react";
 import { Session } from "next-auth";
 import ConvesationOperations from "@/graphql/operations/conversation";
-import { TiMessages } from "react-icons/ti";
 import {
   Conversation,
   ConversationQuery,
@@ -28,7 +29,8 @@ import {
 } from "@/utils/types";
 import { setSelectedConversation } from "@/app-redux/features/conversationSlice";
 import { SlMagnifier } from "react-icons/sl";
-import { MdOutlineLibraryAdd } from "react-icons/md";
+import SearchBox from "@/components/Inputs/SearchBox";
+import UserProfile from "@/components/UserProfile/UserProfile";
 
 interface SidebarMessagesProps {
   session: Session | null;
@@ -52,52 +54,15 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
     router.push("/messages/new");
   };
 
-  if (loading) {
-    return (
-      <Center height="100%">
-        <Spinner size="xl" />
-      </Center>
-    );
-  }
-
   if (error) {
     return <>{error.message}</>;
   }
 
   return (
-    <div className="sidebar-messages-component w-full h-auto">
-      {/* SEARCH BAR */}
-
-      <Container height="50px" bg={"bg-[#141619]"} padding={0}>
-        <Flex>
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <SlMagnifier size={20} />
-            </InputLeftElement>
-            <Input
-              type="tel"
-              placeholder="Search Conversation"
-              borderColor="transparent"
-              focusBorderColor="transparent"
-              _hover={{
-                borderColor: "none",
-              }}
-              fontSize="small"
-            />
-          </InputGroup>
-          <IconButton
-            size="md"
-            isRound
-            fontSize="20px"
-            onClick={handleAddConversationBtnClick}
-            aria-label="add-message"
-            backgroundColor="transparent"
-            icon={<Icon as={MdOutlineLibraryAdd} />}
-          />
-        </Flex>
-      </Container>
-
-      <Flex flexDirection="column" gap={2}>
+    <Container w={350} h="100%" borderLeft={0} borderBottom={0} borderTop={0} padding={0}>
+      <UserProfile />
+      <SearchBox />
+      <Flex  h="100%" w="100%" flexDirection="column" gap={2}>
         {/* PINNED MESSAGES */}
         {/* <HStack>
           <Text fontSize='sm' >Pinned Messages</Text>
@@ -106,38 +71,32 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
         {/* <ul className="pinned-messages w-full h-auto">
         </ul> */}
         {/* ALL MESSAGES */}
-        <HStack>
-          <Text fontSize="sm">All Messages</Text>
-          <Icon as={TiMessages} />
-        </HStack>
-        <UnorderedList padding={0} margin={0}>
-          {data &&
-            data.conversations.map((conversation: Conversation) => {
-              return (
-                <ConversationCardButton
-                  key={conversation.id}
-                  userId={props.session?.user.id}
-                  participants={conversation.participants}
-                  type={conversation.type}
-                  isTyping={false}
-                  unreadCount={0}
-                  time={
-                    conversation.messages.length > 0
-                      ? conversation.messages[0].createdAt
-                      : ""
-                  }
-                  content={
-                    conversation.messages.length > 0
-                      ? conversation.messages[0].content
-                      : ""
-                  }
-                  onClick={() => handleConversationCardBtnClick(conversation)}
-                />
-              );
-            })}
-        </UnorderedList>
+        {loading ? (
+          <Center height="100%">
+            <Spinner size="xl" />
+          </Center>
+        ) : (
+          <UnorderedList padding={0} margin={0}>
+            {data && data.conversations.map((conversation: Conversation, index: number) => {
+                return (
+                  <ConversationCardButton
+                    index={index}
+                    unreadCount={0}
+                    isTyping={false}
+                    key={conversation.id}
+                    type={conversation.type}
+                    userId={props.session?.user.id}
+                    participants={conversation.participants}
+                    onClick={() => handleConversationCardBtnClick(conversation)}
+                    time={conversation.messages.length > 0 ? conversation.messages[0].createdAt : ""}
+                    content={conversation.messages.length > 0 ? conversation.messages[0].content : ""}
+                  />
+                );
+              })}
+          </UnorderedList>
+        )}
       </Flex>
-    </div>
+    </Container>
   );
 };
 

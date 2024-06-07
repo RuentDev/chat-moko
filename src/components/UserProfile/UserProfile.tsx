@@ -1,19 +1,38 @@
 'use client'
 import React from 'react'
-import Image from 'next/image'
-import logo from '../../../public/images/ID YOURS logo.png'
+import { Session } from 'next-auth'
+import { Avatar, Text, GridItem, HStack, Container, AvatarBadge, VStack } from '@chakra-ui/react'
 
 interface UserIconProps {
-    image?: string
+	Session?: Session | null
 }
 
 const UserProfile = (props: UserIconProps) => {
     return (
-        <div className='user-profile-container w-[40px] h-[40px] bg-white rounded-full'>
-            <div className='image-container relative w-full h-full' >
-                <Image src='user-icon.svg' alt="" className='absolute w-auto h-auto' width={100} height={100} priority />
-            </div>
-        </div>
+			<Container border={0}>
+				<HStack gap={3} cursor="pointer" onClick={() => {}}>
+					<GridItem w="auto" h="auto">
+						<Avatar
+							name="Lee Ryan Garcia"
+							size="md"
+						>
+							<AvatarBadge boxSize='1rem' bg='green.500' />
+						</Avatar>
+					</GridItem>
+					<VStack gap={0}>
+						<GridItem w="100%" h="auto">
+							<Text fontSize="small" >
+								Lee Ryan Garcia
+							</Text>
+						</GridItem>
+						<GridItem w="100%" h="auto">
+							<Text fontSize="small" color="green.500">
+								Active
+							</Text>
+						</GridItem>
+					</VStack>
+				</HStack>
+			</Container>
     )
 }
 

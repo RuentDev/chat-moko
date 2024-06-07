@@ -4,7 +4,30 @@ const config: ThemeConfig = {
   initialColorMode: "dark",
 }
 
+const ContainerStyle = {
+  // style object for base or default style
+  baseStyle: {
+    borderColor: "#2C3E61",
+    borderWidth: 1,
+    paddingTop: 2,
+    paddingBottom: 2,
+  },
+  // styles for different sizes ("sm", "md", "lg")
+  sizes: {},
+  // styles for different visual variants ("outline", "solid")
+  variants: {},
+  // default values for 'size', 'variant' and 'colorScheme'
+  defaultProps: {
+    size: '',
+    variant: '',
+    colorScheme: '',
+  },
+}
+
 const theme = extendTheme({
+  components: {
+    Container: ContainerStyle
+  },
   fonts: {
     heading: 'var(--font-rubik)',
     body: 'var(--font-rubik)',
@@ -16,9 +39,7 @@ const theme = extendTheme({
   },
   styles: {
     global: () => {
-      body: {
-        bg: "whiteAlpha.200"
-      }
+     
     }
   },
 })

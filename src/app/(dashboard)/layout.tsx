@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { auth } from "../../auth";
 import { redirect } from "next/navigation";
-import iconButtons from "@/data/iconButtons.json";
+import NavbarProvider from "@/components/NavbarProvider";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
@@ -18,11 +18,9 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <main className="dashboard-layout w-full h-screen flex gap-[2px]">
-      <Sidebar iconButtons={iconButtons}/>
-      {/* <Suspense fallback={<DashboardLoading />}></Suspense> */}
+    <NavbarProvider>
       {children}
-    </main>
+    </NavbarProvider>
   );
 };
 

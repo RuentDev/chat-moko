@@ -19,7 +19,7 @@ const IconButton = ({icon, size, label, isActive, onClick}: IconButtonProps) => 
       title={label.toUpperCase()}
       onClick={onClick}
       aria-label={label}
-      className={`sidebar-icon-button flex items-center justify-center p-3 rounded-full ease-in-out duration-300 ${isActive && "bg-[#2A9DF4]"} hover:bg-[#2A9DF4]`}
+      className={`sidebar-icon-button flex items-center justify-center p-2 rounded-full ease-in-out duration-300 ${isActive && "bg-[#2A9DF4]"} hover:bg-[#2A9DF4]`}
     >
       <Image 
         src={icon} 
@@ -27,7 +27,6 @@ const IconButton = ({icon, size, label, isActive, onClick}: IconButtonProps) => 
         height={size} 
         width={size} 
         priority
-        objectFit="cover"
         objectPosition='center'
         className={`w-[${size}px] h-[${size}px]`}
       />
