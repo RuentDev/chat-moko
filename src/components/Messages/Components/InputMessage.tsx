@@ -5,9 +5,11 @@ import {
   Icon,
   IconButton,
   Textarea,
+  Input,
 } from "@chakra-ui/react";
 import { Field, Formik } from "formik";
 import React from "react";
+import { SlOptions } from "react-icons/sl";
 import {
   FaImage,
   FaLocationArrow,
@@ -65,80 +67,63 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
     >
       {({ handleSubmit, errors, touched }) => {
         return (
-          <Flex className="chat-bottom-container w-full h-auto bg-[#282832] p-5 flex">
-            <Flex className="justify-between items-center bg-[#212229] w-full">
-              <Flex className="w-full items-center">
-                <form onSubmit={handleSubmit} className="w-full h-full">
-                  <Flex>
-                    <FormControl>
-                      <Flex
-                        padding="1rem"
-                        gap={1}
-                        alignItems="center"
-                        justifyContent="center"
-                        width="100%"
-                      >
-                        <IconButton
-                          isRound
-                          backgroundColor="transparent"
-                          aria-label="Voice Message"
-                          icon={<Icon as={FaMicrophone} />}
-                        />
-                        <Field
-                          as={Textarea}
-                          id="message"
-                          name="content"
-                          type="text"
-                          placeholder="Enter you message here..."
-                          resize="none"
-                          height="100%"
-                          minHeight="2rem"
-                          ringOffset={"none"}
-                          border="none"
-                          boxShadow="none"
-                          padding="1"
-                        />
-                      </Flex>
-                    </FormControl>
-                    {/* Right Items */}
-                    <div className="right-items w-auto flex items-center p-5 gap-3">
-                      <IconButton
-                        isRound
-                        backgroundColor="transparent"
-                        icon={<Icon as={IoSend} />}
-                        aria-label="Send"
-                        type="submit"
-                        isLoading={loading}
-                      />
-                      <IconButton
-                        isRound
-                        backgroundColor="transparent"
-                        icon={<Icon as={FaSmile} />}
-                        aria-label="Emojies"
-                      />
-                      <IconButton
-                        isRound
-                        backgroundColor="transparent"
-                        icon={<Icon as={FaImage} />}
-                        aria-label="Upload Image"
-                      />
-                      <IconButton
-                        isRound
-                        backgroundColor="transparent"
-                        icon={<Icon as={FaLocationArrow} />}
-                        aria-label="Location"
-                      />
-                      <IconButton
-                        isRound
-                        backgroundColor="transparent"
-                        icon={<Icon as={SlLocationPin} />}
-                        aria-label="Upload Image"
-                      />
-                    </div>
+          <Flex
+            className="chat-bottom-container w-full h-auto bg-[#1A202C] p-5 flex"
+            borderTop="1px"
+            borderColor="#2C3E61"
+          >
+            <form onSubmit={handleSubmit} className="w-full h-full">
+              <Flex className="items-center">
+                <IconButton
+                  isRound
+                  backgroundColor="transparent"
+                  icon={<Icon as={FaSmile} />}
+                  aria-label="Emojies"
+                  fontSize="35px"
+                />
+                <FormControl>
+                  <Flex
+                    padding="1rem"
+                    gap={1}
+                    alignItems="center"
+                    justifyContent="center"
+                    width="100%"
+                  >
+                    <Input
+                      id="message"
+                      name="content"
+                      type="text"
+                      placeholder="Say something..."
+                      height="36px"
+                      width="481.35px"
+                      backgroundColor="white"
+                      borderColor="#888888"
+                      borderRadius="10px"
+                      borderWidth="1px"
+                    />
                   </Flex>
-                </form>
+                </FormControl>
+                {/* Right Items */}
+                <IconButton
+                  isRound
+                  display="flex"
+                  backgroundColor="#2A9DF4"
+                  color="black"
+                  icon={<Icon as={IoSend} />}
+                  aria-label="Send"
+                  type="submit"
+                  isLoading={loading}
+                />
+                <IconButton
+                  isRound
+                  backgroundColor="transparent"
+                  icon={<Icon as={SlOptions} />}
+                  aria-label="Send"
+                  type="submit"
+                  isLoading={loading}
+                />
               </Flex>
-            </Flex>
+            </form>
           </Flex>
         );
       }}
