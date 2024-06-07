@@ -30,18 +30,18 @@ const DashboardPage: NextPage = async () => {
           display="flex"
           justifyContent="space-between"
           maxW="sm"
-          padding={3}
+          padding={2}
         >
           {/* Menu icon for small screen */}
           <Show below="md">
-            <Box position="absolute" left={0}>
+            <Box position="absolute" left={3}>
               <Button
                 bg="transparent"
                 _hover={{
                   borderColor: "none",
                 }}
               >
-                <HiMenu fontSize={30} />
+                <HiMenu fontSize={40} />
               </Button>
             </Box>
           </Show>
@@ -57,23 +57,24 @@ const DashboardPage: NextPage = async () => {
               justifyItems="center"
             >
               <Image
-                width="90px"
+                width="80px"
                 alt="Chat Moko"
                 src="/images/chatmoko-high-resolution-logo-transparent-blue.png"
               />
             </Box>
           </Show>
 
-          <Box display="flex" position="absolute" right={5}>
+          <Box display="flex" position="absolute" justifyContent='center' alignItems='center' right={6} gap={1}>
             <IconButton
               isRound
               bg="transparent"
               aria-label="theme"
-              icon={<IoSunnyOutline color="#ffffff" size="25" />}
+              icon={<IoSunnyOutline color="#ffffff" size="40" />}
             />
             {session && session.user && (
               <Avatar
-                size="sm"
+                width="45px"
+                height="45px"
                 name={session.user.name || ""}
                 src={session.user.image || ""}
               />
@@ -81,7 +82,7 @@ const DashboardPage: NextPage = async () => {
           </Box>
         </Container>
         <Flex
-          width="80%"
+          width="90%"
           alignItems="center"
           justifyContent="center"
         >
