@@ -24,7 +24,7 @@ const DashboardPage: NextPage = async () => {
   return (
       <main className="w-full h-full">
       <Hide above="md">
-      <VStack width="100%" padding="0.5rem" bg="#081E40">
+      <VStack width="100%" padding="0.5rem" bg="#1A202C">
         <Container
           width="100%"
           display="flex"
