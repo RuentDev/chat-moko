@@ -104,9 +104,8 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
 
   return (
     <nav id="navbar" className="dashboard-sidebar h-full flex">
-      {/* LEFTSIDE */}
-      <Show above="lg">
-        <Flex>
+      <Flex>
+        {/* LEFTSIDE */}
           <Container
             px={1}
             py={3}
@@ -181,10 +180,9 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
             </Modal>
           </Container>
 
-          {/*RIGHT SIDE COMPONENTS */}
-          {selectedIcon.toLowerCase() === "messages" && ( <SidebarMessages session={session} />)}
-        </Flex>
-      </Show>
+        {/*RIGHT SIDE COMPONENTS */}
+        {selectedIcon.toLowerCase() === "messages" && ( <SidebarMessages session={session} />)}
+      </Flex>
     </nav>
   );
 };

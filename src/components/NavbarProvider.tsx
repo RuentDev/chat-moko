@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import iconButtons from "@/data/iconButtons.json";
 import dynamic from "next/dynamic";
+import {  Grid, GridItem,Show } from "@chakra-ui/react";
+import Navbar from "./Navbar/Navbar";
 const Sidebar = dynamic(() => import("./Sidebar/Sidebar"))
 
 interface NavbarProviderProps {
@@ -9,10 +11,24 @@ interface NavbarProviderProps {
 
 const NavbarProvider:FC<NavbarProviderProps> = ({children}) => {
   return(
-    <main className="dashboard-layout w-full h-screen flex gap-[2px]">
-      <Sidebar iconButtons={iconButtons}/>
-      {children}
-    </main>
+    <Grid
+      height={"100vh"}
+      width={"100%"}
+      templateRows='repeat(12, 1fr)'
+      templateColumns='repeat(25, 1fr)'
+    >
+      <GridItem rowSpan={12} colSpan={1}>
+        <Show above="md">
+          <Sidebar iconButtons={iconButtons}/>
+        </Show>
+      </GridItem>
+      <GridItem rowSpan={1} colSpan={24}>
+        <Navbar />  
+      </GridItem>
+      <GridItem rowSpan={12} colSpan={24} >
+        {children}
+      </GridItem>
+    </Grid>
   )
 };
 

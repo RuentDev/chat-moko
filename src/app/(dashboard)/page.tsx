@@ -22,76 +22,8 @@ const DashboardPage: NextPage = async () => {
   const session = await auth();
 
   return (
-      <main className="w-full h-full">
-      <Hide above="md">
-        <VStack width="100%" padding="0.5rem" bg="#1A202C">
-          <Container
-            width="100%"
-            display="flex"
-            justifyContent="space-between"
-            maxW="sm"
-            padding={2}
-          >
-            {/* Menu icon for small screen */}
-            <Show below="md">
-              <Box position="absolute" left={3}>
-                <Button
-                  bg="transparent"
-                  _hover={{
-                    borderColor: "none",
-                  }}
-                >
-                  <HiMenu fontSize={40} />
-                </Button>
-              </Box>
-            </Show>
-
-            {/* Chat Moko Logo */}
-            <Show below="sm">
-              <Box
-                width="100%"
-                display="flex"
-                justifyContent="center"
-                alignContent="center"
-                alignItems="center"
-                justifyItems="center"
-              >
-                <Image
-                  width="80px"
-                  alt="Chat Moko"
-                  src="/images/chatmoko-high-resolution-logo-transparent-blue.png"
-                />
-              </Box>
-            </Show>
-
-            <Box display="flex" position="absolute" justifyContent='center' alignItems='center' right={6} gap={1}>
-              <IconButton
-                isRound
-                bg="transparent"
-                aria-label="theme"
-                icon={<IoSunnyOutline color="#ffffff" size="40" />}
-              />
-              {session && session.user && (
-                <Avatar
-                  width="45px"
-                  height="45px"
-                  name={session.user.name || ""}
-                  src={session.user.image || ""}
-                />
-              )}
-            </Box>
-          </Container>
-          <Flex
-            width="90%"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Forms.SearchForm />
-          </Flex>
-        </VStack>
-      </Hide>
-      
-      <Center width="100%" height="90%">
+    <main className="w-full h-full">
+      <Center width="100%" height="100%">
         <Flex
           gap={5}
           direction="column"

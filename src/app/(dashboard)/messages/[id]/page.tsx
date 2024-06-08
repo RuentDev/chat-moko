@@ -4,7 +4,7 @@ import Messages from "@/components/Messages";
 
 const Chat = async ({ params }: { params: { id: string } }) => {
   return (
-    <Flex color="white" width="100%" height="100vh">
+    <Flex color="white" width="100%" height="100%">
       {params.id === "new" ? (
         
         <Messages.NewMessage />
@@ -12,7 +12,7 @@ const Chat = async ({ params }: { params: { id: string } }) => {
       ) : (
         <>
           <Messages.Messages id={params.id} />
-          <Messages.ChatSettings />
+          {/* <Messages.ChatSettings /> */}
         </>
       )}
     </Flex>

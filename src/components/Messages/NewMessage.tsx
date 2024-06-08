@@ -14,7 +14,7 @@ const NewMessage: FC<NewMessageProps> = (props) => {
   }
 
   return (
-    <Flex width="100%" height="100vh" flexDirection="column" padding="1rem">
+    <Flex width="100%" height="100%" flexDirection="column" padding="1rem">
       <form action="">
         <Flex alignItems="center" justifyContent="center" gap="1">
           <Text width="auto">To: asdasd</Text>

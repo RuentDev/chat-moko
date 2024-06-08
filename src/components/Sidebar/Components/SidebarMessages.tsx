@@ -8,27 +8,15 @@ import {
   Center,
   Container,
   Flex,
-  HStack,
-  Icon,
   IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Spinner,
-  Text,
   UnorderedList,
-  Box,
-  Avatar,
 } from "@chakra-ui/react";
 import { Session } from "next-auth";
 import ConvesationOperations from "@/graphql/operations/conversation";
-import {
-  Conversation,
-  ConversationQuery,
-  GetConversationVariables,
-} from "@/utils/types";
+import { Conversation,  ConversationQuery, GetConversationVariables,} from "@/utils/types";
 import { setSelectedConversation } from "@/app-redux/features/conversationSlice";
-import { SlMagnifier } from "react-icons/sl";
+import { BiMessageAdd } from "react-icons/bi";
 import SearchBox from "@/components/Inputs/SearchBox";
 import UserProfile from "@/components/UserProfile/UserProfile";
 
@@ -36,7 +24,7 @@ interface SidebarMessagesProps {
   session: Session | null;
 }
 
-const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
+const SidebarMessages: React.FC<SidebarMessagesProps> = ({session}) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -59,10 +47,19 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
   }
 
   return (
-    <Container w={350} h="100%" borderLeft={0} borderBottom={0} borderTop={0} padding={0}>
-      <UserProfile />
+    <Container 
+      w={350} 
+      h="100%" 
+      padding={0} 
+      borderTop={0} 
+      borderLeft={0} 
+      borderBottom={0} 
+      overflow="hidden"
+      position="relative"
+    >
+      <UserProfile session={session} />
       <SearchBox />
-      <Flex  h="100%" w="100%" flexDirection="column" gap={2}>
+      <Flex h="auto" w="100%" flexDirection="column" gap={2}>
         {/* PINNED MESSAGES */}
         {/* <HStack>
           <Text fontSize='sm' >Pinned Messages</Text>
@@ -70,6 +67,7 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
         </HStack> */}
         {/* <ul className="pinned-messages w-full h-auto">
         </ul> */}
+
         {/* ALL MESSAGES */}
         {loading ? (
           <Center height="100%">
@@ -85,7 +83,7 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
                     isTyping={false}
                     key={conversation.id}
                     type={conversation.type}
-                    userId={props.session?.user.id}
+                    userId={session?.user.id}
                     participants={conversation.participants}
                     onClick={() => handleConversationCardBtnClick(conversation)}
                     time={conversation.messages.length > 0 ? conversation.messages[0].createdAt : ""}
@@ -96,6 +94,20 @@ const SidebarMessages: React.FC<SidebarMessagesProps> = (props) => {
           </UnorderedList>
         )}
       </Flex>
+      <IconButton 
+        isRound   
+        bottom={3}
+        right={4}
+        size="lg"
+        padding={2}
+        position="absolute"
+        as={BiMessageAdd}
+        aria-label={"add-new-message"}   
+        bg="transparent"
+        title="New message"
+        cursor="pointer"
+        onClick={handleAddConversationBtnClick}
+      />
     </Container>
   );
 };

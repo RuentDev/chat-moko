@@ -10,7 +10,7 @@
     "id": 1,
     "label": "Messages",
     "icon": "/svgs/messages.svg",
-    "link": "/messages",
+    "link": "/",
     "isActive": false
   },
   {

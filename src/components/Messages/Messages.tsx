@@ -1,6 +1,6 @@
 "use client";
 
-import { Center, Flex, Spinner } from "@chakra-ui/react";
+import { Center, Container, Flex, Spinner } from "@chakra-ui/react";
 import React, { FC, useEffect } from "react";
 import HeaderMessage from "./Components/HeaderMessage";
 import InputMessage from "./Components/InputMessage";
@@ -65,22 +65,24 @@ const Messages: FC<MessagesProps> = (props) => {
   }
 
   return (
-    <Flex width="100%" height="100vh" flexDirection="column">
+    <Container maxWidth={"100%"} maxHeight={"100%"} border={0}>
+     <Flex width="100%" height="100%" flexDirection="column">
       {conversation && (
-        <HeaderMessage
-          participants={conversation.getConversation.participants}
-        />
-      )}
-      {messages && conversation && (
-        <>
-          <MessagesWrapper
-            messages={messages.messages}
+          <HeaderMessage
             participants={conversation.getConversation.participants}
           />
-          <InputMessage />
-        </>
-      )}
-    </Flex>
+        )}
+        {messages && conversation && (
+          <>
+            <MessagesWrapper
+              messages={messages.messages}
+              participants={conversation.getConversation.participants}
+            />
+            <InputMessage />
+          </>
+        )}
+     </Flex>
+    </Container>
   );
 };
 
