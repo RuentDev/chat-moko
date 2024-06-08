@@ -108,7 +108,8 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
                   isRound
                   display="flex"
                   backgroundColor="#2A9DF4"
-                  icon={<Icon as={IoSend} color="white"/>}
+                  color="black"
+                  icon={<Icon as={IoSend} />}
                   aria-label="Send"
                   type="submit"
                   isLoading={loading}

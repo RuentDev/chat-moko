@@ -25,11 +25,12 @@ const SearchBox:FC<SearchBoxProps> = ({}) => {
         justifyContent="center"
         gap={1}
       >
-        <InputGroup >
+        <InputGroup>
           <Input 
             type='text' 
             value={input} 
             onChange={(e) => setInput(e.target.value)}
+            borderBottomRightRadius={0}
           />
           <InputLeftElement pointerEvents='none'>
             <SlMagnifier color='gray.300' />

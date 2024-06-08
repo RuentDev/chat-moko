@@ -65,7 +65,6 @@ const Messages: FC<MessagesProps> = (props) => {
   }
 
   return (
-    <Container maxWidth={"100%"} maxHeight={"100%"} border={0}>
      <Flex width="100%" height="100%" flexDirection="column">
       {conversation && (
           <HeaderMessage
@@ -82,7 +81,6 @@ const Messages: FC<MessagesProps> = (props) => {
           </>
         )}
      </Flex>
-    </Container>
   );
 };
 
