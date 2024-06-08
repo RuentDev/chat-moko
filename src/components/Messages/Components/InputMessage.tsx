@@ -68,12 +68,18 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
       {({ handleSubmit, errors, touched }) => {
         return (
           <Flex
-            className="chat-bottom-container w-full h-auto bg-[#1A202C] p-5 flex"
+            className="input-msg-container"
+            width="100%"
+            height="112px"
             borderTop="1px"
             borderColor="#2C3E61"
+            backgroundColor="#1A202C"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
           >
-            <form onSubmit={handleSubmit} className="w-full h-full">
-              <Flex className="items-center">
+            <form onSubmit={handleSubmit}>
+              <Flex alignItems="center" width="664px">
                 <IconButton
                   isRound
                   backgroundColor="transparent"
@@ -103,7 +109,7 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
                     />
                   </Flex>
                 </FormControl>
-                {/* Right Items */}
+
                 <IconButton
                   isRound
                   display="flex"

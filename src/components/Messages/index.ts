@@ -1,4 +1,4 @@
-import ChatSettings from "./Components/ChatSettings";
+import MessageOptions from "./Components/MessageOptions";
 import HeaderMessage from "./Components/HeaderMessage";
 import InputMessage from "./Components/InputMessage";
 import Message from "./Components/Message";
@@ -8,7 +8,7 @@ import NewMessage from "./NewMessage";
 
 const messages = {
   Messages,
-  ChatSettings,
+  MessageOptions,
   Message,
   MessagesWrapper,
   HeaderMessage,
