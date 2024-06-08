@@ -4,16 +4,23 @@ import { Center, Container, Flex, Spinner } from "@chakra-ui/react";
 import React, { FC, useEffect } from "react";
 import HeaderMessage from "./Components/HeaderMessage";
 import InputMessage from "./Components/InputMessage";
+import MessageOptions from "./Components/MessageOptions";
 import { useQuery } from "@apollo/client";
 import MessagesWrapper from "./Components/MessagesWrapper";
 import MessageOperations from "@/graphql/operations/message";
 import ConversationOperations from "@/graphql/operations/conversation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app-redux/store";
 
 interface MessagesProps {
   id: string;
 }
 
 const Messages: FC<MessagesProps> = (props) => {
+  const isMessageOptionsOpen = useSelector(
+    (state: RootState) => state.navigation.isMessageOptionsOpen
+  );
+
   const {
     data: messages,
     loading,
@@ -65,8 +72,9 @@ const Messages: FC<MessagesProps> = (props) => {
   }
 
   return (
-     <Flex width="100%" height="100%" flexDirection="column">
-      {conversation && (
+    <Flex width="100%" height="100%">
+      <Flex width="100%" height="100%" flexDirection="column">
+        {conversation && (
           <HeaderMessage
             participants={conversation.getConversation.participants}
           />
@@ -80,7 +88,13 @@ const Messages: FC<MessagesProps> = (props) => {
             <InputMessage />
           </>
         )}
-     </Flex>
+      </Flex>
+      {isMessageOptionsOpen && (
+        <Flex>
+          <MessageOptions />
+        </Flex>
+      )}
+      </Flex>
   );
 };
 
