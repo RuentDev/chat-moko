@@ -27,7 +27,6 @@ const IconButton = ({icon, size, label, isActive, onClick}: IconButtonProps) => 
         height={size} 
         width={size} 
         priority
-        objectPosition='center'
         className={`w-[${size}px] h-[${size}px]`}
       />
     </button>

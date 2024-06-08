@@ -18,12 +18,7 @@ const NavbarProvider:FC<NavbarProviderProps> = ({children}) => {
       templateColumns='repeat(25, 1fr)'
     >
       <GridItem rowSpan={12} colSpan={1}>
-        <Show above="md">
-          <Sidebar iconButtons={iconButtons}/>
-        </Show>
-      </GridItem>
-      <GridItem rowSpan={1} colSpan={24}>
-        <Navbar />  
+        <Sidebar iconButtons={iconButtons}/>
       </GridItem>
       <GridItem rowSpan={12} colSpan={24} >
         {children}

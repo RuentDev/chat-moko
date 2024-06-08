@@ -2,6 +2,7 @@ import { ThemeConfig, extendTheme, ComponentStyleConfig, defineStyleConfig } fro
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
+  useSystemColorMode: false,
 }
 
 const ContainerStyle = {
@@ -23,6 +24,7 @@ const ContainerStyle = {
     colorScheme: '',
   },
 }
+
 const IconButtonStyle = {
   // style object for base or default style
   baseStyle: {},
@@ -38,7 +40,16 @@ const IconButtonStyle = {
   },
 }
 
-const theme = extendTheme({
+const breakpoints = {
+  base: '0px',
+  sm: '400px',
+  md: '1000px',
+  lg: '1200px',
+  xl: '1280px',
+  '2xl': '1920px',
+}
+
+const theme = extendTheme({ config },{
   components: {
     Container: ContainerStyle,
     IconButton: IconButtonStyle
@@ -47,6 +58,7 @@ const theme = extendTheme({
     heading: 'var(--font-rubik)',
     body: 'var(--font-rubik)',
   },
+  breakpoints,
   colors: {
     brand: {
       100: "#2C3E61",

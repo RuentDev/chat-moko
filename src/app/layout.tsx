@@ -9,13 +9,12 @@ import {
   ReduxProvider,
 } from "@/components";
 import ToastContainerProvider from "@/components/ToastContainerProvider";
-import { ColorModeScript, theme } from "@chakra-ui/react";
-// import { ColorModeScript, theme } from "@chakra-ui/react";
-
+import { ColorModeScript } from "@chakra-ui/react";
+import theme from '@/chakra/theme'
 
 export const metadata: Metadata = {
   title: "ChatMoko | Messaging",
-  description: "",
+  description: "Free Messaging Application",
 };
 
 export default async function RootLayout({
@@ -27,7 +26,7 @@ export default async function RootLayout({
     <html lang="en" className={fonts.rubik.variable}>
       <body>
         <ChakraProviderComponent>
-          <ColorModeScript/>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <ApolloProviderComponent>
             <NextAuthProvider>
                 <ToastContainerProvider>

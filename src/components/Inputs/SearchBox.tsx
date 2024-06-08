@@ -16,7 +16,7 @@ const SearchBox:FC<SearchBoxProps> = ({}) => {
   return(
     <Container 
       width="100%" 
-      px={5} 
+      px={0} 
       py={3}
       border={0}
     >

@@ -11,7 +11,7 @@ interface UserProfileProps {
 const UserProfile: React.FC<UserProfileProps> = ({ session }) => {
 
 	return(
-		<Container border={0}>
+		<Container border={0} p={0}>
 			<HStack gap={3} cursor="pointer" onClick={() => {}}>
 				<GridItem w="auto" h="auto">
 					{!session || !session.user ? (
