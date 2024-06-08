@@ -14,7 +14,8 @@ interface NavbarProps{
 const Navbar:React.FC<NavbarProps> = ({}) => {
   const {data:session} = useSession()
   return (
-      <Flex 
+      <Container maxWidth="100%" maxHeight="100%" px={10} py={0} border={0}>
+        <Flex 
         width="100%" 
         height={70}
         bg="#1A202C"
@@ -54,7 +55,7 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
           border={0}
           maxW="250px"
           margin={0}
-          p={10}
+          p={0}
         >
           <Flex 
             gap={3}
@@ -80,6 +81,7 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
           </Flex>
         </Container>
       </Flex>
+      </Container>
   )
 }
 
