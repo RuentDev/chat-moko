@@ -80,7 +80,7 @@ const Messages: FC<MessagesProps> = (props) => {
               messages={messages.messages}
               participants={conversation.getConversation.participants}
             />
-            <InputMessage />
+            <InputMessage message={""} media={[]} files={[]} />
           </>
         )}
       </Flex>
