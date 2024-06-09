@@ -196,6 +196,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                   <FormLabel color="#1A202C">Email</FormLabel>
                   <Field
                     borderColor="#1A202C"
+                    color="black"
                     backgroundColor="transparent"
                     as={Input}
                     id="email"
@@ -221,7 +222,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                     borderRadius={5}
                   >
                     <AlertIcon />
-                    <AlertTitle>{loginResStatusText}</AlertTitle>
+                    <AlertTitle>Incorrect</AlertTitle>
                   </Alert>
                 )}
 
