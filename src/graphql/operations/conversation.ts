@@ -57,6 +57,7 @@ const shema = {
               middle_name
               last_name
               image
+              phone
             }
           }
           messages {

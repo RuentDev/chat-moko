@@ -139,6 +139,7 @@ const MessageOptions = () => {
           <Text>
             {conversation?.participants.map((participant) => {
               if (participant.user.id !== session?.user.id) {
+                console.log(participant.user)
                 return `${participant.user.email}`;
               }
             })}
