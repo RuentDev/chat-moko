@@ -29,7 +29,7 @@ switch (MODE) {
 
 const httpLink = new HttpLink({
   uri: `${process.env.NEXT_PUBLIC_SERVER_PROTOCOL}${serverLink}/graphql`,
-  credentials: "include",
+  credentials: "include"
 });
 
 // const authLink = setContext((_, { headers }) => {

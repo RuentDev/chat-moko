@@ -51,4 +51,5 @@ const ChatPage = () => {
   </Center>
   )
 }
+
 export default ChatPage

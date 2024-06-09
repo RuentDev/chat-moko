@@ -33,11 +33,8 @@ const Conversations = () => {
   const dispatch = useDispatch();
   const { data: session } = useSession();
   const md = useBreakpointValue({ ssr: false, md: true });
-  const { data, error, loading, subscribeToMore } = useQuery<
-    ConversationQuery,
-    GetConversationVariables
-  >(ConvesationOperations.Queries.conversations);
-
+  const { data, error, loading, subscribeToMore } = useQuery<ConversationQuery>(ConvesationOperations.Queries.conversations);
+  
   const handleConversationCardBtnClick = (conversation: any) => {
     dispatch(setSelectedConversation(conversation));
     dispatch(setSelectedIcon(""));
@@ -48,27 +45,33 @@ const Conversations = () => {
     router.push("/messages/new");
   };
 
+
+  if(!session){
+    return null
+  }
+
   return (
     <Container
-      w={md ? 390 : "auto"}
+      w={390}
       h="100%"
       m={0}
       p={0}
       borderLeft={0}
+      borderBottom={0}
+      borderTop={0}
       position="relative"
     >
-      <Show above="md">
         <Container border={0}>
           <Flex alignItems="center">
             <Avatar
               size="md"
-              id={session?.user.id}
-              src={`${session?.user.image}`}
+              id={session.user.id}
+              src={`${session.user.image}`}
             >
               <AvatarBadge boxSize="1rem" bg="green.500" />
             </Avatar>
             <Flex ml={3} alignItems="start" flexDirection="column">
-              <Text fontSize="18px">{`${session?.user.name}`}</Text>
+              <Text fontSize="18px">{`${session.user.name}`}</Text>
               <Text color="#45BD62" fontSize="15px">
                 Active
               </Text>
@@ -76,7 +79,8 @@ const Conversations = () => {
           </Flex>
           <SearchBox />
         </Container>
-      </Show>
+      {/* <Show above="md">
+      </Show> */}
       <Flex h="auto" w="100%" flexDirection="column" gap={2}>
         {loading ? (
           <Center height="100%">
@@ -122,7 +126,7 @@ const Conversations = () => {
         bottom={3}
         right={4}
         size="lg"
-        padding={2}
+        padding={3}
         position="absolute"
         as={BiMessageAdd}
         aria-label={"add-new-message"}

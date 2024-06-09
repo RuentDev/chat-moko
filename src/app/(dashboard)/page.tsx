@@ -18,8 +18,12 @@ import { IoSunnyOutline } from "react-icons/io5";
 import { HiMenu } from "react-icons/hi";
 import { Show, Hide } from "@chakra-ui/react";
 
+
+
 const DashboardPage: NextPage = async () => {
   const session = await auth();
+
+
 
   return (
     <main className="w-full h-full">
