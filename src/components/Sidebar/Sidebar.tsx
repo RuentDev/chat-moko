@@ -26,7 +26,6 @@ import React, { useEffect, useState } from "react";
 import { RootState, store } from "@/app-redux/store";
 import IconBtn from "./Components/Buttons/IconButton";
 import { signOut, useSession } from "next-auth/react";
-import { setSelectedIcon } from "@/app-redux/features/navigationSlice";
 
 interface SidebarProps {
   iconButtons: any[]
@@ -38,7 +37,6 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
   const { data: session } = useSession();
   const [buttons, setButtons] = useState(iconButtons);
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
-  const selectedIcon = useSelector( (state: RootState) => state.navigation.selectedIcon);
 
   // const { data, error, loading, subscribeToMore } = useQuery<ConversationQuery, GetConversationVariables>(ConvesationOperations.Queries.conversations);
 
@@ -50,7 +48,6 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
     buttonCopy.forEach((item) => {
       if (item.id === button.id) {
         item.isActive = true;
-        store.dispatch(setSelectedIcon(item.label));
         router.push(item.link);
       } else {
         item.isActive = false;
@@ -74,7 +71,6 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
     buttonCopy.forEach((item) => {
       if (button && item.id === button.id) {
         item.isActive = true;
-        store.dispatch(setSelectedIcon(item.label));
       } else {
         item.isActive = false;
       }

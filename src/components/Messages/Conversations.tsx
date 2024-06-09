@@ -22,7 +22,6 @@ import { BiMessageAdd } from "react-icons/bi";
 import SearchBox from "../Inputs/SearchBox";
 import ConversationCardButton from "./Components/Buttons/ConversationCardButton";
 import { setSelectedConversation } from "@/app-redux/features/conversationSlice";
-import { setSelectedIcon } from "@/app-redux/features/navigationSlice";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { useQuery } from "@apollo/client";
@@ -37,7 +36,6 @@ const Conversations = () => {
   
   const handleConversationCardBtnClick = (conversation: any) => {
     dispatch(setSelectedConversation(conversation));
-    dispatch(setSelectedIcon(""));
     router.push(`/messages/${conversation.id}`);
   };
 
