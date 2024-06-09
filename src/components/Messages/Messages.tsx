@@ -17,9 +17,7 @@ interface MessagesProps {
 }
 
 const Messages: FC<MessagesProps> = (props) => {
-  const isMessageOptionsOpen = useSelector(
-    (state: RootState) => state.navigation.isMessageOptionsOpen
-  );
+  const isMessageOptionsOpen = useSelector( (state: RootState) => state.navigation.isMessageOptionsOpen);
 
   const {
     data: messages,
@@ -46,10 +44,7 @@ const Messages: FC<MessagesProps> = (props) => {
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
         const newFeedItem = subscriptionData.data.messageSent;
-        return Object.assign({}, prev, {
-          ...prev,
-          messages: [newFeedItem, ...prev.messages],
-        });
+        return Object.assign({}, prev, {  ...prev, messages: [newFeedItem, ...prev.messages]});
       },
     });
   };

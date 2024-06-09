@@ -5,7 +5,7 @@ export interface InitialState {
 }
 
 const initialState: InitialState = {
-  isMessageOptionsOpen: false,
+  isMessageOptionsOpen: true,
 };
 
 export const navigationSlice = createSlice({
