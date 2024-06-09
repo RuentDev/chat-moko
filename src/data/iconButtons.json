@@ -29,9 +29,9 @@
   },
   {
     "id": 4,
-    "label": "Users",
+    "label": "Connections",
     "icon": "/svgs/users.svg",
-    "link": "/users",
+    "link": "/connections",
     "isActive": false
   },
   {

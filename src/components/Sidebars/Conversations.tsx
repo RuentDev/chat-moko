@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
+import React, { FC } from "react";
 import ConvesationOperations from "@/graphql/operations/conversation";
 import {
   Conversation,
   ConversationQuery,
-  GetConversationVariables,
 } from "@/utils/types";
 import {
   Flex,
@@ -20,14 +19,18 @@ import {
 } from "@chakra-ui/react";
 import { BiMessageAdd } from "react-icons/bi";
 import SearchBox from "../Inputs/SearchBox";
-import ConversationCardButton from "./Components/Buttons/ConversationCardButton";
+import ConversationCardButton from "../Messages/Components/Buttons/ConversationCardButton";
 import { setSelectedConversation } from "@/app-redux/features/conversationSlice";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useBreakpointValue } from "@chakra-ui/react";
-const Conversations = () => {
+import UserProfile from "../UserProfile/UserProfile";
+
+interface ConversationProps{}
+
+const Conversations: FC<ConversationProps> = ({}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { data: session } = useSession();
@@ -60,22 +63,10 @@ const Conversations = () => {
       position="relative"
     >
         <Container border={0}>
-          <Flex alignItems="center">
-            <Avatar
-              size="md"
-              id={session.user.id}
-              src={`${session.user.image}`}
-            >
-              <AvatarBadge boxSize="1rem" bg="green.500" />
-            </Avatar>
-            <Flex ml={3} alignItems="start" flexDirection="column">
-              <Text fontSize="18px">{`${session.user.name}`}</Text>
-              <Text color="#45BD62" fontSize="15px">
-                Active
-              </Text>
-            </Flex>
+          <Flex gap={3} flexDirection="column" justifyContent="center" alignItems="center">
+            <UserProfile session={session} status="Active"/>
+            <SearchBox />
           </Flex>
-          <SearchBox />
         </Container>
       {/* <Show above="md">
       </Show> */}

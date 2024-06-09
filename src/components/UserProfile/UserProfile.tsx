@@ -5,36 +5,35 @@ import { Avatar, Text, GridItem, HStack, Container, AvatarBadge, VStack, Spinner
 
 interface UserProfileProps {
 	session?: Session | null
+	imageSize?: "sm" | "md" | "lg"
+	name?: string,
+	status?: "Active" | "Do not disturb" | "Away"
 }
 
 
-const UserProfile: React.FC<UserProfileProps> = ({ session }) => {
+const UserProfile: React.FC<UserProfileProps> = ({ session, imageSize, name, status }) => {
 
 	return(
 		<Container border={0} p={0}>
 			<HStack gap={3} cursor="pointer" onClick={() => {}}>
 				<GridItem w="auto" h="auto">
-					{!session || !session.user ? (
-						<Spinner />
-					) : (
 						<Avatar
-							name={session?.user?.name || "User"}
+							name={session?.user?.name || name || "User"}
 							src={session?.user?.image || ""}
-							size="md"
+							size={imageSize || "md"}
 						>
-							<AvatarBadge boxSize='1rem' bg='green.500' />
+							<AvatarBadge boxSize='1rem' bg={status === "Active" ? "green.500" : status === "Away" ? "yellow.500" : status === "Do not disturb" ? "red.500" : "red.500"} />
 						</Avatar>
-					)}
 				</GridItem>
 				<VStack gap={0}>
 					<GridItem w="100%" h="auto">
 						<Text fontSize="medium" >
-							{session?.user?.name || "User"}
+							{session?.user?.name || name || "User"}
 						</Text>
 					</GridItem>
 					<GridItem w="100%" h="auto">
-						<Text fontSize="small" color="green.500">
-							Active
+						<Text fontSize="small" color={status === "Active" ? "green.500" : status === "Away" ? "yellow.500" : status === "Do not disturb" ? "red.500" : "red.500"}>
+							{status || "Active"}
 						</Text>
 					</GridItem>
 				</VStack>

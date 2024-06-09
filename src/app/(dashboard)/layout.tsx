@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Sidebar from "@/components/Sidebars/Sidebar";
 import { auth } from "../../auth";
 import { redirect } from "next/navigation";
 import NavbarProvider from "@/components/NavbarProvider";

@@ -44,7 +44,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials): Promise<any> => {
         try {
           const { email, password }: any = credentials;
-          const asd = new CredentialsSignin("error")
+
           // logic to verify if user exists
           const user = await prisma.user.findUnique({
             where: {
@@ -60,13 +60,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (!user) {
             // No user found, so this is their first attempt to login
             // meaning this is also the place you could do registration
-            return asd.message
+            throw new Error("User not found.")
           }
 
           const isPasswordMatched = await bcrypt.compare(password, user.password);
 
           if (!isPasswordMatched) {
-            return null;
+            
+            return null
           }
 
           return user;
@@ -104,6 +105,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return newSession
     },
+    
   },
   experimental: {
     enableWebAuthn: true,

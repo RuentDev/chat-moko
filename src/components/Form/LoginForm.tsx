@@ -15,42 +15,49 @@ import {
   Stack,
   Text,
   useBreakpointValue,
+  Show,
+  Hide,
+  Link
 } from "@chakra-ui/react";
-import { Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Icon } from "@chakra-ui/react";
 import { FaFacebook, FaGithub, FaGoogle, FaTwitter } from "react-icons/fa";
-import UserOperations from "@/graphql/operations/users";
-import { useMutation } from "@apollo/client";
 import { Field, Formik } from "formik";
 import Inputs from "@/components/Inputs";
 import { signIn } from "next-auth/react";
 import ChatMokoLogo from "../../../public/svgs/chatmoko-logo.svg";
 import ChatMokoSmallLogo from "../../../public/svgs/chatmokosmall-logo.svg";
-import { Show, Hide } from "@chakra-ui/react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";  
 
 interface LoginFormProps {}
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
   const [loading, setLoading] = useState(false);
-  const [userLogin, { data }] = useMutation(UserOperations.Mutation.userLogin);
+  const [loginResStatusText, setloginResStatusText] = useState("");
+  const router = useRouter()
 
   const handleUserLogin = async (values: {
     email: string;
     password: string;
-  }) => {
-    setLoading(!loading);
-
-    const res = await signIn("app-login", {
+  }, {}) => {
+      setLoading(true);
+    const loginRes = await signIn("app-login", {
       email: values.email,
       password: values.password,
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
+      callbackUrl: "/"
     });
-
-    if (res && res.ok) {
-      setLoading(!loading);
+    
+    if(loginRes && loginRes.error){
+      setloginResStatusText(loginRes.error)
+      setLoading(false)
+      return
     }
+      
+
+      setLoading(false);
+    router.push("/")
   };
 
   const handleEmailValidation = (value: string) => {
@@ -113,18 +120,22 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
           {/* Show for large screens */}
           <Show above="sm">
           <Image
-            width="282px"
+            width={280}
+            height={280}
             alt="Chat Moko"
             src="/svgs/chatmoko-logo.svg"
+            priority
           />
           </Show>
 
           {/* Show for small screens */}
           <Show below="sm">
           <Image
-            width="112px"
+            width={112}
+            height={112}
             alt="Chat Moko"
             src="/svgs/chatmokosmall-logo.svg"
+            priority
           />
           </Show>
 
@@ -201,20 +212,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                   handlePasswordValidation={handlePasswordValidation}
                 />
 
-                {data && data.userLogin.user && (
-                  <Alert
-                    status="success"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    borderRadius={5}
-                  >
-                    <AlertIcon />
-                    <AlertTitle>{data.userLogin.statusText}</AlertTitle>
-                  </Alert>
-                )}
-
-                {data && !data.userLogin.user && (
+                {loginResStatusText && (
                   <Alert
                     status="warning"
                     display="flex"
@@ -223,7 +221,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                     borderRadius={5}
                   >
                     <AlertIcon />
-                    <AlertTitle>{data.userLogin.statusText}</AlertTitle>
+                    <AlertTitle>{loginResStatusText}</AlertTitle>
                   </Alert>
                 )}
 
@@ -273,6 +271,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                     title="Continue with X"
                   />
                 </Flex>
+               <Link href="/auth/signup">Signup</Link>
               </Stack>
             </form>
           )}

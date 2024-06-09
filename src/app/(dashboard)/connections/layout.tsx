@@ -1,15 +1,15 @@
-import SideBars from "@/components/Sidebars";
+import Sidebars from "@/components/Sidebars";
 import { Container, Flex } from "@chakra-ui/react";
 import React from "react";
 
 
-const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
+const ConnectionsLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <Container 
       p={0} 
       m={0}
       maxW="100%"
-      height="100%"
+      height="100vh"
       borderLeft={0}
       border={0}
     >
@@ -17,7 +17,9 @@ const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
       maxW="100%"
       height="100%"
     >
-      <SideBars.Conversations />
+      {/* OTHER COMPONENT */}
+      <Sidebars.Connections />
+      {/* OTHER COMPONENT */}
       <Container 
         border={0}
         maxW='100%'
@@ -30,4 +32,4 @@ const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default MessagesLayout;
+export default ConnectionsLayout;

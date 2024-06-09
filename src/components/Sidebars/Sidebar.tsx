@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Flex,
   ListItem,
@@ -19,11 +18,9 @@ import {
   Container,
 } from "@chakra-ui/react";
 
-import { useSelector } from "react-redux";
 import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { RootState, store } from "@/app-redux/store";
 import IconBtn from "./Components/Buttons/IconButton";
 import { signOut, useSession } from "next-auth/react";
 
@@ -34,7 +31,6 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
   
   const router = useRouter();
-  const { data: session } = useSession();
   const [buttons, setButtons] = useState(iconButtons);
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
 
@@ -133,8 +129,9 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
               })}
 
               {/* Logout button */}
-             <ListItem position="absolute" bottom="0">
+             <ListItem position="absolute" bottom={3}>
                 <IconButton
+                  isRound
                   aria-label="logout-button"
                   icon={<Icon as={CiLogout} />}
                   onClick={onOpen}
