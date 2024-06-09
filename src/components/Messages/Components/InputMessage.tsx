@@ -22,7 +22,11 @@ import { useMutation } from "@apollo/client";
 import MessageOperations from "@/graphql/operations/message";
 import { SendMessageResponse, SendMessageVariables } from "@/utils/types";
 
-interface InputMessageProps {}
+interface InputMessageProps {
+  message: string;
+  media: string[];
+  files: string[];
+}
 
 const InputMessage: React.FC<InputMessageProps> = (props) => {
   const [sendMessage, { data, loading, error }] =
@@ -57,12 +61,13 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
   return (
     <Formik
       initialValues={{
-        content: "",
+        message: "",
         media: [],
         files: [],
       }}
-      onSubmit={(values, { setSubmitting, resetForm }) =>
-        handleSendMessage(values, setSubmitting, resetForm)
+      onSubmit={(values: InputMessageProps, { setSubmitting, resetForm }) =>
+        console.log(values)
+        // handleSendMessage(values, setSubmitting, resetForm)
       }
     >
       {({ handleSubmit, errors, touched }) => {
@@ -87,28 +92,33 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
                   aria-label="Emojies"
                   fontSize="35px"
                 />
-                <FormControl>
-                  <Flex
-                    padding="1rem"
-                    gap={1}
-                    alignItems="center"
-                    justifyContent="center"
-                    width="100%"
-                  >
-                    <Input
-                      id="message"
-                      name="content"
-                      type="text"
-                      placeholder="Say something..."
-                      height="36px"
-                      width="481.35px"
-                      backgroundColor="white"
-                      borderColor="#888888"
-                      borderRadius="10px"
-                      borderWidth="1px"
-                    />
-                  </Flex>
-                </FormControl>
+                <Field name="message">
+                  {({ field }: { field: any }) => (
+                    <FormControl>
+                      <Flex
+                        padding="1rem"
+                        gap={1}
+                        alignItems="center"
+                        justifyContent="center"
+                        width="100%"
+                      >
+                        <Input
+                          {...field}
+                          id="message"
+                          type="text"
+                          color="black"
+                          placeholder="Say something..."
+                          height="36px"
+                          width="481.35px"
+                          backgroundColor="white"
+                          borderColor="#888888"
+                          borderRadius="10px"
+                          borderWidth="1px"
+                        />
+                      </Flex>
+                    </FormControl>
+                  )}
+                </Field>
 
                 <IconButton
                   isRound
