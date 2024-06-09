@@ -1,24 +1,25 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 // import Icon from "../Icon";
 import {
   Box,
   Flex,
   Avatar,
-  AvatarGroup,
   Text,
   IconButton,
   Button,
   Grid,
+  Container,
+  AvatarGroup,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { FaPencilAlt } from "react-icons/fa";
 import { IoMailSharp } from "react-icons/io5";
 import { IoMdPin } from "react-icons/io";
 import { GoFileMedia } from "react-icons/go";
-import { RootState } from "@/app-redux/store";
-import { useSelector } from "react-redux";
 import mockImages from "@/data/mockImages.json";
+import {ConversationParticipant} from '@/utils/types'
+
 
 const attachmentOptions = [
   {
@@ -51,48 +52,43 @@ const attachmentOptions = [
 ];
 
 interface HeaderMessageProps {
-  participants: [];
+  participants: ConversationParticipant[];
 }
 
-const MessageOptions = () => {
+const MessageOptions: React.FC<HeaderMessageProps> = ({participants}) => {
   const { data: session } = useSession();
 
-  const conversation = useSelector(
-    (state: RootState) => state.conversation.selectedConversation
-  );
-
   return (
-    <Flex
-      width="306px"
-      borderLeft="1px"
-      borderColor="#2C3E61"
-      display="flex"
-      flexDirection="column"
+    <Container
+      maxW={350}
+      maxH="100%"
+      borderTop={0}
+      borderRight={0}
+      borderBottom={0}
+      p={3}
     >
-      {/* User avatar and full name */}
-      <Box
+      <Flex
+        gap={5}
+        width="100%"
+        height="100%"
         display="flex"
         alignItems="center"
-        justifyContent="end"
         flexDirection="column"
-        width="100%"
-        height="320px"
-        p={5}
-        borderBottom="1px"
-        borderColor="#2C3E61"
       >
-        {conversation?.participants.map((participant) => {
-          if (participant.user.id !== session?.user.id) {
-            return (
-              <Avatar
-                size="xl"
-                key={participant.id}
-                name={`${participant.user.first_name} ${participant.user.last_name}`}
-                src={`${participant.user.image}`}
-              />
-            );
-          }
-        })}
+        {/* User avatar and full name */}
+        <AvatarGroup size='lg' max={2}>
+          {participants && participants.map((participant) => {
+            if (participant.user.id !== session?.user.id) {
+              return (
+                <Avatar
+                  key={participant.id}
+                  name={`${participant.user.first_name} ${participant.user.last_name}`}
+                  src={`${participant.user.image}`}
+                />
+              );
+            }
+          })}
+        </AvatarGroup>
         <Flex
           display="flex"
           alignItems="center"
@@ -100,8 +96,8 @@ const MessageOptions = () => {
           flexDirection="row"
           gap={1}
         >
-          <Text>
-            {conversation?.participants.map((participant) => {
+          <Text as="p" fontSize="small">
+            { participants &&  participants.map((participant) => {
               if (participant.user.id !== session?.user.id) {
                 return `${participant.user.first_name} ${participant.user.last_name}`;
               }
@@ -111,14 +107,13 @@ const MessageOptions = () => {
             isRound
             backgroundColor="transparent"
             aria-label="Edit Name"
-            size="md"
+            size="xs"
             icon={<FaPencilAlt />}
           />
         </Flex>
-      </Box>
 
       {/* User email and address */}
-      <Box
+      {/* <Box
         display="flex"
         justifyContent="center"
         flexDirection="column"
@@ -137,9 +132,8 @@ const MessageOptions = () => {
             icon={<IoMailSharp />}
           />
           <Text>
-            {conversation?.participants.map((participant) => {
+            {participants && participants.map((participant) => {
               if (participant.user.id !== session?.user.id) {
-                console.log(participant.user)
                 return `${participant.user.email}`;
               }
             })}
@@ -155,14 +149,14 @@ const MessageOptions = () => {
             icon={<IoMdPin />}
           />
           <Text>
-            {conversation?.participants.map((participant) => {
+            {participants && participants.map((participant) => {
               if (participant.user.id !== session?.user.id) {
                 return `${participant.user.phone}`;
               }
             })}
           </Text>
         </Flex>
-      </Box>
+      </Box> */}
 
       {/* User's Media */}
       <Box width="100%" height="200px">
@@ -215,7 +209,8 @@ const MessageOptions = () => {
           </Button>
         </Flex>
       </Box>
-    </Flex>
+      </Flex>
+    </Container>
   );
 };
 

@@ -9,35 +9,27 @@ import { useQuery } from "@apollo/client";
 import MessagesWrapper from "./Components/MessagesWrapper";
 import MessageOperations from "@/graphql/operations/message";
 import ConversationOperations from "@/graphql/operations/conversation";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app-redux/store";
 
 interface MessagesProps {
   id: string;
 }
 
-const Messages: FC<MessagesProps> = (props) => {
-  const isMessageOptionsOpen = useSelector( (state: RootState) => state.navigation.isMessageOptionsOpen);
+const Messages: FC<MessagesProps> = ({id}) => {
+  // const isMessageOptionsOpen = useSelector( (state: RootState) => state.navigation.isMessageOptionsOpen);
 
-  const {
-    data: messages,
-    loading,
-    subscribeToMore,
-  } = useQuery(MessageOperations.Queries.messages, {
+  const { data: messages,  loading: messageLoading,  subscribeToMore } = useQuery(MessageOperations.Queries.messages, {
     variables: {
-      conversationId: props.id,
+      conversationId: id,
     },
   });
 
-  const { data: conversation, loading: conversationLoading } = useQuery(
-    ConversationOperations.Queries.getConversation,
-    {
+  const { data: conversation , loading: conversationLoading } = useQuery(ConversationOperations.Queries.getConversation, {
       variables: {
-        conversationId: props.id,
+        conversationId: id,
       },
     }
   );
-
+  
   const subscribeToNewMessages = () => {
     subscribeToMore({
       document: MessageOperations.Subscription.messageSent,
@@ -58,38 +50,25 @@ const Messages: FC<MessagesProps> = (props) => {
     return () => {};
   }, []);
 
-  if (loading && conversationLoading) {
-    return (
-      <Center width="100%" height="100vh">
-        <Spinner size="xl" />
-      </Center>
-    );
+  if (messageLoading && conversationLoading) {
+    return null
   }
 
   return (
     <Flex width="100%" height="100%">
       <Flex width="100%" height="100%" flexDirection="column">
-        {conversation && (
-          <HeaderMessage
-            participants={conversation.getConversation.participants}
-          />
-        )}
-        {messages && conversation && (
-          <>
-            <MessagesWrapper
-              messages={messages.messages}
-              participants={conversation.getConversation.participants}
-            />
-            <InputMessage message={""} media={[]} files={[]} />
-          </>
-        )}
+        <HeaderMessage 
+          participants={conversation?.getConversation?.participants} 
+        />
+
+        <MessagesWrapper
+          messages={messages.messages}
+          participants={conversation?.getConversation?.participants}
+        />
+        <InputMessage message={""} media={[]} files={[]} />
       </Flex>
-      {isMessageOptionsOpen && (
-        <Flex>
-          <MessageOptions />
-        </Flex>
-      )}
-      </Flex>
+      <MessageOptions participants={conversation?.getConversation?.participants} />
+    </Flex>
   );
 };
 

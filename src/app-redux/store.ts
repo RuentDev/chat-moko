@@ -1,9 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import navigationReducer from "./features/navigationSlice";
 import conversationReducer from "./features/conversationSlice";
 export const store = configureStore({
   reducer: {
-    navigation: navigationReducer,
     conversation: conversationReducer,
   },
 });
