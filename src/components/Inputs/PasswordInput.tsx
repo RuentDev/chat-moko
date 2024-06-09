@@ -32,6 +32,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
       <InputGroup>
         <Field
           borderColor="#1A202C"
+          color="black"
           as={Input}
           id="password"
           name="password"
