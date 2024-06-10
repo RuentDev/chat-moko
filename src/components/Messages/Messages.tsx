@@ -48,6 +48,8 @@ const Messages: FC<MessagesProps> = ({id, session}) => {
   */
   useEffect(() => {
     subscribeToNewMessages();
+
+    alert("test")
     
     console.log("messages", messages, session);
     return () => {};
@@ -61,7 +63,7 @@ const Messages: FC<MessagesProps> = ({id, session}) => {
 
   
   return (
-    <Flex width="100%" height="100%">
+    <Flex width="100%" height="100%" border="red.500 solid 1px">
       <Flex width="100%" height="100%" flexDirection="column">
         <HeaderMessage 
           participants={conversation?.getConversation?.participants} 
