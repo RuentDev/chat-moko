@@ -1,10 +1,7 @@
 "use client"
 import {IconButton, Container, Image, Flex, Avatar, Hide, Show, Spinner } from "@chakra-ui/react"
 import React from "react"
-import { HiMenu } from "react-icons/hi"
 import { IoSunnyOutline } from "react-icons/io5"
-import SearchBox from "../Inputs/SearchBox"
-import { Session } from "next-auth"
 import { useSession } from "next-auth/react"
 interface NavbarProps{
 
@@ -44,12 +41,6 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
               transform="translate(-50%, -50%)"
             /> */}
           </Hide>
-
-          {/* <Show above="md">
-            <Container border={0} m={0} p={0}>
-              <SearchBox />
-            </Container>
-          </Show> */}
 
           <Container
             border={0}

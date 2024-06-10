@@ -16,13 +16,13 @@ interface MessagesProps {
   session?: Session | null
 }
 
-const Messages: FC<MessagesProps> = ({id, session}) => {
+const Messages = ({id, session}: MessagesProps) => {
   // const isMessageOptionsOpen = useSelector( (state: RootState) => state.navigation.isMessageOptionsOpen);
 
   const { data: messages,  loading: messageLoading,  subscribeToMore } = useQuery(MessageOperations.Queries.messages, {
     variables: {
       conversationId: id,
-    },
+    }
   });
 
   const { data: conversation , loading: conversationLoading } = useQuery(ConversationOperations.Queries.getConversation, {
@@ -31,6 +31,7 @@ const Messages: FC<MessagesProps> = ({id, session}) => {
       },
     }
   );
+
   
   const subscribeToNewMessages = () => {
     subscribeToMore({
@@ -48,7 +49,6 @@ const Messages: FC<MessagesProps> = ({id, session}) => {
   */
   useEffect(() => {
     subscribeToNewMessages();
-
     return () => {};
   }, []);
 

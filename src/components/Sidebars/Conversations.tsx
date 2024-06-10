@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import React from "react";
 import ConvesationOperations from "@/graphql/operations/conversation";
 import {
   Conversation,
@@ -12,30 +12,31 @@ import {
   UnorderedList,
   IconButton,
   Container,
-  Show,
-  Avatar,
-  Text,
-  AvatarBadge,
 } from "@chakra-ui/react";
-import { BiMessageAdd } from "react-icons/bi";
-import SearchBox from "../Inputs/SearchBox";
+// import { BiMessageAdd } from "react-icons/bi";
+// import SearchBox from "../Inputs/SearchBox";
 import ConversationCardButton from "../Messages/Components/Buttons/ConversationCardButton";
 import { setSelectedConversation } from "@/app-redux/features/conversationSlice";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { useBreakpointValue } from "@chakra-ui/react";
 import UserProfile from "../UserProfile/UserProfile";
 
 interface ConversationProps{}
 
-const Conversations: FC<ConversationProps> = ({}) => {
+const Conversations = ({}: ConversationProps) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { data: session } = useSession();
-  const md = useBreakpointValue({ ssr: false, md: true });
-  const { data, error, loading, subscribeToMore } = useQuery<ConversationQuery>(ConvesationOperations.Queries.conversations);
+  const { data, error, loading, subscribeToMore } = useQuery<ConversationQuery>(ConvesationOperations.Queries.conversations, {
+    onCompleted: (res) => {
+      console.log(res)
+    },
+    onError: (err) => {
+      console.log(err.message)
+    }
+  });
   
   const handleConversationCardBtnClick = (conversation: any) => {
     dispatch(setSelectedConversation(conversation));
@@ -65,7 +66,7 @@ const Conversations: FC<ConversationProps> = ({}) => {
         <Container border={0}>
           <Flex gap={3} flexDirection="column" justifyContent="center" alignItems="center">
             <UserProfile session={session} status="Active"/>
-            <SearchBox />
+            {/* <SearchBox /> */}
           </Flex>
         </Container>
       {/* <Show above="md">
@@ -77,8 +78,7 @@ const Conversations: FC<ConversationProps> = ({}) => {
           </Center>
         ) : (
           <UnorderedList padding={0} margin={0}>
-            {data &&
-              data.conversations.map(
+            {data &&  data.conversations.map(
                 (conversation: Conversation, index: number) => {
                   return (
                     <ConversationCardButton
@@ -117,7 +117,7 @@ const Conversations: FC<ConversationProps> = ({}) => {
         size="lg"
         padding={3}
         position="absolute"
-        as={BiMessageAdd}
+        // as={BiMessageAdd}
         aria-label={"add-new-message"}
         bg="transparent"
         title="New message"

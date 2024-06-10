@@ -50,9 +50,13 @@ const wsLink =
     ? new GraphQLWsLink(
         createClient({
           url: `${process.env.NEXT_PUBLIC_SERVER_WS_PROTOCOL}${serverLink}/graphql`,
-          connectionParams: async () => ({
-            session: await getSession(),
-          }),
+          connectionParams: async () => {
+            const session = await getSession();
+        
+            return {
+              session: session,
+            }
+          },
         })
       )
     : null;

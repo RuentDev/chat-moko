@@ -21,6 +21,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: "jwt",
   },
+  cookies: {
+   sessionToken: {
+     options: {
+       httpOnly: false,
+      //  sameSite: "none",
+      //  secure: process.env.NODE_ENV === "production" ? true : false,
+     },
+   }
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -106,9 +115,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return newSession
     },
     
-  },
-  experimental: {
-    enableWebAuthn: true,
   },
   
 });

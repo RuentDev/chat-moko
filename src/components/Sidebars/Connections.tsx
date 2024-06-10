@@ -1,27 +1,13 @@
 "use client";
 import React from "react";
-import {
-  Flex,
-  Center,
-  Spinner,
-  UnorderedList,
-  IconButton,
-  Container,
-  Avatar,
-  Text,
-  AvatarBadge,
-  VStack,
-} from "@chakra-ui/react";
-import { BiMessageAdd } from "react-icons/bi";
-import SearchBox from "../Inputs/SearchBox";
-import ConversationCardButton from "../Messages/Components/Buttons/ConversationCardButton";
-import { setSelectedConversation } from "@/app-redux/features/conversationSlice";
+import {  Container, VStack } from "@chakra-ui/react";
+// import SearchBox from "../Inputs/SearchBox";
 import { useSession } from "next-auth/react";
 import UserProfile from "../UserProfile/UserProfile";
 
 interface ConnectionsProps{}
 
-const Connections: React.FC<ConnectionsProps> = ({}) => {
+const Connections = ({}: ConnectionsProps) => {
   const {data: session} = useSession()
   // const { data, error, loading, subscribeToMore } = useQuery(ConvesationOperations.Queries.conversations);
   
@@ -55,7 +41,7 @@ const Connections: React.FC<ConnectionsProps> = ({}) => {
         maxW="100%"
         border={0}
       >
-       <SearchBox />
+       {/* <SearchBox /> */}
       </Container>
       <Container border={0}>
         <VStack h="auto" w="100%" flexDirection="column" gap={5}>

@@ -1,10 +1,11 @@
+"use client"
 import { Container, Flex, IconButton, Input, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react";
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import { SlMagnifier } from "react-icons/sl";
 import { IoCloseCircleOutline } from "react-icons/io5";
 interface SearchBoxProps {};
 
-const SearchBox:FC<SearchBoxProps> = ({}) => {
+const SearchBox = ({}: SearchBoxProps) => {
 
   const [input, setInput] = useState("")
 
