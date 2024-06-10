@@ -56,6 +56,9 @@ const Messages: FC<MessagesProps> = ({id, session}) => {
     return null
   }
 
+  console.log(messages, session);
+
+  
   return (
     <Flex width="100%" height="100%">
       <Flex width="100%" height="100%" flexDirection="column">

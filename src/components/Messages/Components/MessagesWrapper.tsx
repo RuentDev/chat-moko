@@ -13,8 +13,6 @@ interface MessagesWrapperProps {
 const MessagesWrapper: React.FC<MessagesWrapperProps> = ({ messages }) => {
   const { data: session } = useSession();
 
-  console.log(messages, session);
-
   return (
     <Flex
       flexDirection="column-reverse"
