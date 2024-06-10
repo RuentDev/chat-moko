@@ -6,8 +6,9 @@ import {
   IconButton,
   Textarea,
   Input,
+  Container,
 } from "@chakra-ui/react";
-import { Field, Formik } from "formik";
+import { Field, Formik, FormikHelpers } from "formik";
 import React from "react";
 import { SlOptions } from "react-icons/sl";
 import {
@@ -16,46 +17,41 @@ import {
   FaMicrophone,
   FaSmile,
 } from "react-icons/fa";
-import { SlLocationPin } from "react-icons/sl";
 import { IoSend } from "react-icons/io5";
 import { useMutation } from "@apollo/client";
 import MessageOperations from "@/graphql/operations/message";
-import { SendMessageResponse, SendMessageVariables } from "@/utils/types";
+import { ConversationParticipant, SendMessageResponse, SendMessageVariables } from "@/utils/types";
 
 interface InputMessageProps {
-  message: string;
-  media: string[];
-  files: string[];
+  user: any;
+  conversationId: string;
+  participants: ConversationParticipant[];
 }
 
-const InputMessage: React.FC<InputMessageProps> = (props) => {
-  const [sendMessage, { data, loading, error }] =
-    useMutation<SendMessageResponse>(MessageOperations.Mutation.sendMessage);
+const InputMessage: React.FC<InputMessageProps> = ({conversationId, user, participants}) => {
+  const [sendMessage, { loading }] = useMutation<SendMessageResponse>(MessageOperations.Mutation.sendMessage);
 
-  const handleSendMessage = (
-    values: any,
-    setSubmitting: (isSubmitting: boolean) => void,
-    resetForm: () => void
-  ) => {
+  const handleSendMessage = (values: any,  resetForm: () => void) => {
+
+    const conversationParticipants = participants.map((participant) => {
+      if(participant.user.id !== user.id){
+        return participant.user.id
+      }
+    }).filter(item => item !== undefined)
+
     sendMessage({
       variables: {
-        conversationId: "",
-        participants: [
-          "e7f64345-cc1b-4088-9b74-33f55ffc4078",
-          "2831e88c-674f-4d4e-91a5-4dec22f91f24",
-        ],
-        content: values.content,
+        conversationId: conversationId,
+        participants: [user.id, ...conversationParticipants],
+        content: values.message,
         files: values.files,
         media: values.media,
       },
     });
 
-    const error = data?.sendMessage.error;
+    resetForm()
 
-    if (error) {
-    }
-
-    resetForm();
+    
   };
 
   return (
@@ -65,26 +61,27 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
         media: [],
         files: [],
       }}
-      onSubmit={(values: InputMessageProps, { setSubmitting, resetForm }) =>
-        console.log(values)
-        // handleSendMessage(values, setSubmitting, resetForm)
+      onSubmit={(values, {setSubmitting, resetForm}) =>handleSendMessage(values, resetForm)
       }
     >
       {({ handleSubmit, errors, touched }) => {
         return (
-          <Flex
-            className="input-msg-container"
-            width="100%"
-            height="112px"
-            borderTop="1px"
-            borderColor="#2C3E61"
-            backgroundColor="#1A202C"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
+          <Container
+            p={2}
+            m={0}
+            maxW="100%"
+            borderLeft={0}
+            borderRight={0}
           >
-            <form onSubmit={handleSubmit}>
-              <Flex alignItems="center" width="664px">
+            <Flex
+              className="input-msg-container"
+              width="100%"
+              height="112px"
+              backgroundColor="#1A202C"
+              alignItems="center"
+            >
+            <form onSubmit={handleSubmit} className="w-full">
+              <Flex alignItems="center" width="100%">
                 <IconButton
                   isRound
                   backgroundColor="transparent"
@@ -94,12 +91,10 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
                 />
                 <Field name="message">
                   {({ field }: { field: any }) => (
-                    <FormControl>
+                    <FormControl width="100%">
                       <Flex
                         padding="1rem"
                         gap={1}
-                        alignItems="center"
-                        justifyContent="center"
                         width="100%"
                       >
                         <Input
@@ -109,7 +104,7 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
                           color="black"
                           placeholder="Say something..."
                           height="36px"
-                          width="481.35px"
+                          width="100%"
                           backgroundColor="white"
                           borderColor="#888888"
                           borderRadius="10px"
@@ -125,7 +120,7 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
                   display="flex"
                   backgroundColor="#2A9DF4"
                   color="black"
-                  icon={<Icon as={IoSend} />}
+                  icon={<Icon as={IoSend} color=""/>}
                   aria-label="Send"
                   type="submit"
                   isLoading={loading}
@@ -136,11 +131,11 @@ const InputMessage: React.FC<InputMessageProps> = (props) => {
                   icon={<Icon as={SlOptions} />}
                   aria-label="Send"
                   type="submit"
-                  isLoading={loading}
                 />
               </Flex>
             </form>
-          </Flex>
+            </Flex>
+         </Container>
         );
       }}
     </Formik>

@@ -1,4 +1,3 @@
-import Conversations from "@/components/Messages/Conversations";
 import { Container, Flex } from "@chakra-ui/react";
 import React from "react";
 
@@ -17,7 +16,9 @@ const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
       maxW="100%"
       height="100%"
     >
-      <Conversations />
+
+      {/* OTHER COMPONENT */}
+
       <Container 
         border={0}
         maxW='100%'

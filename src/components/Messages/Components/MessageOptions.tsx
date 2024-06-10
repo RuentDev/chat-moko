@@ -96,7 +96,7 @@ const MessageOptions: React.FC<HeaderMessageProps> = ({participants}) => {
           flexDirection="row"
           gap={1}
         >
-          <Text as="p" fontSize="small">
+          <Text as="p" fontSize="medium">
             { participants &&  participants.map((participant) => {
               if (participant.user.id !== session?.user.id) {
                 return `${participant.user.first_name} ${participant.user.last_name}`;
@@ -161,9 +161,9 @@ const MessageOptions: React.FC<HeaderMessageProps> = ({participants}) => {
       {/* User's Media */}
       <Box width="100%" height="200px">
         <Flex display="flex" justifyContent="space-between" p={3}>
-          <Text as="b">Media</Text>
+          <Text as="b" fontSize="smaller">Media</Text>
           <Button variant="link">
-            <Text as="u">Show All</Text>
+            <Text as="u" fontSize='smaller'>Show All</Text>
           </Button>
         </Flex>
         <Grid
@@ -203,9 +203,9 @@ const MessageOptions: React.FC<HeaderMessageProps> = ({participants}) => {
       {/* User's Files */}
       <Box width="100%" mt={10}>
         <Flex display="flex" justifyContent="space-between" p={3}>
-          <Text as="b">Files</Text>
+          <Text as="b" fontSize="smaller">Files</Text>
           <Button variant="link">
-            <Text as="u">Show All</Text>
+            <Text as="u" fontSize='smaller'>Show All</Text>
           </Button>
         </Flex>
       </Box>

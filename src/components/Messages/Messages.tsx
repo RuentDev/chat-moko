@@ -9,12 +9,14 @@ import { useQuery } from "@apollo/client";
 import MessagesWrapper from "./Components/MessagesWrapper";
 import MessageOperations from "@/graphql/operations/message";
 import ConversationOperations from "@/graphql/operations/conversation";
+import { Session } from "next-auth";
 
 interface MessagesProps {
   id: string;
+  session?: Session | null
 }
 
-const Messages: FC<MessagesProps> = ({id}) => {
+const Messages: FC<MessagesProps> = ({id, session}) => {
   // const isMessageOptionsOpen = useSelector( (state: RootState) => state.navigation.isMessageOptionsOpen);
 
   const { data: messages,  loading: messageLoading,  subscribeToMore } = useQuery(MessageOperations.Queries.messages, {
@@ -65,7 +67,7 @@ const Messages: FC<MessagesProps> = ({id}) => {
           messages={messages.messages}
           participants={conversation?.getConversation?.participants}
         />
-        <InputMessage message={""} media={[]} files={[]} />
+        <InputMessage conversationId={id} user={session?.user} participants={conversation?.getConversation?.participants}/>
       </Flex>
       <MessageOptions participants={conversation?.getConversation?.participants} />
     </Flex>
