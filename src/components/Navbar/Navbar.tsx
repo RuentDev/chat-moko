@@ -26,30 +26,29 @@ const Navbar:React.FC<NavbarProps> = ({}) => {
           margin={0}
         >
           <Hide above="md">
-            {/* <IconButton 
+            <IconButton 
               aria-label="menu"
               as={HiMenu}
               backgroundColor="transparent"
-            /> */}
+            />
           
-            {/* <Image 
+            <Image 
               alt="chatmoko"
-              src="/svgs/chatmoko-logo.svg" 
+              src="/images/chatmoko-high-resolution-logo-transparent-blue.png"
               width={70}
-              height={70}
               position="absolute"
               left="50%"
               right="50%"
               top={"50%"}
               transform="translate(-50%, -50%)"
-            /> */}
+            />
           </Hide>
 
-          {/* <Show above="md">
+          <Show above="md">
             <Container border={0} m={0} p={0}>
               <SearchBox />
             </Container>
-          </Show> */}
+          </Show>
 
           <Container
             border={0}
