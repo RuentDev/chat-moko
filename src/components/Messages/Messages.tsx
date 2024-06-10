@@ -48,15 +48,16 @@ const Messages: FC<MessagesProps> = ({id, session}) => {
   */
   useEffect(() => {
     subscribeToNewMessages();
-
+    
+    console.log("messages", messages, session);
     return () => {};
-  }, []);
+  }, [messages, session, subscribeToNewMessages]);
 
   if (messageLoading && conversationLoading) {
     return null
   }
 
-  console.log(messages, session);
+
 
   
   return (
