@@ -1,88 +1,95 @@
-"use client"
-import {IconButton, Container, Image, Flex, Avatar, Hide, Show, Spinner } from "@chakra-ui/react"
-import React from "react"
-import { HiMenu } from "react-icons/hi"
-import { IoSunnyOutline } from "react-icons/io5"
-import SearchBox from "../Inputs/SearchBox"
-import { Session } from "next-auth"
-import { useSession } from "next-auth/react"
-interface NavbarProps{
+"use client";
+import {
+  IconButton,
+  Container,
+  Image,
+  Flex,
+  Avatar,
+  Hide,
+  Show,
+  Spinner,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { HiMenu } from "react-icons/hi";
+import { IoSunnyOutline } from "react-icons/io5";
+import SearchBox from "../Inputs/SearchBox";
+import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
+interface NavbarProps {}
 
-}
+const Navbar: React.FC<NavbarProps> = ({}) => {
+  const { data: session } = useSession();
+  const [showNavbar, setShowNavbar] = useState(true);
 
+  useEffect(() => {
+    const path = location.pathname;
+    if (path !== "/") {
+      setShowNavbar(false);
+    } else {
+      setShowNavbar(true);
+    }
+  },[]);
 
-const Navbar:React.FC<NavbarProps> = ({}) => {
-  const {data:session} = useSession()
   return (
-      <Container maxWidth="100%" maxHeight="100%" border={0}>
-        <Flex 
-          width="100%" 
-          height={70}
-          bg="#1A202C"
-          position="relative"
-          alignItems="center"
-          justifyContent="space-between"
-          padding={0}
-          margin={0}
-        >
-          <Hide above="md">
-            {/* <IconButton 
-              aria-label="menu"
-              as={HiMenu}
-              backgroundColor="transparent"
-            /> */}
-          
-            {/* <Image 
-              alt="chatmoko"
-              src="/svgs/chatmoko-logo.svg" 
-              width={70}
-              height={70}
-              position="absolute"
-              left="50%"
-              right="50%"
-              top={"50%"}
-              transform="translate(-50%, -50%)"
-            /> */}
-          </Hide>
+    <Container maxWidth="100%" maxHeight="100%" border={0}>
+      <Flex
+        width="100%"
+        height={70}
+        bg="#1A202C"
+        position="relative"
+        alignItems="center"
+        justifyContent="space-between"
+        padding={0}
+        margin={0}
+      >
+        <Hide above="md">
+          <IconButton
+            aria-label="menu"
+            as={HiMenu}
+            backgroundColor="transparent"
+          />
 
-          {/* <Show above="md">
+          <Image
+            alt="chatmoko"
+            src="/images/chatmoko-high-resolution-logo-transparent-blue.png"
+            width={70}
+            position="absolute"
+            left="50%"
+            right="50%"
+            top={"50%"}
+            transform="translate(-50%, -50%)"
+          />
+        </Hide>
+
+        {showNavbar && (
+          <Show above="md">
             <Container border={0} m={0} p={0}>
               <SearchBox />
             </Container>
-          </Show> */}
+          </Show>
+        )}
 
-          <Container
-            border={0}
-            maxW="100%"
-            margin={0}
-            p={0}
-          >
-            <Flex 
-              gap={3}
-              w="100%"
-              alignItems="center"
-              justifyContent="end"
-            >
-              <IconButton 
-                aria-label="theme"
-                as={IoSunnyOutline}
-                backgroundColor="transparent"
+        <Container border={0} maxW="100%" margin={0} p={0}>
+          <Flex gap={3} w="100%" alignItems="center" justifyContent="end">
+            <IconButton
+              aria-label="theme"
+              as={IoSunnyOutline}
+              backgroundColor="transparent"
+            />
+            {session ? (
+              <Avatar
+                name={session.user.name || "User"}
+                src={session.user.image || ""}
+                size="md"
               />
-              {session ? (
-                <Avatar 
-                  name={session.user.name || "User"}
-                  src={session.user.image || ""}
-                  size="md"
-                />
-              ) : (
-                <Spinner size="md" />
-              )}
-              
-            </Flex>
-          </Container>
-        </Flex>
-      </Container>
-  )
-}
+            ) : (
+              <Spinner size="md" />
+            )}
+          </Flex>
+        </Container>
+      </Flex>
+    </Container>
+  );
+};
 
-export default Navbar
+export default Navbar;
