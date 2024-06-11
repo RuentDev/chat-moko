@@ -17,6 +17,8 @@ const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
       height="100%"
     >
       <SideBars.Conversations />
+
+      {/* Hide the conversation of participants*/}
       <Hide below="md">
       <Container 
         padding={0}

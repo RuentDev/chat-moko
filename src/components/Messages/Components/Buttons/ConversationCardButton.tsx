@@ -52,7 +52,6 @@ const ConversationCardButton = (props: ConversationButtonCardProps) => {
             })}
           </AvatarGroup>
         </GridItem>
-        <Show above="md">
           <GridItem w="100%" h="auto">
             <VStack align="flex-start">
               {props.participants.map((participant) => {
@@ -81,7 +80,6 @@ const ConversationCardButton = (props: ConversationButtonCardProps) => {
               <Text fontSize="xs">{props.unreadCount}</Text>
             </VStack>
           </GridItem>
-        </Show>
       </HStack>
     </Container>
   );
