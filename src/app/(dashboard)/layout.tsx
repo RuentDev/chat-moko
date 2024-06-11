@@ -1,8 +1,8 @@
 import React from "react";
-import Sidebar from "@/components/Sidebars/Sidebar";
 import { auth } from "../../auth";
 import { redirect } from "next/navigation";
 import NavbarProvider from "@/components/NavbarProvider";
+import { CookiesProvider } from 'next-client-cookies/server';
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
@@ -19,7 +19,9 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <NavbarProvider>
-      {children}
+      <CookiesProvider>
+        {children}
+      </CookiesProvider>
     </NavbarProvider>
   );
 };

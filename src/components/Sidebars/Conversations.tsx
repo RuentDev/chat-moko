@@ -22,21 +22,16 @@ import { useDispatch } from "react-redux";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import UserProfile from "../UserProfile/UserProfile";
+import { useCookies } from 'next-client-cookies';
 
 interface ConversationProps{}
 
 const Conversations = ({}: ConversationProps) => {
+  const cookies = useCookies()
   const router = useRouter();
   const dispatch = useDispatch();
   const { data: session } = useSession();
-  const { data, error, loading, subscribeToMore } = useQuery<ConversationQuery>(ConvesationOperations.Queries.conversations, {
-    onCompleted: (res) => {
-      console.log(res)
-    },
-    onError: (err) => {
-      console.log(err.message)
-    }
-  });
+  const { data, error, loading, subscribeToMore } = useQuery<ConversationQuery>(ConvesationOperations.Queries.conversations);
   
   const handleConversationCardBtnClick = (conversation: any) => {
     dispatch(setSelectedConversation(conversation));
@@ -62,9 +57,10 @@ const Conversations = ({}: ConversationProps) => {
       borderBottom={0}
       borderTop={0}
       position="relative"
-    >
+    > 
         <Container border={0}>
           <Flex gap={3} flexDirection="column" justifyContent="center" alignItems="center">
+            {cookies.get("authjs.csrf-token")}
             <UserProfile session={session} status="Active"/>
             {/* <SearchBox /> */}
           </Flex>

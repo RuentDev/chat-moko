@@ -1,58 +1,23 @@
-import { ApolloClient, HttpLink, InMemoryCache, split } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache, split, from } from "@apollo/client";
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { setContext } from "@apollo/client/link/context";
 import { createClient } from "graphql-ws";
 import { getSession } from "next-auth/react";
-
-export let serverLink: string | undefined = "";
-
-const MODE = process.env.NODE_ENV;
-const STAGING = process.env.NEXT_PUBLIC_SERVER_API_STAGING_LINK;
-const DEVELOPMENT = process.env.NEXT_PUBLIC_SERVER_API_DEVELOPMENT_LINK;
-const PRODUCTION = process.env.NEXT_PUBLIC_SERVER_API_PRODUCTION_LINK;
-
-switch (MODE) {
-  case "test":
-    serverLink = STAGING;
-    break;
-  case "production":
-    serverLink = PRODUCTION;
-    break;
-  case "development":
-    serverLink = DEVELOPMENT;
-    break;
-  default:
-    serverLink = DEVELOPMENT;
-    break;
-}
+// import { cookies } from "next/headers";
 
 const httpLink = new HttpLink({
-  uri: `${process.env.NEXT_PUBLIC_SERVER_PROTOCOL}${serverLink}/graphql`,
+  uri: `${process.env.NEXT_PUBLIC_SERVER_PROTOCOL}${process.env.NEXT_PUBLIC_SERVER_API_LINK}/graphql`,
   credentials: "include"
 });
-
-// const authLink = setContext((_, { headers }) => {
-//   // get the authentication token from local storage if it exists
-//   const token = localStorage.getItem("token");
-//   console.log(token, "token");
-//   // return the headers to the context so httpLink can read them
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: token ? `Bearer ${token}` : "",
-//     },
-//   };
-// });
 
 const wsLink =
   typeof window !== "undefined"
     ? new GraphQLWsLink(
         createClient({
-          url: `${process.env.NEXT_PUBLIC_SERVER_WS_PROTOCOL}${serverLink}/graphql`,
+          url: `${process.env.NEXT_PUBLIC_SERVER_WS_PROTOCOL}${process.env.NEXT_PUBLIC_SERVER_API_LINK}/graphql`,
           connectionParams: async () => {
             const session = await getSession();
-        
             return {
               session: session,
             }
@@ -61,20 +26,37 @@ const wsLink =
       )
     : null;
 
-const link =
-  typeof window !== "undefined" && wsLink !== null
-    ? split(
-        ({ query }) => {
-          const difinition = getMainDefinition(query);
-          return (
-            difinition.kind === "OperationDefinition" &&
-            difinition.operation === "subscription"
-          );
-        },
-        wsLink,
-        httpLink
-      )
-    : httpLink;
+const authLink = setContext( async (_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  // const session = await getSession()
+  // const csrf = cookies().get("authjs.csrf-token")
+  // const callback = cookies().get("authjs.callback-url")
+  // const session = cookies().get("authjs.session-token")
+  const token = `${document.cookie}`
+
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      "Authorization": token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
+const httpAuthLink = from([authLink, httpLink]);
+
+const link =  typeof window !== "undefined" && wsLink !== null ? 
+  split( ({ query }) => {
+      const difinition = getMainDefinition(query);
+      return (
+        difinition.kind === "OperationDefinition" &&
+        difinition.operation === "subscription"
+      );
+    },
+    wsLink,
+    httpAuthLink
+  )
+  : httpLink;
 
 export const client = new ApolloClient({
   link: link,

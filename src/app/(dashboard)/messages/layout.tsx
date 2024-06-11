@@ -2,7 +2,6 @@ import SideBars from "@/components/Sidebars";
 import { Container, Flex } from "@chakra-ui/react";
 import React from "react";
 
-
 const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <Container 
