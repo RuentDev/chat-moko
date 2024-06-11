@@ -67,7 +67,7 @@ const InputMessage: React.FC<InputMessageProps> = ({conversationId, user, partic
       {({ handleSubmit, errors, touched }) => {
         return (
           <Container
-            p={2}
+            p={[0, 3]}
             m={0}
             maxW="100%"
             borderLeft={0}
@@ -81,7 +81,7 @@ const InputMessage: React.FC<InputMessageProps> = ({conversationId, user, partic
               alignItems="center"
             >
             <form onSubmit={handleSubmit} className="w-full">
-              <Flex alignItems="center" width="100%">
+              <Flex alignItems="center" width="100%" gap={2}>
                 <IconButton
                   isRound
                   backgroundColor="transparent"
@@ -109,6 +109,7 @@ const InputMessage: React.FC<InputMessageProps> = ({conversationId, user, partic
                           borderColor="#888888"
                           borderRadius="10px"
                           borderWidth="1px"
+                          autoComplete="off"
                         />
                       </Flex>
                     </FormControl>
@@ -130,7 +131,6 @@ const InputMessage: React.FC<InputMessageProps> = ({conversationId, user, partic
                   backgroundColor="transparent"
                   icon={<Icon as={SlOptions} />}
                   aria-label="Send"
-                  type="submit"
                 />
               </Flex>
             </form>
