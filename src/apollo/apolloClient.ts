@@ -4,12 +4,11 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import { setContext } from "@apollo/client/link/context";
 import { createClient } from "graphql-ws";
 import { getSession } from "next-auth/react";
-// import { cookies } from "next/headers";
-
 const httpLink = new HttpLink({
   uri: `${process.env.NEXT_PUBLIC_SERVER_PROTOCOL}${process.env.NEXT_PUBLIC_SERVER_API_LINK}/graphql`,
   credentials: "include"
 });
+
 
 const wsLink =
   typeof window !== "undefined"
@@ -26,18 +25,14 @@ const wsLink =
       )
     : null;
 
-const authLink = setContext( async (_, __) => {
+const authLink = setContext( async (_, { headers }) => {
   // get the authentication token from local storage if it exists
-  // const session = await getSession()
-  // const csrf = cookies().get("authjs.csrf-token")
-  // const callback = cookies().get("authjs.callback-url")
-  // const session = cookies().get("authjs.session-token")
   const token = `${document.cookie}`
 
   // return the headers to the context so httpLink can read them
   return {
     headers: {
-      "Content-Type": "application/json",
+      ...headers,
       "Authorization": token ? `Bearer ${token}` : "",
     },
   };
