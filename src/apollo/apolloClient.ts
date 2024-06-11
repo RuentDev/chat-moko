@@ -26,7 +26,7 @@ const wsLink =
       )
     : null;
 
-const authLink = setContext( async (_, { headers }) => {
+const authLink = setContext( async (_, __) => {
   // get the authentication token from local storage if it exists
   // const session = await getSession()
   // const csrf = cookies().get("authjs.csrf-token")
@@ -37,7 +37,6 @@ const authLink = setContext( async (_, { headers }) => {
   // return the headers to the context so httpLink can read them
   return {
     headers: {
-      ...headers,
       "Authorization": token ? `Bearer ${token}` : "",
     },
   };
