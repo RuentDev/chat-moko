@@ -1,5 +1,5 @@
 import SideBars from "@/components/Sidebars";
-import { Container, Flex } from "@chakra-ui/react";
+import { Container, Flex, Hide } from "@chakra-ui/react";
 import React from "react";
 
 
@@ -18,6 +18,7 @@ const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
       height="100%"
     >
       <SideBars.Conversations />
+      <Hide below="md">
       <Container 
         padding={0}
         border={0}
@@ -26,6 +27,7 @@ const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
       >
         {children}
       </Container>
+      </Hide>
      </Flex>
     </Container>
   );
