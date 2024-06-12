@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import TypingEffect from "../TypingEffect";
+import TypingEffect from "../Messages/Components/TypingEffect";
 import { getMessageSentTime } from "@/utils";
 import {
   Avatar,
@@ -30,7 +30,7 @@ interface ConversationButtonCardProps {
   onClick?: () => void;
 }
 
-const ConversationCardButton = (props: ConversationButtonCardProps) => {
+const ConversationCard = (props: ConversationButtonCardProps) => {
   return (
     <Container width="100%" height={70} border={0} transitionTimingFunction="ease-in-out" transitionDuration="500ms" _hover={{backgroundColor: "#2C3E61"}} className=" ease">
       <HStack gap={3} cursor="pointer" onClick={props.onClick}>
@@ -85,4 +85,4 @@ const ConversationCardButton = (props: ConversationButtonCardProps) => {
   );
 };
 
-export default ConversationCardButton;
+export default ConversationCard;

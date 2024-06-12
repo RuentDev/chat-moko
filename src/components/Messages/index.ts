@@ -1,6 +1,6 @@
 import MessageOptions from "./Components/MessageOptions";
 import HeaderMessage from "./Components/HeaderMessage";
-import InputMessage from "./Components/InputMessage";
+import InputMessage from "../Inputs/InputMessage";
 import Message from "./Components/Message";
 import MessagesWrapper from "./Components/MessagesWrapper";
 import Messages from "./Messages";

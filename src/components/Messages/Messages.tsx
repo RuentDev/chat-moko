@@ -1,9 +1,8 @@
 "use client";
-
-import { Center, Container, Flex, Spinner } from "@chakra-ui/react";
-import React, { FC, useEffect } from "react";
+import { Flex } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import HeaderMessage from "./Components/HeaderMessage";
-import InputMessage from "./Components/InputMessage";
+import Inputs from "@/components/Inputs";
 import MessageOptions from "./Components/MessageOptions";
 import { useQuery } from "@apollo/client";
 import MessagesWrapper from "./Components/MessagesWrapper";
@@ -73,7 +72,7 @@ const Messages = ({id, session}: MessagesProps) => {
           messages={messages.messages}
           participants={conversation?.getConversation?.participants}
         />
-        <InputMessage conversationId={id} user={session?.user} participants={conversation?.getConversation?.participants}/>
+        <Inputs.InputMessage conversationId={id} user={session?.user} participants={conversation?.getConversation?.participants}/>
       </Flex>
       <MessageOptions participants={conversation?.getConversation?.participants} />
     </Flex>

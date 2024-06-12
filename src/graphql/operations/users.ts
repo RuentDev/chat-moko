@@ -1,7 +1,21 @@
 import { gql } from "@apollo/client";
 
 const shema = {
-  Queries: {},
+  Queries: {
+    searchConnections: gql(`
+      query SearchConnections($name: String) {
+        searchConnections(name: $name) {
+          error
+          data {
+            id
+            name
+            email
+            image
+          }
+        }
+      }
+    `),
+  },
   Mutation: {
     userLogin: gql(`
      mutation UserLogin($email: String, $password: String) {

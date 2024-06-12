@@ -4,19 +4,13 @@ import {
   FormControl,
   Icon,
   IconButton,
-  Textarea,
   Input,
   Container,
 } from "@chakra-ui/react";
-import { Field, Formik, FormikHelpers } from "formik";
+import { Field, Formik } from "formik";
 import React from "react";
 import { SlOptions } from "react-icons/sl";
-import {
-  FaImage,
-  FaLocationArrow,
-  FaMicrophone,
-  FaSmile,
-} from "react-icons/fa";
+import { FaSmile} from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import { useMutation } from "@apollo/client";
 import MessageOperations from "@/graphql/operations/message";

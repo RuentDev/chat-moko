@@ -1,7 +1,7 @@
 "use client";
 import { Avatar, Container, VStack, Image, Flex, Text } from "@chakra-ui/react";
 import React, { FC } from "react";
-import UserProfile from "../UserProfile/UserProfile";
+import UserProfile from "../UserProfile";
 import SearchBox from "../Inputs/SearchBox";
 import { useSession } from "next-auth/react";
 import mockCallData from "@/data/mockCalls.json";

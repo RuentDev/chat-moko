@@ -3,7 +3,7 @@ import React from "react";
 import {  Container, VStack } from "@chakra-ui/react";
 // import SearchBox from "../Inputs/SearchBox";
 import { useSession } from "next-auth/react";
-import UserProfile from "../UserProfile/UserProfile";
+import UserProfile from "../UserProfile";
 
 interface ConnectionsProps{}
 

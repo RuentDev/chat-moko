@@ -11,26 +11,22 @@ import {
   Container,
   Hide,
 } from "@chakra-ui/react";
-// import { BiMessageAdd } from "react-icons/bi";
-// import SearchBox from "../Inputs/SearchBox";
-import ConversationCardButton from "../Messages/Components/Buttons/ConversationCardButton";
+import { BiMessageAdd } from "react-icons/bi";
+import { Inputs, Cards, UserProfile } from "@/components";
 import { setSelectedConversation } from "@/app-redux/features/conversationSlice";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import UserProfile from "../UserProfile/UserProfile";
-import { useCookies } from 'next-client-cookies';
-import SearchBox from "../Inputs/SearchBox";
+
 
 interface ConversationProps {}
 
 const Conversations = ({}: ConversationProps) => {
-  const cookies = useCookies()
   const router = useRouter();
   const dispatch = useDispatch();
   const { data: session } = useSession();
-  const { data, error, loading, subscribeToMore } = useQuery<ConversationQuery>(ConvesationOperations.Queries.conversations);
+  const { data, loading, subscribeToMore } = useQuery<ConversationQuery>(ConvesationOperations.Queries.conversations);
 
   const handleConversationCardBtnClick = (conversation: any) => {
     dispatch(setSelectedConversation(conversation));
@@ -69,7 +65,7 @@ const Conversations = ({}: ConversationProps) => {
           <Hide below="md">
             <UserProfile session={session} status="Active" />
           </Hide>
-          <SearchBox />
+          <Inputs.SearchBox />
         </Flex>
       </Container>
       <Flex h="auto" w="100%" flexDirection="column" gap={2}>
@@ -82,7 +78,7 @@ const Conversations = ({}: ConversationProps) => {
             {data &&  data.conversations.map(
                 (conversation: Conversation, index: number) => {
                   return (
-                    <ConversationCardButton
+                    <Cards.ConversationCard
                       index={index}
                       unreadCount={0}
                       isTyping={false}
@@ -90,19 +86,9 @@ const Conversations = ({}: ConversationProps) => {
                       type={conversation.type}
                       userId={session?.user.id}
                       participants={conversation.participants}
-                      onClick={() =>
-                        handleConversationCardBtnClick(conversation)
-                      }
-                      time={
-                        conversation.messages.length > 0
-                          ? conversation.messages[0].createdAt
-                          : ""
-                      }
-                      content={
-                        conversation.messages.length > 0
-                          ? conversation.messages[0].content
-                          : ""
-                      }
+                      onClick={() => handleConversationCardBtnClick(conversation)}
+                      time={ conversation.messages.length > 0  ? conversation.messages[0].createdAt : "" }
+                      content={ conversation.messages.length > 0 ? conversation.messages[0].content : "" }
                     />
                   );
                 }
@@ -118,7 +104,7 @@ const Conversations = ({}: ConversationProps) => {
         size="lg"
         padding={3}
         position="absolute"
-        // as={BiMessageAdd}
+        as={BiMessageAdd}
         aria-label={"add-new-message"}
         bg="transparent"
         title="New message"

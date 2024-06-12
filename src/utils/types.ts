@@ -41,6 +41,25 @@ export interface CreateUserAccountVariables {
   lastName: string;
 }
 
+interface SearchedConnection{
+  id: string;
+  image: string;
+  name: string;
+  email: string;
+}
+
+
+export interface SearchConnections {
+  searchConnections: {  
+    error: string; 
+    data: SearchedConnection[] 
+  };
+}
+
+export interface SearchConnectionsVariables {
+  name: string
+}
+
 export interface UserSession {
   id: string;
   email: string;
