@@ -11,9 +11,10 @@ import { useSession } from "next-auth/react";
 
 interface HeaderMessageProps {
   participants: any[];
+  onOptionsClick: () => void;
 }
 
-const HeaderMessage: React.FC<HeaderMessageProps> = ({participants}) => {
+const HeaderMessage: React.FC<HeaderMessageProps> = ({participants, onOptionsClick }) => {
   const dispatch = useDispatch();
   const { data: session } = useSession();
 
@@ -87,6 +88,7 @@ const HeaderMessage: React.FC<HeaderMessageProps> = ({participants}) => {
                   aria-label={button.label}
                   icon={<Icon as={button.icon} />}
                   isRound
+                  onClick={button.id === 2 ? onOptionsClick : undefined}
                 />
               );
             })}

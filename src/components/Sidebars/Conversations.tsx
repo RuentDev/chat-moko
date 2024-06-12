@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import ConvesationOperations from "@/graphql/operations/conversation";
 import { Conversation, ConversationQuery } from "@/utils/types";
 import {
@@ -10,6 +10,7 @@ import {
   IconButton,
   Container,
   Hide,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { BiMessageAdd } from "react-icons/bi";
 import { Inputs, Cards, UserProfile } from "@/components";
@@ -19,18 +20,29 @@ import { useDispatch } from "react-redux";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 
+interface ConversationProps {
+  selectedConversationClick: (conversation: Conversation) => void;
+}
 
-interface ConversationProps {}
-
-const Conversations = ({}: ConversationProps) => {
+const Conversations: React.FC<ConversationProps> = ({
+  selectedConversationClick,
+}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { data: session } = useSession();
-  const { data, loading, subscribeToMore } = useQuery<ConversationQuery>(ConvesationOperations.Queries.conversations);
+  const { data, loading, subscribeToMore } = useQuery<ConversationQuery>(
+    ConvesationOperations.Queries.conversations
+  );
+  const isSmallScreen = useBreakpointValue({ base: true, lg: false });
+  const [hideContainer, setHideContainer] = useState(false);
 
-  const handleConversationCardBtnClick = (conversation: any) => {
+  const handleConversationCardBtnClick = (conversation: Conversation) => {
     dispatch(setSelectedConversation(conversation));
+    selectedConversationClick(conversation);
     router.push(`/messages/${conversation.id}`);
+    if (isSmallScreen) {
+      setHideContainer(!hideContainer);
+    }
   };
 
   const handleAddConversationBtnClick = () => {
@@ -42,8 +54,9 @@ const Conversations = ({}: ConversationProps) => {
   }
 
   return (
-    <Container
-      w={{ base: "100%", md:'100%', lg: 390 }}
+    (!hideContainer && (
+      <Container
+      w={{ base: "100%", md: "100%", lg: 390 }}
       h="100%"
       m={0}
       p={0}
@@ -75,7 +88,8 @@ const Conversations = ({}: ConversationProps) => {
           </Center>
         ) : (
           <UnorderedList padding={0} margin={0}>
-            {data &&  data.conversations.map(
+            {data &&
+              data.conversations.map(
                 (conversation: Conversation, index: number) => {
                   return (
                     <Cards.ConversationCard
@@ -86,9 +100,19 @@ const Conversations = ({}: ConversationProps) => {
                       type={conversation.type}
                       userId={session?.user.id}
                       participants={conversation.participants}
-                      onClick={() => handleConversationCardBtnClick(conversation)}
-                      time={ conversation.messages.length > 0  ? conversation.messages[0].createdAt : "" }
-                      content={ conversation.messages.length > 0 ? conversation.messages[0].content : "" }
+                      onClick={() =>
+                        handleConversationCardBtnClick(conversation)
+                      }
+                      time={
+                        conversation.messages.length > 0
+                          ? conversation.messages[0].createdAt
+                          : ""
+                      }
+                      content={
+                        conversation.messages.length > 0
+                          ? conversation.messages[0].content
+                          : ""
+                      }
                     />
                   );
                 }
@@ -112,6 +136,7 @@ const Conversations = ({}: ConversationProps) => {
         onClick={handleAddConversationBtnClick}
       />
     </Container>
+    ))
   );
 };
 
