@@ -1,4 +1,3 @@
-
 "use client";
 import {
   IconButton,
@@ -13,6 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { IoSunnyOutline } from "react-icons/io5";
+import SearchBox from "../Inputs/SearchBox";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 interface NavbarProps {}
@@ -48,22 +48,45 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
             as={HiMenu}
             backgroundColor="transparent"
           />
-          <Container
-            border={0}
-            maxW="100%"
-            margin={0}
-            p={0}
-          >
-            <Flex 
-              gap={3}
-              w="100%"
-              alignItems="center"
-              justifyContent="end"
-            >
 
+          <Image
+            alt="chatmoko"
+            src="/images/chatmoko-high-resolution-logo-transparent-blue.png"
+            width={70}
+            position="absolute"
+            left="50%"
+            right="50%"
+            top={"50%"}
+            transform="translate(-50%, -50%)"
+          />
+        </Hide>
+
+        {showNavbar && (
+          <Show above="md">
+            <Container border={0} m={0} p={0}>
+              <SearchBox />
+            </Container>
+          </Show>
+        )}
+
+        <Container border={0} maxW="100%" margin={0} p={0}>
+          <Flex gap={3} w="100%" alignItems="center" justifyContent="end">
+            <IconButton
+              aria-label="theme"
+              as={IoSunnyOutline}
+              backgroundColor="transparent"
+            />
+            {session ? (
+              <Avatar
+                name={session.user.name || "User"}
+                src={session.user.image || ""}
+                size="md"
+              />
+            ) : (
+              <Spinner size="md" />
+            )}
           </Flex>
-          </Container>
-          </Hide>
+        </Container>
       </Flex>
     </Container>
   );
