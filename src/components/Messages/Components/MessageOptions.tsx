@@ -14,8 +14,6 @@ import {
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { FaPencilAlt } from "react-icons/fa";
-import { IoMailSharp } from "react-icons/io5";
-import { IoMdPin } from "react-icons/io";
 import { GoFileMedia } from "react-icons/go";
 import mockImages from "@/data/mockImages.json";
 import {ConversationParticipant} from '@/utils/types'
@@ -111,6 +109,13 @@ const MessageOptions: React.FC<HeaderMessageProps> = ({participants}) => {
             icon={<FaPencilAlt />}
           />
         </Flex>
+        <Text as="p" fontSize="smaller">
+          { participants &&  participants.map((participant) => {
+            if (participant.user.id !== session?.user.id) {
+              return `${participant.user.email}`;
+            }
+          })}
+        </Text>
 
       {/* User email and address */}
       {/* <Box
