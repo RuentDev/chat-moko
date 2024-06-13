@@ -4,20 +4,12 @@ import {
   ListItem,
   UnorderedList,
   useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   IconButton,
   Icon,
-  Button,
   Image,
   Container,
 } from "@chakra-ui/react";
-
+import LogoutModal from "../Modal/LogoutModal";
 import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -32,7 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
   
   const router = useRouter();
   const [buttons, setButtons] = useState(iconButtons);
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+  const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
 
   // const { data, error, loading, subscribeToMore } = useQuery<ConversationQuery, GetConversationVariables>(ConvesationOperations.Queries.conversations);
 
@@ -134,32 +126,20 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
                   isRound
                   aria-label="logout-button"
                   icon={<Icon as={CiLogout} />}
-                  onClick={onOpen}
+                  onClick={onModalOpen}
                   title="Logout"
                   background="transparent"
                 />
              </ListItem>
             </Flex>
           </UnorderedList>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent className="mx-auto my-0 top-80">
-              <ModalHeader className="text-xl font-bold">
-                Confirm Logout
-              </ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>Are you sure you want to log out?</ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="red" mr={3} onClick={onClose}>
-                  Cancel
-                </Button>
-                <Button colorScheme="green" onClick={handleLogoutConfirm}>
-                  Confirm
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+          
+          {/* Logout Modal */}
+          <LogoutModal
+          isModalOpen={isModalOpen}
+          onModalClose={onModalClose}
+          size="md"
+          />
         </Container>
       </Flex>
     </nav>

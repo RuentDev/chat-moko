@@ -48,7 +48,7 @@ const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
       {showNavbar && (
         <Show above="sm">
           <GridItem colSpan={24}>
-            <Navbar />
+            <Navbar  iconButtons={iconButtons}/>
           </GridItem>
         </Show>
       )}
