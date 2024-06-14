@@ -1,7 +1,6 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
 import iconButtons from "@/data/iconButtons.json";
-import dynamic from "next/dynamic";
 import {
   Grid,
   GridItem,
@@ -20,15 +19,20 @@ interface NavbarProviderProps {
 const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
   const pathname = usePathname();
   const [showNavbar, setShowNavbar] = useState(true);
+  const isSmallScreen = useBreakpointValue({ base: true });
   const isBelowMd = useBreakpointValue({ base: true, md: false });
 
   useEffect(() => {
-    if (isBelowMd) {
+    const isMessagesPath = pathname.startsWith("/messages/");
+
+    if (isSmallScreen && isMessagesPath) {
+      setShowNavbar(false);
+    } else if (isBelowMd) {
       setShowNavbar(true);
     } else {
       setShowNavbar(pathname === "/");
     }
-  }, [pathname, isBelowMd]);
+  }, [pathname, isSmallScreen, isBelowMd]);
 
   return (
     <Grid
@@ -48,7 +52,7 @@ const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
       {showNavbar && (
         <Show above="sm">
           <GridItem colSpan={24}>
-            <Navbar  iconButtons={iconButtons}/>
+            <Navbar iconButtons={iconButtons} />
           </GridItem>
         </Show>
       )}
