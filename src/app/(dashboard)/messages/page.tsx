@@ -9,7 +9,7 @@ const ChatPage = () => {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        display={{ base: "none", md: "flex", lg: "flex" }}
+        display={{ base: "none",sm: "none", md: "flex", lg: "flex" }}
         position={{ base: "absolute" }}
         zIndex={{base: 98}}
       >

@@ -19,8 +19,8 @@ interface NavbarProviderProps {
 const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
   const pathname = usePathname();
   const [showNavbar, setShowNavbar] = useState(true);
-  const isSmallScreen = useBreakpointValue({ base: true });
-  const isBelowMd = useBreakpointValue({ base: true, md: false });
+  const isSmallScreen = useBreakpointValue({ base: true, sm: true });
+  const isBelowMd = useBreakpointValue({ base: true, sm: true, md: false });
 
   useEffect(() => {
     const isMessagesPath = pathname.startsWith("/messages/");
@@ -39,7 +39,7 @@ const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
       height={"100vh"}
       width={"100%"}
       templateRows="repeat(12, 1fr)"
-      templateColumns={{ base: "1fr", lg: "repeat(25, 1fr)" }}
+      templateColumns={{ base: "1fr",sm:"1fr", md: "repeat(25, 1fr)", lg: "repeat(25, 1fr)" }}
     >
       {/* Side Bar */}
       <Hide below="md">

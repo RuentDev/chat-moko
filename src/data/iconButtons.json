@@ -22,9 +22,9 @@
   },
   {
     "id": 3,
-    "label": "Settings",
+    "label": "Contacts",
     "icon": "/svgs/address-book.svg",
-    "link": "/settings",
+    "link": "/contacts",
     "isActive": false
   },
   {

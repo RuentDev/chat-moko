@@ -14,8 +14,6 @@ import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import IconBtn from "./Components/Buttons/IconButton";
-import { signOut, useSession } from "next-auth/react";
-
 interface SidebarProps {
   iconButtons: any[]
 }
@@ -68,11 +66,6 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
 
     return () => {};
   }, []);
-
-  const handleLogoutConfirm = () => {
-    //Function when confirm button is clicked, to logout account
-    signOut();
-  };
 
   return (
     <nav id="navbar" className="dashboard-sidebar h-full flex">

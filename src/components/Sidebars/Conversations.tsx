@@ -26,7 +26,12 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
   const { data, loading, subscribeToMore } = useQuery<ConversationQuery>(
     ConvesationOperations.Queries.conversations
   );
-  const isSmallScreen = useBreakpointValue({ base: true, lg: false });
+  const isSmallScreen = useBreakpointValue({
+    base: true,
+    sm: true,
+    md: false,
+    lg: false,
+  });
   const [hideContainer, setHideContainer] = useState(false);
 
   const handleConversationCardBtnClick = (conversation: Conversation) => {
@@ -47,17 +52,22 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
   return (
     !hideContainer && (
       <Container
-        w={{ base: "100%", md: "100%", lg: 390 }}
+        w={{ base: "100%", sm: "100%", md: "100%", lg: 390 }}
         h="100%"
         m={0}
         p={0}
         borderLeft={0}
         borderBottom={0}
         borderTop={0}
-        position={{ base: "absolute", lg: "inherit" }}
-        borderWidth={{ base: 0, lg: 1 }}
+        position={{
+          base: "absolute",
+          sm: "absolute",
+          md: "inherit",
+          lg: "inherit",
+        }}
+        borderWidth={{ base: 0, sm: 1, md: 1, lg: 1 }}
         paddingTop={-10}
-        zIndex={{ base: "100" }}
+        zIndex={{ base: "100", sm: 100 }}
       >
         <Container border={0} width="100%">
           <Flex

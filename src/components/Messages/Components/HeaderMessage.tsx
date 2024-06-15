@@ -62,6 +62,7 @@ const HeaderMessage: React.FC<HeaderMessageProps> = ({
             title="Back"
             background="transparent"
             onClick={() => router.back()}
+            display={{md: 'none',lg:'none'}}
           />
           <AvatarGroup size="md" max={2}>
             {participants &&
