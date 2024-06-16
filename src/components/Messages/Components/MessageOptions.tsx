@@ -58,7 +58,7 @@ const MessageOptions: React.FC<HeaderMessageProps> = ({participants}) => {
 
   return (
     <Container
-      maxW={350}
+      maxW={{base:'100%', sm:'100%', md:'100%', lg:350}}
       maxH="100%"
       borderTop={0}
       borderRight={0}

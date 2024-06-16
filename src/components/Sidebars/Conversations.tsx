@@ -52,13 +52,15 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
   return (
     !hideContainer && (
       <Container
-        w={{ base: "100%", sm: "100%", md: "100%", lg: 390 }}
+        w={{ base: "100%", md: "100%", lg: 390 }}
+        maxW={{sm:'100%'}}
         h="100%"
         m={0}
         p={0}
         borderLeft={0}
         borderBottom={0}
         borderTop={0}
+        display={{base: 'none', sm:'block', md:'block', lg:'block'}}
         position={{
           base: "absolute",
           sm: "absolute",
@@ -69,7 +71,7 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
         paddingTop={-10}
         zIndex={{ base: "100", sm: 100 }}
       >
-        <Container border={0} width="100%">
+        <Container border={0} width="100%"  maxW={{sm:'100%'}}>
           <Flex
             width="100%"
             gap={3}
@@ -83,6 +85,7 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
             <Inputs.SearchBox />
           </Flex>
         </Container>
+        
         <Flex h="auto" w="100%" flexDirection="column" gap={2}>
           {loading ? (
             <Center height="100%">
