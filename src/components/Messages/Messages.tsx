@@ -1,5 +1,5 @@
 "use client";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import HeaderMessage from "./Components/HeaderMessage";
 import Inputs from "@/components/Inputs";
@@ -10,6 +10,7 @@ import MessageOperations from "@/graphql/operations/message";
 import ConversationOperations from "@/graphql/operations/conversation";
 import { Session } from "next-auth";
 import { useCookies } from "next-client-cookies";
+import { usePathname } from "next/navigation";
 
 interface MessagesProps {
   id: string;
@@ -18,8 +19,16 @@ interface MessagesProps {
 
 const Messages = ({ id, session }: MessagesProps) => {
   // const isMessageOptionsOpen = useSelector( (state: RootState) => state.navigation.isMessageOptionsOpen);
+  const pathname = usePathname();
   const [showOptions, setShowOptions] = useState(false);
+  const [showOptionsSmall, setShowOptionsSmall] = useState(false);
   const cookies = useCookies();
+  const isSmallScreen = useBreakpointValue({
+    base: true,
+    sm: true,
+    md: false,
+    lg: false,
+  });
 
   const {
     data: messages,
@@ -44,6 +53,9 @@ const Messages = ({ id, session }: MessagesProps) => {
       },
     }
   );
+
+  useEffect(() => {
+  }, [isSmallScreen, pathname]);
 
   const subscribeToNewMessages = () => {
     subscribeToMore({
@@ -72,12 +84,27 @@ const Messages = ({ id, session }: MessagesProps) => {
   }
 
   const handleOptionsClick = () => {
-    setShowOptions((prev) => !prev);
+    const match = pathname.match(/\/messages\/([a-f0-9-]{36})$/);
+    if (match && isSmallScreen) {
+      setShowOptionsSmall(!showOptionsSmall);
+    } else {
+      setShowOptions(!showOptions);
+    }
   };
 
   return (
     <Flex width="100%" height="100%">
-      <Flex width="100%" height="100%" flexDirection="column">
+      <Flex
+        width="100%"
+        height="100%"
+        flexDirection="column"
+        display={{
+          base: showOptionsSmall ? "none" : "flex",
+          sm: showOptionsSmall ? "none" : "flex",
+          md: "flex",
+          lg: "flex",
+        }}
+      >
         <HeaderMessage
           participants={conversation?.getConversation?.participants}
           onOptionsClick={handleOptionsClick}
@@ -92,7 +119,7 @@ const Messages = ({ id, session }: MessagesProps) => {
           participants={conversation?.getConversation?.participants}
         />
       </Flex>
-      {showOptions && (
+      {(showOptionsSmall || showOptions) && (
         <MessageOptions
           participants={conversation?.getConversation?.participants}
         />
