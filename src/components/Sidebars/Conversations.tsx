@@ -77,8 +77,8 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
       position={{
         base: "absolute",
         sm: "absolute",
-        md: "inherit",
-        lg: "inherit",
+        md: "relative",
+        lg: "relative",
       }}
       zIndex={{ 
         base: 100, 

@@ -7,25 +7,55 @@ import {
   IconButton,
   Icon,
   Container,
+  Avatar,
+  Spinner,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import LogoutModal from "../Modal/LogoutModal";
 import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import IconBtn from "./Components/Buttons/IconButton";
+import { IoSunnyOutline } from "react-icons/io5";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+
 interface SidebarProps {
-  iconButtons: any[]
+  iconButtons: any[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
-  
+const Sidebar: React.FC<SidebarProps> = ({ iconButtons }) => {
+  const { data: session } = useSession();
+  const pathname = usePathname();
   const router = useRouter();
   const [buttons, setButtons] = useState(iconButtons);
-  const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
+  const [hideContainer, setHideContainer] = useState(false);
+  const isSmallScreen = useBreakpointValue({
+    base: true,
+    sm: false,
+    md: false,
+    lg: false,
+  });
+  const {
+    isOpen: isModalOpen,
+    onOpen: onModalOpen,
+    onClose: onModalClose,
+  } = useDisclosure();
+
+   //Hide container if params has an id for lower of medium screens
+   useEffect(() => {
+    const match = pathname.match(/\/messages\/([a-f0-9-]{36})$/);
+    if (match && isSmallScreen) {
+      setHideContainer(!hideContainer);
+    }
+
+    return () => {
+      setHideContainer(false);
+    }
+  }, [pathname, isSmallScreen]);
 
   // const { data, error, loading, subscribeToMore } = useQuery<ConversationQuery, GetConversationVariables>(ConvesationOperations.Queries.conversations);
-
 
   const handleOnClick = (e: any, button: any) => {
     e.preventDefault();
@@ -53,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
     const button = buttonCopy.find(
       (item) => item.link.replace("/", "") === paths[1]
     );
-    
+
     buttonCopy.forEach((item) => {
       if (button && item.id === button.id) {
         item.isActive = true;
@@ -78,9 +108,9 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
         borderBottom={0}
         borderLeft={0}
         position="relative"
+        display={{base:(hideContainer ? 'none' : 'block')}}
       >
-
-        <Image 
+        <Image
           width={70}
           height={70}
           alt="ChatMoko"
@@ -89,12 +119,7 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
           src="/images/chatmoko-high-resolution-logo-transparent-blue.png"
         />
 
-        <UnorderedList 
-          m={0}
-          p={0}
-          mt={5}
-          w="100%"
-        >
+        <UnorderedList m={0} p={0} mt={5} w="100%">
           <Flex
             gap="5"
             w="100%"
@@ -117,6 +142,30 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
 
             {/* Logout button */}
             <ListItem position="absolute" bottom={3}>
+              <Flex
+                gap={3}
+                marginBottom={5}
+                w="100%"
+                display="flex"
+                flexDir="column"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <IconButton
+                  aria-label="theme"
+                  as={IoSunnyOutline}
+                  backgroundColor="transparent"
+                />
+                {session ? (
+                  <Avatar
+                    name={session.user.name || "User"}
+                    src={session.user.image || ""}
+                    size="md"
+                  />
+                ) : (
+                  <Spinner size="md" />
+                )}
+              </Flex>
               <IconButton
                 isRound
                 aria-label="logout-button"
@@ -128,7 +177,7 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
             </ListItem>
           </Flex>
         </UnorderedList>
-        
+
         {/* Logout Modal */}
         <LogoutModal
           isModalOpen={isModalOpen}

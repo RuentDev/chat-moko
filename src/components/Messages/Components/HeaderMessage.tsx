@@ -50,7 +50,7 @@ const HeaderMessage: React.FC<HeaderMessageProps> = ({
   ];
 
   return (
-    <Container maxW="100%" maxH={100} border={0} position="fixed" top={0} zIndex={100}>
+    <Container maxW="100%" maxH={100} border={0} top={0} zIndex={100}>
       <Flex width="100%" alignItems="center">
         <Flex width="100%" gap={2} alignItems="center">
           <IconButton

@@ -99,8 +99,8 @@ const Messages = ({ id, session }: MessagesProps) => {
         height="100%"
         flexDirection="column"
         display={{
-          base: showOptionsSmall ? "none" : "flex",
-          sm: showOptionsSmall ? "none" : "flex",
+          base: showOptionsSmall ? "none" : "block",
+          sm: showOptionsSmall ? "none" : "block",
           md: "flex",
           lg: "flex",
         }}

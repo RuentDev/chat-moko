@@ -39,23 +39,12 @@ const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
       height={"100vh"}
       width={"100%"}
       templateRows="repeat(12, 1fr)"
-      templateColumns={{ base: "1fr",sm:"1fr", md: "repeat(25, 1fr)", lg: "repeat(25, 1fr)" }}
+      templateColumns="repeat(25, 1fr)"
     >
       {/* Side Bar */}
-      <Hide below="md">
         <GridItem rowSpan={12} colSpan={1}>
           <Sidebars.Sidebar iconButtons={iconButtons} />
         </GridItem>
-      </Hide>
-
-      {/* Nav Bar */}
-      {showNavbar && (
-        <Show above="sm">
-          <GridItem colSpan={24}>
-            <Navbar iconButtons={iconButtons} />
-          </GridItem>
-        </Show>
-      )}
 
       <GridItem rowSpan={12} colSpan={24}>
         {children}
