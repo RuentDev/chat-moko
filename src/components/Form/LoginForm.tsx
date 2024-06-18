@@ -272,7 +272,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                     title="Continue with X"
                   />
                 </Flex>
-               <Link href="/auth/signup">Signup</Link>
+               <Link href="/auth/signup" color='black'>Signup</Link>
               </Stack>
             </form>
           )}

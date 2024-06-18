@@ -1,7 +1,6 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
 import iconButtons from "@/data/iconButtons.json";
-import dynamic from "next/dynamic";
 import {
   Grid,
   GridItem,
@@ -20,22 +19,27 @@ interface NavbarProviderProps {
 const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
   const pathname = usePathname();
   const [showNavbar, setShowNavbar] = useState(true);
-  const isBelowMd = useBreakpointValue({ base: true, md: false });
+  const isSmallScreen = useBreakpointValue({ base: true, sm: true });
+  const isBelowMd = useBreakpointValue({ base: true, sm: true, md: false });
 
   useEffect(() => {
-    if (isBelowMd) {
+    const isMessagesPath = pathname.startsWith("/messages/");
+
+    if (isSmallScreen && isMessagesPath) {
+      setShowNavbar(false);
+    } else if (isBelowMd) {
       setShowNavbar(true);
     } else {
       setShowNavbar(pathname === "/");
     }
-  }, [pathname, isBelowMd]);
+  }, [pathname, isSmallScreen, isBelowMd]);
 
   return (
     <Grid
       height={"100vh"}
       width={"100%"}
       templateRows="repeat(12, 1fr)"
-      templateColumns={{ base: "1fr", lg: "repeat(25, 1fr)" }}
+      templateColumns={{ base: "1fr",sm:"1fr", md: "repeat(25, 1fr)", lg: "repeat(25, 1fr)" }}
     >
       {/* Side Bar */}
       <Hide below="md">
@@ -48,7 +52,7 @@ const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
       {showNavbar && (
         <Show above="sm">
           <GridItem colSpan={24}>
-            <Navbar />
+            <Navbar iconButtons={iconButtons} />
           </GridItem>
         </Show>
       )}
