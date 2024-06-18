@@ -46,7 +46,7 @@ const SearchBox = ({}: SearchBoxProps) => {
               fontSize={10}
               aria-label={""}
               bg="transparent"
-              as={IoCloseCircleOutline}
+              icon={<IoCloseCircleOutline />}
               onClick={handleResetInput}
               cursor={input ? "pointer" : "default"}
               visibility={input ? "visible" : "hidden"}  

@@ -4,8 +4,14 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import { setContext } from "@apollo/client/link/context";
 import { createClient } from "graphql-ws";
 import { getSession } from "next-auth/react";
+
+
+const PROTOCOL = process.env.NEXT_PUBLIC_SERVER_PROTOCOL
+const WS_PROTOCOL = process.env.NEXT_PUBLIC_SERVER_WS_PROTOCOL
+const SERVER_LINK = process.env.NEXT_PUBLIC_SERVER_API_LINK
+
 const httpLink = new HttpLink({
-  uri: `${process.env.NEXT_PUBLIC_SERVER_PROTOCOL}${process.env.NEXT_PUBLIC_SERVER_API_LINK}/graphql`,
+  uri: `${PROTOCOL}${SERVER_LINK}/graphql`,
   credentials: "include"
 });
 
@@ -14,7 +20,7 @@ const wsLink =
   typeof window !== "undefined"
     ? new GraphQLWsLink(
         createClient({
-          url: `${process.env.NEXT_PUBLIC_SERVER_WS_PROTOCOL}${process.env.NEXT_PUBLIC_SERVER_API_LINK}/graphql`,
+          url: `${WS_PROTOCOL}${SERVER_LINK}/graphql`,
           connectionParams: async () => {
             const session = await getSession();
             return {
@@ -27,8 +33,10 @@ const wsLink =
 
 const authLink = setContext( async (_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = `${document.cookie}`
+  // const session = await getSession()
+  // const secret = process.env.NEXT_PUBLIC_SESSION_SECRET as string
 
+  const token = `${document.cookie}`
   // return the headers to the context so httpLink can read them
   return {
     headers: {

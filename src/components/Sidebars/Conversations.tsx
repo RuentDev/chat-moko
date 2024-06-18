@@ -139,7 +139,7 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
         size="lg"
         padding={3}
         position="absolute"
-        as={BiMessageAdd}
+        icon={<BiMessageAdd />}
         aria-label={"add-new-message"}
         bg="transparent"
         title="New message"

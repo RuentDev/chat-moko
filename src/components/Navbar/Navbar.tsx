@@ -105,7 +105,7 @@ const Navbar: React.FC<NavbarProps> = ({ iconButtons }) => {
         <Hide above="md">
           <IconButton
             aria-label="menu"
-            as={HiMenu}
+            icon={<HiMenu />}
             backgroundColor="transparent"
             onClick={onDrawerOpen}
           />
@@ -191,7 +191,7 @@ const Navbar: React.FC<NavbarProps> = ({ iconButtons }) => {
           <Flex gap={3} w="100%" alignItems="center" justifyContent="end">
             <IconButton
               aria-label="theme"
-              as={IoSunnyOutline}
+              icon={<IoSunnyOutline />}
               backgroundColor="transparent"
             />
             {session ? (
