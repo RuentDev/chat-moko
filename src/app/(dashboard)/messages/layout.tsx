@@ -3,7 +3,13 @@ import { Container, Flex } from "@chakra-ui/react";
 
 const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
-    <Container p={0} m={0} maxW="100%" height="100%" borderLeft={0} border={0}>
+    <Container 
+      p={0} 
+      m={0} 
+      maxW="100%" 
+      height="100vh" 
+      border={0}
+    >
       <Flex maxW="100%" height="100%" >
         <SideBars.Conversations  />
 
@@ -12,8 +18,7 @@ const MessagesLayout = async ({ children }: { children: React.ReactNode }) => {
           border={0}
           maxW="100%"
           height="100vh"
-          position={{base: 'relative',sm: "relative", md:'relative'}}
-          zIndex={{base: '99'}}
+          position="relative"
         >
           {children}
         </Container>

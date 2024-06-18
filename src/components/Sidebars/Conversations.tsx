@@ -25,19 +25,14 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
   const router = useRouter();
   const pathname = usePathname();
   const { data: session } = useSession();
-  const { data, loading, subscribeToMore } = useQuery<ConversationQuery>(
-    ConvesationOperations.Queries.conversations
-  );
+  const { data, loading, subscribeToMore } = useQuery<ConversationQuery>( ConvesationOperations.Queries.conversations);
+  const [hideContainer, setHideContainer] = useState(false);
   const isSmallScreen = useBreakpointValue({
     base: true,
-    sm: true,
+    sm: false,
     md: false,
     lg: false,
   });
-  const [hideContainer, setHideContainer] = useState(false);
-
-  useEffect(() => {
-  }, [isSmallScreen, pathname]);
   
   //Hide container if params has an id for lower of medium screens
   useEffect(() => {
@@ -45,9 +40,13 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
     if (match && isSmallScreen) {
       setHideContainer(!hideContainer);
     }
+
+    return () => {
+      setHideContainer(false);
+    }
   }, [pathname, isSmallScreen]);
 
-  const handleConversationCardBtnClick = (conversation: Conversation) => {
+  const handleConvoCardClick = (conversation: Conversation) => {
     router.push(`/messages/${conversation.id}`);
   };
 
@@ -61,19 +60,19 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
 
   return (
     <Container
-      w={{ base: "100%", md: "100%", lg: 390 }}
-      maxW={{ sm: "100%" }}
       h="100%"
-      m={0}
-      p={0}
+      maxH="100%"
       borderLeft={0}
       borderBottom={0}
       borderTop={0}
+      maxW={{ 
+        base: "100%",
+        sm: 390,
+        md: 390, 
+        lg: 390 
+      }}
       display={{
         base: hideContainer ? "none" : "block",
-        sm: hideContainer ? "none" : "block",
-        md: "block",
-        lg: "block",
       }}
       position={{
         base: "absolute",
@@ -81,23 +80,20 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
         md: "inherit",
         lg: "inherit",
       }}
-      borderWidth={{ base: 0, sm: 1, md: 1, lg: 1 }}
-      paddingTop={-10}
-      zIndex={{ base: "100", sm: 100 }}
+      zIndex={{ 
+        base: 100, 
+        sm: 100 
+      }}
     >
-      <Container border={0} width="100%" maxW={{ sm: "100%" }}>
-        <Flex
-          width="100%"
-          gap={3}
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Hide below="md">
-            <UserProfile session={session} status="Active" />
-          </Hide>
-          <Inputs.SearchBox />
-        </Flex>
+      <Container 
+        p={0} 
+        border={0} 
+        width="100%" 
+        maxW={{ 
+          sm: "100%" 
+        }}
+      >
+        <Inputs.SearchBox />
       </Container>
 
       <Flex h="auto" w="100%" flexDirection="column" gap={2}>
@@ -106,10 +102,16 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
             <Spinner size="xl" />
           </Center>
         ) : (
-          <UnorderedList padding={0} margin={0}>
+          <UnorderedList 
+            w="100%"
+            h="100%"
+            padding={0} 
+            margin={0}
+          >
             {data &&
               data.conversations.map(
                 (conversation: Conversation, index: number) => {
+                  const conveLen = conversation.messages.length
                   return (
                     <Cards.ConversationCard
                       index={index}
@@ -119,19 +121,9 @@ const Conversations: React.FC<ConversationProps> = ({}) => {
                       type={conversation.type}
                       userId={session?.user.id}
                       participants={conversation.participants}
-                      onClick={() =>
-                        handleConversationCardBtnClick(conversation)
-                      }
-                      time={
-                        conversation.messages.length > 0
-                          ? conversation.messages[0].createdAt
-                          : ""
-                      }
-                      content={
-                        conversation.messages.length > 0
-                          ? conversation.messages[0].content
-                          : ""
-                      }
+                      onClick={() => handleConvoCardClick(conversation) }
+                      time={ conveLen > 0 ? conversation.messages[0].createdAt : "" }
+                      content={ conveLen > 0 ? conversation.messages[0].content : "" }
                     />
                   );
                 }

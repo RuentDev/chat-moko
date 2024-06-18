@@ -6,7 +6,6 @@ import {
   useDisclosure,
   IconButton,
   Icon,
-  Image,
   Container,
 } from "@chakra-ui/react";
 import LogoutModal from "../Modal/LogoutModal";
@@ -14,6 +13,7 @@ import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import IconBtn from "./Components/Buttons/IconButton";
+import Image from "next/image";
 interface SidebarProps {
   iconButtons: any[]
 }
@@ -69,72 +69,73 @@ const Sidebar: React.FC<SidebarProps> = ({iconButtons}) => {
 
   return (
     <nav id="navbar" className="dashboard-sidebar h-full flex">
-      <Flex>
-        <Container
-          px={1}
-          py={3}
-          w="85px"
-          h="100%"
-          borderTop={0}
-          borderBottom={0}
-          borderLeft={0}
-          position="relative"
+      <Container
+        px={1}
+        py={3}
+        w="85px"
+        h="100%"
+        borderTop={0}
+        borderBottom={0}
+        borderLeft={0}
+        position="relative"
+      >
+
+        <Image 
+          width={70}
+          height={70}
+          alt="ChatMoko"
+          priority={true}
+          className="w-auto h-auto"
+          src="/images/chatmoko-high-resolution-logo-transparent-blue.png"
+        />
+
+        <UnorderedList 
+          m={0}
+          p={0}
+          mt={5}
+          w="100%"
         >
-
-          <Image 
-            w={70}
-            alt="ChatMoko"
-            src="/images/chatmoko-high-resolution-logo-transparent-blue.png"
-          />
-
-          <UnorderedList 
-            m={0}
-            p={0}
+          <Flex
+            gap="5"
             w="100%"
-            marginTop={5}
+            h="100%"
+            flexDirection="column"
+            alignItems="center"
+            listStyleType="none"
           >
-            <Flex
-              gap="5"
-              w="100%"
-              h="100%"
-              flexDirection="column"
-              alignItems="center"
-              listStyleType="none"
-            >
-              {buttons.map((button) => {
-                return (
-                  <ListItem key={button.id}>
-                    <IconBtn
-                      {...button}
-                      onClick={(e: any) => handleOnClick(e, button)}
-                      size={30}
-                    />
-                  </ListItem>
-                );
-              })}
+            {buttons.map((button) => {
+              return (
+                <ListItem key={button.id}>
+                  <IconBtn
+                    {...button}
+                    onClick={(e: any) => handleOnClick(e, button)}
+                    size={30}
+                  />
+                </ListItem>
+              );
+            })}
 
-              {/* Logout button */}
-             <ListItem position="absolute" bottom={3}>
-                <IconButton
-                  isRound
-                  aria-label="logout-button"
-                  icon={<Icon as={CiLogout} />}
-                  onClick={onModalOpen}
-                  title="Logout"
-                  background="transparent"
-                />
-             </ListItem>
-            </Flex>
-          </UnorderedList>
-          
-          {/* Logout Modal */}
-          <LogoutModal
+            {/* Logout button */}
+            <ListItem position="absolute" bottom={3}>
+              <IconButton
+                isRound
+                aria-label="logout-button"
+                icon={<Icon as={CiLogout} />}
+                onClick={onModalOpen}
+                title="Logout"
+                background="transparent"
+              />
+            </ListItem>
+          </Flex>
+        </UnorderedList>
+        
+        {/* Logout Modal */}
+        <LogoutModal
           isModalOpen={isModalOpen}
           onModalClose={onModalClose}
           size="md"
-          />
-        </Container>
-      </Flex>
+        />
+      </Container>
     </nav>
   );
 };

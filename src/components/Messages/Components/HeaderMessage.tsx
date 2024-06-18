@@ -50,19 +50,20 @@ const HeaderMessage: React.FC<HeaderMessageProps> = ({
   ];
 
   return (
-    <Container maxW="100%" maxH={100} border={0}>
-      <Flex width="100%" padding="1rem">
-        <Flex width="100%" gap={2}>
+    <Container maxW="100%" maxH={100} border={0} position="fixed" top={0}>
+      <Flex width="100%" alignItems="center">
+        <Flex width="100%" gap={2} alignItems="center">
           <IconButton
-            isRound
+            isRound={true}
             aria-label="back-button"
-            fontSize={25}
-            right={5}
-            icon={<Icon as={IoMdArrowRoundBack} />}
             title="Back"
             background="transparent"
-            onClick={() => router.back()}
-            display={{md: 'none',lg:'none'}}
+            icon={<Icon as={IoMdArrowRoundBack} />}
+            onClick={() => router.push("/messages")}
+            display={{ 
+              md: 'none',
+              lg:'none'
+            }}
           />
           <AvatarGroup size="md" max={2}>
             {participants &&
@@ -98,6 +99,7 @@ const HeaderMessage: React.FC<HeaderMessageProps> = ({
             </Text>
           </Flex>
         </Flex>
+
         {/* CHAT BUTTONS */}
         <Flex className="buttons-container-list flex gap-1">
           {chatButtons.map((button) => {

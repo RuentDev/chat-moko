@@ -16,8 +16,9 @@ const SearchBox = ({}: SearchBoxProps) => {
 
   return(
     <Container 
-      width="100%" 
-      maxW={{ sm: "100%" }}
+      maxW={{ 
+        sm: "100%" 
+      }}
       px={0} 
       py={3}
       border={0}

@@ -21,8 +21,7 @@ const MessagesWrapper: React.FC<MessagesWrapperProps> = ({ messages }) => {
       height="100%"
       overflow="auto"
     >
-      {messages &&
-        messages.map((message, index) => (
+      {messages && messages.map((message, index) => (
           <Message
             key={`message${index}`}
             message={message}

@@ -48,7 +48,7 @@ const DashboardPage: NextPage = async () => {
   // console.log(data)
 
   return (
-    <main className="w-full h-full">
+    <main className="w-full h-[100%]">
       <Center width="100%" height="100%">
         <Flex
           gap={5}

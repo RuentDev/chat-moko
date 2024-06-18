@@ -8,10 +8,10 @@ const config: ThemeConfig = {
 const ContainerStyle = {
   // style object for base or default style
   baseStyle: {
+    backgroundColor: "#1A202C",
     borderColor: "#2C3E61",
     borderWidth: 1,
-    paddingTop: 2,
-    paddingBottom: 2,
+    padding: 2,
   },
   // styles for different sizes ("sm", "md", "lg")
   sizes: {},
@@ -42,7 +42,7 @@ const IconButtonStyle = {
 
 const breakpoints = {
   base: '0px',
-  sm: '400px',
+  sm: '640px',
   md: '1000px',
   lg: '1200px',
   xl: '1280px',

@@ -3,6 +3,7 @@ import { auth } from "../../auth";
 import { redirect } from "next/navigation";
 import NavbarProvider from "@/components/NavbarProvider";
 import { CookiesProvider } from 'next-client-cookies/server';
+import { Container } from "@chakra-ui/react";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
@@ -18,11 +19,19 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <NavbarProvider>
-      <CookiesProvider>
-        {children}
-      </CookiesProvider>
-    </NavbarProvider>
+    <Container 
+      p={0} 
+      m={0} 
+      maxW="100%" 
+      height="100vh" 
+      border={0}
+    >
+      <NavbarProvider>
+        <CookiesProvider>
+          {children}
+        </CookiesProvider>
+      </NavbarProvider>
+    </Container>
   );
 };
 
