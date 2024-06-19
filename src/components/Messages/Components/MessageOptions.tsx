@@ -63,6 +63,7 @@ const MessageOptions: React.FC<HeaderMessageProps> = ({ participants }) => {
     <Container
       maxW={{ base: "100%", sm: "100%", md: "100%", lg: 350 }}
       maxH="100%"
+      // borderWidth='0'
       borderTop={0}
       borderRight={0}
       borderBottom={0}
@@ -85,7 +86,6 @@ const MessageOptions: React.FC<HeaderMessageProps> = ({ participants }) => {
             isRound
             aria-label="back-button"
             fontSize={40}
-            left={1}
             icon={<Icon as={IoMdArrowRoundBack} />}
             title="Back"
             background="transparent"
