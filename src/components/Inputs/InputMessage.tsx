@@ -23,7 +23,7 @@ interface InputMessageProps {
 }
 
 const InputMessage: React.FC<InputMessageProps> = ({conversationId, user, participants}) => {
-  const [sendMessage, { loading }] = useMutation<SendMessageResponse>(MessageOperations.Mutation.sendMessage);
+  const [sendMessage, { loading, error }] = useMutation<SendMessageResponse>(MessageOperations.Mutation.sendMessage);
 
   const handleSendMessage = (values: any,  resetForm: () => void) => {
 
@@ -33,20 +33,24 @@ const InputMessage: React.FC<InputMessageProps> = ({conversationId, user, partic
       }
     }).filter(item => item !== undefined)
 
-    sendMessage({
-      variables: {
-        conversationId: conversationId,
-        participants: [user.id, ...conversationParticipants],
-        content: values.message,
-        files: values.files,
-        media: values.media,
-      },
-    });
 
-    resetForm()
+    console.log(conversationParticipants)
 
-    
+    // sendMessage({
+    //   variables: {
+    //     conversationId: conversationId,
+    //     participants: [user.id, ...conversationParticipants],
+    //     content: values.message,
+    //     files: values.files,
+    //     media: values.media,
+    //   },
+    // });
+
+    // resetForm()
   };
+
+
+  console.log(error)
 
   return (
     <Formik
@@ -55,8 +59,7 @@ const InputMessage: React.FC<InputMessageProps> = ({conversationId, user, partic
         media: [],
         files: [],
       }}
-      onSubmit={(values, {setSubmitting, resetForm}) =>handleSendMessage(values, resetForm)
-      }
+      onSubmit={(values, {resetForm}) =>handleSendMessage(values, resetForm)}
     >
       {({ handleSubmit, errors, touched }) => {
         return (
@@ -115,11 +118,12 @@ const InputMessage: React.FC<InputMessageProps> = ({conversationId, user, partic
                   display="flex"
                   backgroundColor="#2A9DF4"
                   color="black"
-                  icon={<Icon as={IoSend} color=""/>}
+                  icon={<Icon as={IoSend} color="white" />}
                   aria-label="Send"
                   type="submit"
                   isLoading={loading}
                 />
+
                 <IconButton
                   isRound
                   backgroundColor="transparent"
