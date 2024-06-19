@@ -9,7 +9,6 @@ import MessagesWrapper from "./Components/MessagesWrapper";
 import MessageOperations from "@/graphql/operations/message";
 import ConversationOperations from "@/graphql/operations/conversation";
 import { Session } from "next-auth";
-import { useCookies } from "next-client-cookies";
 import { usePathname } from "next/navigation";
 
 interface MessagesProps {
@@ -18,11 +17,9 @@ interface MessagesProps {
 }
 
 const Messages = ({ id, session }: MessagesProps) => {
-  // const isMessageOptionsOpen = useSelector( (state: RootState) => state.navigation.isMessageOptionsOpen);
   const pathname = usePathname();
   const [showOptions, setShowOptions] = useState(false);
   const [showOptionsSmall, setShowOptionsSmall] = useState(false);
-  const cookies = useCookies();
   const isSmallScreen = useBreakpointValue({
     base: true,
     sm: true,
@@ -30,34 +27,27 @@ const Messages = ({ id, session }: MessagesProps) => {
     lg: false,
   });
 
-  const {
-    data: messages,
-    loading: messageLoading,
-    subscribeToMore,
-  } = useQuery(MessageOperations.Queries.messages, {
-    // context: {
-    //   headers: {
-    //     cookie:
-    //   }
-    // },
+  const { 
+    data: conversation, 
+    loading: conversationLoading 
+  } = useQuery(ConversationOperations.Queries.getConversation, {
     variables: {
       conversationId: id,
     },
   });
 
-  const { data: conversation, loading: conversationLoading } = useQuery(
-    ConversationOperations.Queries.getConversation,
-    {
-      variables: {
-        conversationId: id,
-      },
-    }
-  );
+
+  const {
+    data: messages,
+    loading: messageLoading,
+    subscribeToMore,
+  } = useQuery(MessageOperations.Queries.messages, {
+    variables: {
+      conversationId: id,
+    },
+  });
 
   useEffect(() => {
-  }, [isSmallScreen, pathname]);
-
-  const subscribeToNewMessages = () => {
     subscribeToMore({
       document: MessageOperations.Subscription.messageSent,
       updateQuery: (prev, { subscriptionData }) => {
@@ -69,13 +59,6 @@ const Messages = ({ id, session }: MessagesProps) => {
         });
       },
     });
-  };
-
-  /*
-    Execute subcription
-  */
-  useEffect(() => {
-    subscribeToNewMessages();
     return () => {};
   }, []);
 

@@ -1,7 +1,8 @@
 import { Center, Flex, Button, Text, Image } from "@chakra-ui/react";
 import React from "react";
 
-const ChatPage = () => {
+export default async function MessagesPage(){
+  
   return (
     <Center width="100%" height="100%">
       <Flex
@@ -54,5 +55,3 @@ const ChatPage = () => {
     </Center>
   );
 };
-
-export default ChatPage;

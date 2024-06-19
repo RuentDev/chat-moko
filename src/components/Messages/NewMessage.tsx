@@ -22,10 +22,7 @@ const NewMessage: FC<NewMessageProps> = ({}) => {
 
   const handleUserInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    setUserInput(prevState => {
-      prevState = value
-      return prevState
-    })
+    setUserInput(prevState =>  prevState = value)
   }
 
   const handleSelectUser = (user: any) => {
@@ -98,7 +95,11 @@ const NewMessage: FC<NewMessageProps> = ({}) => {
         </Container>
       </Container>
       {/* INPUT */}
-      <Inputs.InputMessage user={session?.user} participants={users.map(user => { return user.id })} conversationId="new" />
+      <Inputs.InputMessage 
+        conversationId="new" 
+        user={session?.user} 
+        participants={users.map(user => { return user.id })} 
+      />
     </Flex>
   );
 };
